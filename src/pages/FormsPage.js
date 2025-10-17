@@ -14,6 +14,25 @@ export function FormsPage() {
   const container = document.createElement('div');
   container.className = 'forms-page';
 
+  // 檢查 URL 參數是否有指定工單 ID
+  const urlParams = new URLSearchParams(window.location.hash.split('?')[1]);
+  const workOrderId = urlParams.get('id');
+
+  // 如果有指定工單 ID,顯示該工單的詳細頁面
+  if (workOrderId) {
+    const allWorkOrders = FormInstanceModel.getAll();
+    const workOrder = allWorkOrders.find(wo => wo.id === workOrderId);
+
+    if (workOrder) {
+      return renderWorkOrderDetailPage(workOrder);
+    } else {
+      // 如果找不到工單,顯示錯誤並返回列表
+      alert('❌ 找不到指定的工單');
+      window.location.hash = '#/forms';
+      return container;
+    }
+  }
+
   let allWorkOrders = FormInstanceModel.getAll();
   let filteredWorkOrders = [...allWorkOrders];
   let currentStatusFilter = 'all';
@@ -591,6 +610,227 @@ export function FormsPage() {
     div.innerHTML = basicInfo + processInfo + qualityInfo + changeHistoryHTML;
     return div;
   }
+
+  addStyles();
+  return container;
+}
+
+/**
+ * 建立工單詳細內容 (共用函數)
+ */
+function createWorkOrderDetailContent(workOrder) {
+  const div = document.createElement('div');
+  div.className = 'work-order-detail';
+
+  // 基本資訊
+  const basicInfo = `
+    <div class="detail-section">
+      <h4>📋 基本資訊</h4>
+      <div class="detail-grid">
+        <div class="detail-row">
+          <span class="detail-label">工單編號</span>
+          <span class="detail-value">${workOrder.data.workOrderNo || '-'}</span>
+        </div>
+        <div class="detail-row">
+          <span class="detail-label">批次號</span>
+          <span class="detail-value">${workOrder.data.batchNo || '-'}</span>
+        </div>
+        <div class="detail-row">
+          <span class="detail-label">來源廠別</span>
+          <span class="detail-value">${workOrder.data.sourceFactory || '-'}</span>
+        </div>
+        <div class="detail-row">
+          <span class="detail-label">濾網類型</span>
+          <span class="detail-value">${workOrder.data.filterType || '-'}</span>
+        </div>
+        <div class="detail-row">
+          <span class="detail-label">數量</span>
+          <span class="detail-value">${workOrder.data.quantity || 0} 片</span>
+        </div>
+        <div class="detail-row">
+          <span class="detail-label">再生次數</span>
+          <span class="detail-value">${workOrder.data.regenerationCycle || 'R0'}</span>
+        </div>
+      </div>
+    </div>
+  `;
+
+  // 製程站點資訊
+  const processInfo = `
+    <div class="detail-section">
+      <h4>🏭 製程站點</h4>
+      <div class="process-timeline">
+        <div class="timeline-item">
+          <div class="timeline-icon">🧪</div>
+          <div class="timeline-content">
+            <div class="timeline-title">除膠站點</div>
+            <div class="timeline-detail">作業人員: ${workOrder.data.deglueOperator || '-'}</div>
+            <div class="timeline-detail">完成時間: ${workOrder.data.deglueEndTime || '進行中'}</div>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-icon">🔥</div>
+          <div class="timeline-content">
+            <div class="timeline-title">烘箱處理</div>
+            <div class="timeline-detail">烘箱編號: ${workOrder.data.ovenId || '-'}</div>
+            <div class="timeline-detail">目標溫度: ${workOrder.data.targetTemp || '-'}°C</div>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-icon">🔬</div>
+          <div class="timeline-content">
+            <div class="timeline-title">OQC 檢驗</div>
+            <div class="timeline-detail">釋氣檢測: ${workOrder.data.degassingTest || '待檢驗'}</div>
+            <div class="timeline-detail">AOI 檢測: ${workOrder.data.aoiResult || '待檢驗'}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  `;
+
+  // 品質與能源資訊
+  const qualityInfo = `
+    <div class="detail-section">
+      <h4>🏆 品質標準</h4>
+      <div class="detail-grid">
+        <div class="detail-row">
+          <span class="detail-label">品質等級</span>
+          <span class="detail-value">${workOrder.data.qualityGrade || '-'}</span>
+        </div>
+        <div class="detail-row">
+          <span class="detail-label">過濾效率</span>
+          <span class="detail-value">${workOrder.data.filterEfficiency || '-'}%</span>
+        </div>
+        <div class="detail-row">
+          <span class="detail-label">預期壽命</span>
+          <span class="detail-value">${workOrder.data.expectedLifespan || '-'} 月</span>
+        </div>
+      </div>
+    </div>
+    <div class="detail-section">
+      <h4>⚡ 能源數據</h4>
+      <div class="detail-grid">
+        <div class="detail-row">
+          <span class="detail-label">烘箱耗電</span>
+          <span class="detail-value">${workOrder.data.ovenEnergyConsumption || '-'} kWh</span>
+        </div>
+        <div class="detail-row">
+          <span class="detail-label">總能源成本</span>
+          <span class="detail-value">${workOrder.data.totalEnergyCost || '-'} 元</span>
+        </div>
+      </div>
+    </div>
+  `;
+
+  // 變更歷史
+  const changeHistory = getWorkOrderChangeHistory(workOrder.id);
+  let changeHistoryHTML = '';
+
+  if (changeHistory && changeHistory.length > 0) {
+    const historyItems = changeHistory.map((record, index) => {
+      const fieldNames = {
+        batchNo: '批次號',
+        sourceFactory: '來源廠別',
+        filterType: '濾網類型',
+        quantity: '數量',
+        regenerationCycle: '再生次數',
+        deglueStartTime: '除膠開始時間',
+        deglueEndTime: '除膠完成時間'
+      };
+
+      const changesHTML = Object.keys(record.changes).map(field => {
+        const fieldName = fieldNames[field] || field;
+        const { old: oldValue, new: newValue } = record.changes[field];
+        return `
+          <div class="change-field">
+            <span class="field-name">${fieldName}：</span>
+            <span class="old-value">${oldValue || '(空值)'}</span>
+            <span class="arrow">→</span>
+            <span class="new-value">${newValue}</span>
+          </div>
+        `;
+      }).join('');
+
+      const date = new Date(record.timestamp);
+      const formattedDate = `${date.getFullYear()}/${String(date.getMonth() + 1).padStart(2, '0')}/${String(date.getDate()).padStart(2, '0')} ${String(date.getHours()).padStart(2, '0')}:${String(date.getMinutes()).padStart(2, '0')}`;
+
+      return `
+        <div class="history-item">
+          <div class="history-header">
+            <span class="history-number">#${changeHistory.length - index}</span>
+            <span class="history-time">${formattedDate}</span>
+          </div>
+          <div class="history-meta">
+            <span>審核人：<strong>${record.changedBy}</strong></span>
+            ${record.reason ? `<span class="history-reason">原因：${record.reason}</span>` : ''}
+          </div>
+          <div class="history-changes">
+            ${changesHTML}
+          </div>
+        </div>
+      `;
+    }).join('');
+
+    changeHistoryHTML = `
+      <div class="detail-section">
+        <h4>📜 變更歷史</h4>
+        <div class="change-history-list">
+          ${historyItems}
+        </div>
+      </div>
+    `;
+  }
+
+  div.innerHTML = basicInfo + processInfo + qualityInfo + changeHistoryHTML;
+  return div;
+}
+
+/**
+ * 渲染工單詳細頁面 (完整頁面,非 Modal)
+ */
+function renderWorkOrderDetailPage(workOrder) {
+  const container = document.createElement('div');
+  container.className = 'forms-page work-order-detail-page';
+
+  // 頁首 - 包含返回按鈕
+  const header = document.createElement('div');
+  header.className = 'page-header';
+  header.innerHTML = `
+    <div class="detail-page-header">
+      <button class="btn-back" id="btn-back-to-list">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+          <path d="M8 0L1 8l7 8V0z" transform="rotate(180 8 8)"/>
+        </svg>
+        返回工單列表
+      </button>
+      <div class="detail-page-title">
+        <h2>📋 工單詳情</h2>
+        <p class="text-secondary">${workOrder.data.workOrderNo || workOrder.applicationNo}</p>
+      </div>
+      <button class="btn-edit-wo" id="btn-edit-wo">
+        ✏️ 編輯工單
+      </button>
+    </div>
+  `;
+  container.appendChild(header);
+
+  // 工單詳細內容
+  const detailContent = createWorkOrderDetailContent(workOrder);
+  detailContent.classList.add('detail-page-content');
+  container.appendChild(detailContent);
+
+  // 綁定返回按鈕事件
+  setTimeout(() => {
+    const backBtn = container.querySelector('#btn-back-to-list');
+    backBtn.addEventListener('click', () => {
+      window.location.hash = '#/forms';
+    });
+
+    const editBtn = container.querySelector('#btn-edit-wo');
+    editBtn.addEventListener('click', () => {
+      window.location.hash = `#/apply?id=${workOrder.id}`;
+    });
+  }, 0);
 
   addStyles();
   return container;
@@ -1196,6 +1436,95 @@ function addStyles() {
       .btn-table.btn-edit:hover {
         background: var(--bg-secondary);
         border-color: var(--primary-color);
+      }
+
+      /* 工單詳細頁面 */
+      .work-order-detail-page {
+        padding: var(--spacing-xl);
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+
+      .detail-page-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: var(--spacing-lg);
+        margin-bottom: var(--spacing-xl);
+      }
+
+      .detail-page-title {
+        flex: 1;
+      }
+
+      .detail-page-title h2 {
+        margin: 0 0 var(--spacing-xs) 0;
+      }
+
+      .btn-back {
+        display: flex;
+        align-items: center;
+        gap: var(--spacing-xs);
+        padding: var(--spacing-sm) var(--spacing-md);
+        border: 1px solid var(--border-color);
+        border-radius: var(--radius-md);
+        background: var(--bg-color);
+        color: var(--text-primary);
+        cursor: pointer;
+        font-size: 0.875rem;
+        font-weight: 500;
+        transition: all 0.2s;
+      }
+
+      .btn-back:hover {
+        background: var(--bg-secondary);
+        border-color: var(--primary-color);
+        color: var(--primary-color);
+      }
+
+      .btn-back svg {
+        width: 14px;
+        height: 14px;
+      }
+
+      .btn-edit-wo {
+        padding: var(--spacing-sm) var(--spacing-lg);
+        border: 1px solid var(--primary-color);
+        border-radius: var(--radius-md);
+        background: var(--primary-color);
+        color: white;
+        cursor: pointer;
+        font-size: 0.875rem;
+        font-weight: 600;
+        transition: all 0.2s;
+        white-space: nowrap;
+      }
+
+      .btn-edit-wo:hover {
+        background: var(--primary-dark);
+        border-color: var(--primary-dark);
+        transform: translateY(-1px);
+        box-shadow: var(--shadow-md);
+      }
+
+      .detail-page-content {
+        background: var(--bg-color);
+        border: 1px solid var(--border-color);
+        border-radius: var(--radius-lg);
+        padding: var(--spacing-xl);
+        box-shadow: var(--shadow-sm);
+      }
+
+      .detail-page-content .detail-section {
+        margin-bottom: var(--spacing-xl);
+        padding: var(--spacing-lg);
+        background: var(--bg-color);
+        border: 1px solid var(--border-color);
+        border-radius: var(--radius-md);
+      }
+
+      .detail-page-content .detail-section:last-child {
+        margin-bottom: 0;
       }
     `;
     document.head.appendChild(style);
