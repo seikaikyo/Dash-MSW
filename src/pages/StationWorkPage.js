@@ -224,7 +224,11 @@ function getStationIcon(stationType) {
  * 載入樣式
  */
 function addStyles() {
-  if (document.getElementById('station-work-page-styles')) return;
+  // 移除舊樣式（如果存在）
+  const oldStyle = document.getElementById('station-work-page-styles');
+  if (oldStyle) {
+    oldStyle.remove();
+  }
 
   const style = document.createElement('style');
   style.id = 'station-work-page-styles';
