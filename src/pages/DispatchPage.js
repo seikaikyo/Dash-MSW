@@ -392,6 +392,7 @@ export function DispatchPage() {
 
       // 預設顯示日曆視圖
       viewContainer.innerHTML = renderCalendarView();
+      initCalendarEvents();
 
       // 綁定切換事件
       tabs.forEach(tab => {
@@ -405,13 +406,16 @@ export function DispatchPage() {
           switch (view) {
             case 'calendar':
               viewContainer.innerHTML = renderCalendarView();
+              initCalendarEvents();
               break;
             case 'gantt':
               viewContainer.innerHTML = renderGanttView();
+              initGanttEvents();
               break;
             case 'kanban':
               viewContainer.innerHTML = renderKanbanView();
               initKanbanDragDrop();
+              initKanbanClickEvents();
               break;
           }
         });
