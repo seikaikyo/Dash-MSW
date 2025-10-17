@@ -387,8 +387,8 @@ function addStyles() {
     }
 
     .card-header {
-      background: linear-gradient(135deg, #10b981 0%, #059669 100%);
-      color: white;
+      background: white;
+      border-bottom: 3px solid #e5e7eb;
       padding: var(--spacing-lg) var(--spacing-xl);
       display: flex;
       justify-content: space-between;
@@ -400,12 +400,11 @@ function addStyles() {
     .card-header::before {
       content: '';
       position: absolute;
-      top: 0;
       left: 0;
-      right: 0;
+      top: 0;
       bottom: 0;
-      background: linear-gradient(135deg, transparent 0%, rgba(255, 255, 255, 0.1) 100%);
-      pointer-events: none;
+      width: 5px;
+      background: linear-gradient(180deg, #10b981 0%, #059669 100%);
     }
 
     .card-header h2 {
@@ -414,6 +413,7 @@ function addStyles() {
       font-weight: 700;
       position: relative;
       z-index: 1;
+      color: #1f2937;
     }
 
     .station-title-section {
@@ -425,14 +425,13 @@ function addStyles() {
       font-size: 1.75rem;
       font-weight: 800;
       margin-bottom: 4px;
-      color: white;
-      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+      color: #1f2937;
       letter-spacing: 0.5px;
     }
 
     .station-subtitle {
       font-size: 0.9375rem;
-      color: rgba(255, 255, 255, 0.95);
+      color: #6b7280;
       font-weight: 500;
     }
 
@@ -441,9 +440,9 @@ function addStyles() {
       border-radius: 20px;
       font-size: 0.75rem;
       font-weight: 600;
-      background: rgba(255, 255, 255, 0.25);
-      backdrop-filter: blur(10px);
-      border: 1px solid rgba(255, 255, 255, 0.3);
+      background: #f0fdf4;
+      border: 1px solid #86efac;
+      color: #166534;
       position: relative;
       z-index: 1;
     }
