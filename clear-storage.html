@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <title>清理 LocalStorage</title>
+  <style>
+    body { font-family: monospace; padding: 20px; max-width: 600px; margin: 0 auto; }
+    button { background: #ef4444; color: white; border: none; padding: 12px 24px; border-radius: 6px; cursor: pointer; font-size: 16px; margin: 10px 5px; }
+    button:hover { background: #dc2626; }
+    button.info { background: #3b82f6; }
+    button.info:hover { background: #2563eb; }
+    pre { background: #1e293b; color: #e2e8f0; padding: 20px; border-radius: 8px; overflow-x: auto; }
+  </style>
+</head>
+<body>
+  <h1>🧹 LocalStorage 清理工具</h1>
+  <button class="info" onclick="checkStorage()">檢查使用情況</button>
+  <button onclick="clearStorage()">清除所有資料</button>
+  <pre id="output">點擊按鈕檢查 LocalStorage 使用情況...</pre>
+
+  <script type="module">
+    import { storage } from './src/utils/storage.js';
+
+    window.checkStorage = function() {
+      const output = document.getElementById('output');
+      const info = storage.getStorageInfo();
+      
+      if (!info) {
+        output.textContent = '無法取得 LocalStorage 資訊';
+        return;
+      }
+
+      output.textContent = `LocalStorage 使用情況\n\n`;
+      output.textContent += `總使用量: ${info.totalMB}MB / ${info.limitMB}MB (${info.usagePercent}%)\n`;
+      output.textContent += `項目數量: ${info.itemCount}\n\n`;
+      output.textContent += `各項目大小:\n`;
+
+      // 按大小排序
+      const sorted = Object.entries(info.itemSizes)
+        .map(([key, size]) => ({ key, size }))
+        .sort((a, b) => b.size - a.size);
+
+      sorted.forEach(({ key, size }) => {
+        const kb = (size / 1024).toFixed(2);
+        const name = key.replace('bpm_', '');
+        output.textContent += `  ${name}: ${kb}KB\n`;
+      });
+
+      if (parseFloat(info.usagePercent) > 80) {
+        output.textContent += `\n⚠️  警告：LocalStorage 使用率超過 80%！\n`;
+        output.textContent += `建議清除資料以避免儲存失敗。\n`;
+      }
+    };
+
+    window.clearStorage = function() {
+      if (!confirm('確定要清除所有 LocalStorage 資料嗎？\n\n這將刪除所有配方、使用者、SPC 數據等。\n此操作無法復原！')) {
+        return;
+      }
+
+      const output = document.getElementById('output');
+      output.textContent = '清理中...\n\n';
+
+      try {
+        const beforeInfo = storage.getStorageInfo();
+        output.textContent += `清理前: ${beforeInfo.totalMB}MB\n`;
+
+        storage.clear();
+
+        const afterInfo = storage.getStorageInfo();
+        output.textContent += `清理後: ${afterInfo.totalMB}MB\n\n`;
+        output.textContent += '✅ 所有資料已清除！\n\n';
+        output.textContent += '請重新整理頁面。';
+
+        setTimeout(() => {
+          location.reload();
+        }, 2000);
+      } catch (error) {
+        output.textContent += '\n❌ 清理失敗: ' + error.message;
+      }
+    };
+
+    // 自動檢查
+    setTimeout(() => {
+      window.checkStorage();
+    }, 100);
+  </script>
+</body>
+</html>

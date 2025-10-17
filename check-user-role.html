@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>檢查使用者角色</title>
+</head>
+<body>
+  <h1>檢查當前使用者</h1>
+  <div id="result"></div>
+  <button onclick="checkUser()">檢查使用者</button>
+
+  <script type="module">
+    import { userContext } from './src/utils/userContext.js';
+
+    window.checkUser = function() {
+      const currentUser = userContext.getCurrentUser();
+      document.getElementById('result').innerHTML = `
+        <pre>${JSON.stringify(currentUser, null, 2)}</pre>
+      `;
+    };
+  </script>
+</body>
+</html>

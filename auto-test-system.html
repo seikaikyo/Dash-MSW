@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>自動化系統測試</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: #1a202c;
+      color: #e2e8f0;
+      padding: 2rem;
+      min-height: 100vh;
+    }
+
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 0.5rem;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .subtitle {
+      color: #a0aec0;
+      margin-bottom: 2rem;
+    }
+
+    .control-panel {
+      background: #2d3748;
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+      border: 1px solid #4a5568;
+    }
+
+    .btn-group {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      padding: 0.75rem 1.5rem;
+      border: none;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+      font-size: 0.9375rem;
+    }
+
+    .btn-start {
+      background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
+      color: white;
+    }
+
+    .btn-stop {
+      background: linear-gradient(135deg, #f56565 0%, #e53e3e 100%);
+      color: white;
+    }
+
+    .btn-clear {
+      background: linear-gradient(135deg, #ed8936 0%, #dd6b20 100%);
+      color: white;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .log-container {
+      background: #2d3748;
+      border-radius: 12px;
+      padding: 1.5rem;
+      border: 1px solid #4a5568;
+      margin-bottom: 1rem;
+      min-height: 400px;
+      max-height: 600px;
+      overflow-y: auto;
+      font-family: 'Courier New', monospace;
+      font-size: 0.875rem;
+    }
+
+    .log-entry {
+      margin-bottom: 0.5rem;
+      padding: 0.5rem;
+      border-radius: 4px;
+      display: flex;
+      align-items: flex-start;
+      gap: 0.5rem;
+    }
+
+    .log-entry.info {
+      background: rgba(66, 153, 225, 0.1);
+      border-left: 3px solid #4299e1;
+    }
+
+    .log-entry.success {
+      background: rgba(72, 187, 120, 0.1);
+      border-left: 3px solid #48bb78;
+    }
+
+    .log-entry.error {
+      background: rgba(245, 101, 101, 0.1);
+      border-left: 3px solid #f56565;
+    }
+
+    .log-entry.warning {
+      background: rgba(237, 137, 54, 0.1);
+      border-left: 3px solid #ed8936;
+    }
+
+    .log-timestamp {
+      color: #718096;
+      font-size: 0.75rem;
+      min-width: 80px;
+    }
+
+    .log-message {
+      flex: 1;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .stat-card {
+      background: #2d3748;
+      border-radius: 12px;
+      padding: 1.5rem;
+      border: 1px solid #4a5568;
+    }
+
+    .stat-label {
+      color: #a0aec0;
+      font-size: 0.875rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .stat-value {
+      font-size: 2rem;
+      font-weight: 700;
+      color: #e2e8f0;
+    }
+
+    .stat-value.success {
+      color: #48bb78;
+    }
+
+    .stat-value.error {
+      color: #f56565;
+    }
+
+    .progress-bar {
+      background: #4a5568;
+      border-radius: 8px;
+      height: 8px;
+      overflow: hidden;
+      margin-top: 0.5rem;
+    }
+
+    .progress-fill {
+      background: linear-gradient(90deg, #48bb78, #38a169);
+      height: 100%;
+      transition: width 0.3s;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🤖 MSW 系統自動化測試</h1>
+    <p class="subtitle">完整流程自動化驗證</p>
+
+    <div class="control-panel">
+      <div class="btn-group">
+        <button class="btn btn-start" id="btn-start">▶️ 開始測試</button>
+        <button class="btn btn-stop" id="btn-stop" disabled>⏸️ 停止測試</button>
+        <button class="btn btn-clear" id="btn-clear">🗑️ 清除日誌</button>
+      </div>
+    </div>
+
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-label">測試進度</div>
+        <div class="stat-value" id="stat-progress">0/6</div>
+        <div class="progress-bar">
+          <div class="progress-fill" id="progress-fill" style="width: 0%"></div>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">成功</div>
+        <div class="stat-value success" id="stat-success">0</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">失敗</div>
+        <div class="stat-value error" id="stat-failed">0</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">建立工單數</div>
+        <div class="stat-value" id="stat-workorders">0</div>
+      </div>
+    </div>
+
+    <div class="log-container" id="log-container"></div>
+  </div>
+
+  <script type="module">
+    import { FormInstanceModel } from './src/utils/dataModel.js';
+    import { WorkOrderNumberGenerator } from './src/utils/workOrderNumberGenerator.js';
+
+    let testRunning = false;
+    let successCount = 0;
+    let failedCount = 0;
+    let currentTest = 0;
+    const totalTests = 6;
+
+    function log(message, type = 'info') {
+      const logContainer = document.getElementById('log-container');
+      const timestamp = new Date().toLocaleTimeString('zh-TW');
+
+      const logEntry = document.createElement('div');
+      logEntry.className = `log-entry ${type}`;
+      logEntry.innerHTML = `
+        <span class="log-timestamp">${timestamp}</span>
+        <span class="log-message">${message}</span>
+      `;
+
+      logContainer.appendChild(logEntry);
+      logContainer.scrollTop = logContainer.scrollHeight;
+    }
+
+    function updateStats() {
+      document.getElementById('stat-progress').textContent = `${currentTest}/${totalTests}`;
+      document.getElementById('stat-success').textContent = successCount;
+      document.getElementById('stat-failed').textContent = failedCount;
+
+      const progress = (currentTest / totalTests) * 100;
+      document.getElementById('progress-fill').style.width = `${progress}%`;
+    }
+
+    function updateWorkOrderCount() {
+      const workOrders = FormInstanceModel.getAll();
+      const mswOrders = workOrders.filter(wo =>
+        wo.data && wo.data.workOrderNo && wo.data.workOrderNo.startsWith('MSW-')
+      );
+      document.getElementById('stat-workorders').textContent = mswOrders.length;
+    }
+
+    async function test1_WorkOrderGeneration() {
+      log('📋 測試 1：工單號碼產生器', 'info');
+
+      try {
+        const before = FormInstanceModel.getAll().length;
+        log(`測試前工單數：${before}`);
+
+        // 產生3筆工單
+        for (let i = 0; i < 3; i++) {
+          const workOrderNo = WorkOrderNumberGenerator.generate();
+          log(`產生工單號：${workOrderNo}`, 'success');
+
+          const instance = new FormInstanceModel({
+            applicationNo: workOrderNo,
+            formName: '柳營再生濾網工單',
+            applicant: '測試系統',
+            department: '生管部',
+            data: {
+              workOrderNo: workOrderNo,
+              batchNo: `BATCH-${workOrderNo.replace('MSW-', '')}`,
+              sourceFactory: '柳營廠',
+              filterType: '活性碳濾網',
+              quantity: 50,
+              regenerationCycle: 'R0 (首次再生)'
+            },
+            status: 'pending'
+          });
+
+          instance.save();
+        }
+
+        const after = FormInstanceModel.getAll().length;
+        log(`測試後工單數：${after}`);
+        log(`成功建立 ${after - before} 筆工單`, 'success');
+
+        updateWorkOrderCount();
+        successCount++;
+        return true;
+      } catch (error) {
+        log(`❌ 測試失敗：${error.message}`, 'error');
+        failedCount++;
+        return false;
+      }
+    }
+
+    async function test2_WorkOrderUniqueness() {
+      log('🔢 測試 2：工單號唯一性', 'info');
+
+      try {
+        const workOrders = FormInstanceModel.getAll();
+        const mswOrders = workOrders.filter(wo =>
+          wo.data && wo.data.workOrderNo && wo.data.workOrderNo.startsWith('MSW-')
+        );
+
+        const numbers = mswOrders.map(wo => wo.data.workOrderNo);
+        const unique = [...new Set(numbers)];
+
+        log(`總工單數：${numbers.length}`);
+        log(`唯一工單號數：${unique.length}`);
+
+        if (numbers.length === unique.length) {
+          log('✅ 所有工單號碼都是唯一的', 'success');
+          successCount++;
+          return true;
+        } else {
+          const duplicates = numbers.filter((no, index) =>
+            numbers.indexOf(no) !== index
+          );
+          log(`❌ 發現重複工單號：${[...new Set(duplicates)].join(', ')}`, 'error');
+          failedCount++;
+          return false;
+        }
+      } catch (error) {
+        log(`❌ 測試失敗：${error.message}`, 'error');
+        failedCount++;
+        return false;
+      }
+    }
+
+    async function test3_WorkOrderFormat() {
+      log('📝 測試 3：工單號格式驗證', 'info');
+
+      try {
+        const workOrders = FormInstanceModel.getAll();
+        const mswOrders = workOrders.filter(wo =>
+          wo.data && wo.data.workOrderNo && wo.data.workOrderNo.startsWith('MSW-')
+        );
+
+        const pattern = /^MSW-\d{4}-\d{4}$/;
+        let allValid = true;
+
+        mswOrders.forEach(wo => {
+          const no = wo.data.workOrderNo;
+          if (!pattern.test(no)) {
+            log(`❌ 格式錯誤：${no}`, 'error');
+            allValid = false;
+          }
+        });
+
+        if (allValid) {
+          log(`✅ 所有 ${mswOrders.length} 個工單號格式正確 (MSW-YYYY-NNNN)`, 'success');
+          successCount++;
+          return true;
+        } else {
+          failedCount++;
+          return false;
+        }
+      } catch (error) {
+        log(`❌ 測試失敗：${error.message}`, 'error');
+        failedCount++;
+        return false;
+      }
+    }
+
+    async function test4_BatchCreation() {
+      log('🏭 測試 4：批次建立功能', 'info');
+
+      try {
+        const beforeCount = FormInstanceModel.getAll().filter(wo =>
+          wo.data && wo.data.workOrderNo && wo.data.workOrderNo.startsWith('MSW-')
+        ).length;
+
+        log(`批次建立前：${beforeCount} 筆工單`);
+
+        // 模擬批次建立 5 筆
+        const batchCount = 5;
+        const createdOrders = [];
+
+        for (let i = 0; i < batchCount; i++) {
+          const workOrderNo = WorkOrderNumberGenerator.generate();
+          const batchNo = `BATCH-${workOrderNo.replace('MSW-', '')}`;
+
+          const instance = new FormInstanceModel({
+            applicationNo: workOrderNo,
+            formName: '柳營再生濾網工單',
+            applicant: '批次測試',
+            department: '生管部',
+            data: {
+              workOrderNo: workOrderNo,
+              batchNo: batchNo,
+              sourceFactory: '柳營廠',
+              filterType: '化學濾網',
+              quantity: 100,
+              regenerationCycle: 'R1 (第二次)'
+            },
+            status: 'pending'
+          });
+
+          instance.save();
+          createdOrders.push(workOrderNo);
+        }
+
+        const afterCount = FormInstanceModel.getAll().filter(wo =>
+          wo.data && wo.data.workOrderNo && wo.data.workOrderNo.startsWith('MSW-')
+        ).length;
+
+        log(`批次建立後：${afterCount} 筆工單`);
+        log(`成功建立：${createdOrders.join(', ')}`, 'success');
+
+        if (afterCount - beforeCount === batchCount) {
+          log(`✅ 批次建立成功，新增 ${batchCount} 筆工單`, 'success');
+          updateWorkOrderCount();
+          successCount++;
+          return true;
+        } else {
+          log(`❌ 批次建立數量不符，預期 ${batchCount}，實際 ${afterCount - beforeCount}`, 'error');
+          failedCount++;
+          return false;
+        }
+      } catch (error) {
+        log(`❌ 測試失敗：${error.message}`, 'error');
+        failedCount++;
+        return false;
+      }
+    }
+
+    async function test5_WorkOrderData() {
+      log('📊 測試 5：工單資料完整性', 'info');
+
+      try {
+        const workOrders = FormInstanceModel.getAll();
+        const mswOrders = workOrders.filter(wo =>
+          wo.data && wo.data.workOrderNo && wo.data.workOrderNo.startsWith('MSW-')
+        );
+
+        let allValid = true;
+        const requiredFields = ['workOrderNo', 'batchNo', 'sourceFactory', 'filterType', 'quantity', 'regenerationCycle'];
+
+        mswOrders.forEach(wo => {
+          const missing = requiredFields.filter(field => !wo.data[field]);
+          if (missing.length > 0) {
+            log(`❌ 工單 ${wo.data.workOrderNo} 缺少欄位：${missing.join(', ')}`, 'warning');
+            allValid = false;
+          }
+        });
+
+        if (allValid) {
+          log(`✅ 所有 ${mswOrders.length} 個工單資料完整`, 'success');
+          successCount++;
+          return true;
+        } else {
+          failedCount++;
+          return false;
+        }
+      } catch (error) {
+        log(`❌ 測試失敗：${error.message}`, 'error');
+        failedCount++;
+        return false;
+      }
+    }
+
+    async function test6_YearSequence() {
+      log('📅 測試 6：年度序號機制', 'info');
+
+      try {
+        const workOrders = FormInstanceModel.getAll();
+        const mswOrders = workOrders.filter(wo =>
+          wo.data && wo.data.workOrderNo && wo.data.workOrderNo.startsWith('MSW-')
+        );
+
+        const currentYear = new Date().getFullYear();
+        const thisYearOrders = mswOrders.filter(wo =>
+          wo.data.workOrderNo.startsWith(`MSW-${currentYear}-`)
+        );
+
+        log(`${currentYear} 年工單數：${thisYearOrders.length}`);
+
+        // 檢查序號是否連續
+        const sequences = thisYearOrders
+          .map(wo => {
+            const match = wo.data.workOrderNo.match(/MSW-\d{4}-(\d{4})$/);
+            return match ? parseInt(match[1], 10) : 0;
+          })
+          .sort((a, b) => a - b);
+
+        log(`序號範圍：${sequences[0]} ~ ${sequences[sequences.length - 1]}`);
+
+        // 檢查是否有序號
+        if (sequences.length > 0 && sequences[0] >= 1) {
+          log(`✅ 年度序號機制正常運作`, 'success');
+          successCount++;
+          return true;
+        } else {
+          log(`❌ 序號異常`, 'error');
+          failedCount++;
+          return false;
+        }
+      } catch (error) {
+        log(`❌ 測試失敗：${error.message}`, 'error');
+        failedCount++;
+        return false;
+      }
+    }
+
+    async function runAllTests() {
+      if (testRunning) return;
+
+      testRunning = true;
+      successCount = 0;
+      failedCount = 0;
+      currentTest = 0;
+
+      document.getElementById('btn-start').disabled = true;
+      document.getElementById('btn-stop').disabled = false;
+
+      log('🚀 開始執行自動化測試...', 'info');
+      log('━'.repeat(60), 'info');
+
+      const tests = [
+        test1_WorkOrderGeneration,
+        test2_WorkOrderUniqueness,
+        test3_WorkOrderFormat,
+        test4_BatchCreation,
+        test5_WorkOrderData,
+        test6_YearSequence
+      ];
+
+      for (let i = 0; i < tests.length; i++) {
+        if (!testRunning) break;
+
+        currentTest = i + 1;
+        updateStats();
+
+        await tests[i]();
+        log('─'.repeat(60), 'info');
+
+        // 等待一下再執行下一個測試
+        await new Promise(resolve => setTimeout(resolve, 500));
+      }
+
+      log('━'.repeat(60), 'info');
+      log(`✅ 測試完成！成功：${successCount}，失敗：${failedCount}`, successCount === totalTests ? 'success' : 'warning');
+
+      testRunning = false;
+      document.getElementById('btn-start').disabled = false;
+      document.getElementById('btn-stop').disabled = true;
+    }
+
+    function stopTests() {
+      testRunning = false;
+      log('⏸️ 測試已停止', 'warning');
+      document.getElementById('btn-start').disabled = false;
+      document.getElementById('btn-stop').disabled = true;
+    }
+
+    function clearLogs() {
+      document.getElementById('log-container').innerHTML = '';
+      log('🗑️ 日誌已清除', 'info');
+    }
+
+    // 綁定按鈕事件
+    document.getElementById('btn-start').addEventListener('click', runAllTests);
+    document.getElementById('btn-stop').addEventListener('click', stopTests);
+    document.getElementById('btn-clear').addEventListener('click', clearLogs);
+
+    // 初始化
+    log('✅ 測試系統已就緒', 'success');
+    updateWorkOrderCount();
+  </script>
+</body>
+</html>

@@ -1,0 +1,3340 @@
+<!DOCTYPE html>
+        <html>
+        <head>
+            <meta charset="UTF-8">
+            <title>Dash RMS &#x914d;&#x65b9;&#x7ba1;&#x7406;&#x7cfb;&#x7d71; - &#x5de5;&#x4f5c;&#x8aaa;&#x660e;&#x66f8; &lpar;Statement of Work&rpar;</title>
+            <style>
+/* From extension vscode.github */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+.vscode-dark img[src$=\#gh-light-mode-only],
+.vscode-light img[src$=\#gh-dark-mode-only],
+.vscode-high-contrast:not(.vscode-high-contrast-light) img[src$=\#gh-light-mode-only],
+.vscode-high-contrast-light img[src$=\#gh-dark-mode-only] {
+	display: none;
+}
+
+</style>
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css">
+<link href="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.css" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/markdown.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/highlight.css">
+<style>
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', system-ui, 'Ubuntu', 'Droid Sans', sans-serif;
+                font-size: 14px;
+                line-height: 1.6;
+            }
+        </style>
+        <style>
+.task-list-item {
+    list-style-type: none;
+}
+
+.task-list-item-checkbox {
+    margin-left: -20px;
+    vertical-align: middle;
+    pointer-events: none;
+}
+</style>
+<style>
+:root {
+  --color-note: #0969da;
+  --color-tip: #1a7f37;
+  --color-warning: #9a6700;
+  --color-severe: #bc4c00;
+  --color-caution: #d1242f;
+  --color-important: #8250df;
+}
+
+</style>
+<style>
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-note: #2f81f7;
+    --color-tip: #3fb950;
+    --color-warning: #d29922;
+    --color-severe: #db6d28;
+    --color-caution: #f85149;
+    --color-important: #a371f7;
+  }
+}
+
+</style>
+<style>
+.markdown-alert {
+  padding: 0.5rem 1rem;
+  margin-bottom: 16px;
+  color: inherit;
+  border-left: .25em solid #888;
+}
+
+.markdown-alert>:first-child {
+  margin-top: 0
+}
+
+.markdown-alert>:last-child {
+  margin-bottom: 0
+}
+
+.markdown-alert .markdown-alert-title {
+  display: flex;
+  font-weight: 500;
+  align-items: center;
+  line-height: 1
+}
+
+.markdown-alert .markdown-alert-title .octicon {
+  margin-right: 0.5rem;
+  display: inline-block;
+  overflow: visible !important;
+  vertical-align: text-bottom;
+  fill: currentColor;
+}
+
+.markdown-alert.markdown-alert-note {
+  border-left-color: var(--color-note);
+}
+
+.markdown-alert.markdown-alert-note .markdown-alert-title {
+  color: var(--color-note);
+}
+
+.markdown-alert.markdown-alert-important {
+  border-left-color: var(--color-important);
+}
+
+.markdown-alert.markdown-alert-important .markdown-alert-title {
+  color: var(--color-important);
+}
+
+.markdown-alert.markdown-alert-warning {
+  border-left-color: var(--color-warning);
+}
+
+.markdown-alert.markdown-alert-warning .markdown-alert-title {
+  color: var(--color-warning);
+}
+
+.markdown-alert.markdown-alert-tip {
+  border-left-color: var(--color-tip);
+}
+
+.markdown-alert.markdown-alert-tip .markdown-alert-title {
+  color: var(--color-tip);
+}
+
+.markdown-alert.markdown-alert-caution {
+  border-left-color: var(--color-caution);
+}
+
+.markdown-alert.markdown-alert-caution .markdown-alert-title {
+  color: var(--color-caution);
+}
+
+</style>
+        
+        </head>
+        <body class="vscode-body vscode-light">
+            <h1 id="dash-rms-配方管理系統---工作說明書-statement-of-work">Dash RMS 配方管理系統 - 工作說明書 (Statement of Work)</h1>
+<p><strong>文件版本</strong>: 1.0
+<strong>編制日期</strong>: 2025-10-11
+<strong>系統版本</strong>: v0.5.4
+<strong>編制單位</strong>: Dash Project Team</p>
+<hr>
+<h2 id="目錄">目錄</h2>
+<ol>
+<li><a href="#1-%E5%B0%88%E6%A1%88%E6%A6%82%E8%BF%B0">專案概述</a></li>
+<li><a href="#2-%E7%B3%BB%E7%B5%B1%E6%9E%B6%E6%A7%8B">系統架構</a></li>
+<li><a href="#3-%E5%8A%9F%E8%83%BD%E8%A6%8F%E6%A0%BC">功能規格</a></li>
+<li><a href="#4-%E6%8A%80%E8%A1%93%E8%A6%8F%E6%A0%BC">技術規格</a></li>
+<li><a href="#5-%E8%B3%87%E6%96%99%E6%A8%A1%E5%9E%8B">資料模型</a></li>
+<li><a href="#6-api-%E4%BB%8B%E9%9D%A2%E8%A6%8F%E6%A0%BC">API 介面規格</a></li>
+<li><a href="#7-%E5%93%81%E8%B3%AA%E8%A6%81%E6%B1%82">品質要求</a></li>
+<li><a href="#8-%E4%BA%A4%E4%BB%98%E6%A8%99%E6%BA%96">交付標準</a></li>
+<li><a href="#9-%E6%B8%AC%E8%A9%A6%E8%A6%81%E6%B1%82">測試要求</a></li>
+<li><a href="#10-%E9%83%A8%E7%BD%B2%E8%A6%81%E6%B1%82">部署要求</a></li>
+<li><a href="#11-%E7%B6%AD%E8%AD%B7%E8%88%87%E6%94%AF%E6%8F%B4">維護與支援</a></li>
+<li><a href="#12-%E5%B0%88%E6%A1%88%E6%99%82%E7%A8%8B">專案時程</a></li>
+<li><a href="#13-%E9%A9%97%E6%94%B6%E6%A8%99%E6%BA%96">驗收標準</a></li>
+</ol>
+<hr>
+<h2 id="1-專案概述">1. 專案概述</h2>
+<h3 id="11-專案背景">1.1 專案背景</h3>
+<p>Dash RMS（Recipe Management System，配方管理系統）是一套模組化的配方管理與簽核流程系統，旨在協助製造業（特別是化學濾網、食品、製藥等產業）進行配方的標準化管理、版本控制、品質追蹤與審核流程自動化。</p>
+<h3 id="12-專案目標">1.2 專案目標</h3>
+<ul>
+<li><strong>配方標準化管理</strong>：建立統一的配方格式與管理流程</li>
+<li><strong>簽核流程自動化</strong>：支援多層級、多模式的審核流程（單簽、並簽、串簽、條件分支）</li>
+<li><strong>版本控制</strong>：完整的配方版本追蹤與回滾功能</li>
+<li><strong>品質追蹤</strong>：整合 SPC（統計製程管制）數據，自動評分與 Golden Recipe 認證</li>
+<li><strong>產業模組化</strong>：核心系統可快速適配不同產業需求</li>
+<li><strong>系統整合</strong>：與 EAP（Engineering Automation Platform）及 ECU（Equipment Control Unit）無縫整合</li>
+</ul>
+<h3 id="13-使用者角色">1.3 使用者角色</h3>
+<table>
+<thead>
+<tr>
+<th>角色</th>
+<th>職責</th>
+<th>系統權限</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>一般員工</td>
+<td>建立配方、提交審核申請</td>
+<td>配方建立、申請提交</td>
+</tr>
+<tr>
+<td>主管</td>
+<td>審核配方、核准/退回申請</td>
+<td>簽核審批、配方查看</td>
+</tr>
+<tr>
+<td>系統管理員</td>
+<td>系統設定、使用者管理、資料維護</td>
+<td>所有權限</td>
+</tr>
+<tr>
+<td>品質工程師</td>
+<td>品質數據分析、Golden Recipe 認證</td>
+<td>品質數據管理、認證審核</td>
+</tr>
+</tbody>
+</table>
+<h3 id="14-業務流程">1.4 業務流程</h3>
+<pre><code>配方建立 → 配方審核 → 配方核准 → 生產執行 → 品質回饋 → Golden Recipe 評分 → 配方認證
+    ↓           ↓           ↓           ↓           ↓              ↓               ↓
+版本控制    簽核流程    審計日誌    SPC 數據    品質統計       自動評分        候選推薦
+</code></pre>
+<hr>
+<h2 id="2-系統架構">2. 系統架構</h2>
+<h3 id="21-整體架構圖">2.1 整體架構圖</h3>
+<pre><code>┌─────────────────────────────────────────────────────────────┐
+│                        前端介面層                             │
+│  ┌──────────┬──────────┬──────────┬──────────┬───────────┐  │
+│  │配方建置器│簽核中心  │ Golden   │測試中心  │資料模擬器 │  │
+│  │          │          │ Recipe   │          │           │  │
+│  └──────────┴──────────┴──────────┴──────────┴───────────┘  │
+└─────────────────────────────────────────────────────────────┘
+                              ↓
+┌─────────────────────────────────────────────────────────────┐
+│                       核心業務層                              │
+│  ┌──────────┬──────────┬──────────┬──────────┬───────────┐  │
+│  │配方管理  │簽核引擎  │版本控制  │品質追蹤  │SPC 分析   │  │
+│  │模組      │          │          │          │           │  │
+│  └──────────┴──────────┴──────────┴──────────┴───────────┘  │
+└─────────────────────────────────────────────────────────────┘
+                              ↓
+┌─────────────────────────────────────────────────────────────┐
+│                       資料模型層                              │
+│  ┌──────────┬──────────┬──────────┬──────────┬───────────┐  │
+│  │FormModel │Workflow  │Version   │Quality   │SPC Data   │  │
+│  │          │Model     │Control   │Feedback  │Model      │  │
+│  └──────────┴──────────┴──────────┴──────────┴───────────┘  │
+└─────────────────────────────────────────────────────────────┘
+                              ↓
+┌─────────────────────────────────────────────────────────────┐
+│                       資料持久層                              │
+│              LocalStorage（開發）/ PostgreSQL（生產）         │
+└─────────────────────────────────────────────────────────────┘
+                              ↓
+┌─────────────────────────────────────────────────────────────┐
+│                       外部整合層                              │
+│  ┌──────────┬──────────┬──────────┬──────────┬───────────┐  │
+│  │EAP 系統  │研華 ECU  │數據中台  │SPC 系統  │Webhook    │  │
+│  └──────────┴──────────┴──────────┴──────────┴───────────┘  │
+└─────────────────────────────────────────────────────────────┘
+</code></pre>
+<h3 id="22-模組化架構">2.2 模組化架構</h3>
+<p>系統採用「核心 + 產業模組」架構：</p>
+<pre><code>src/
+├── core/                    # 核心功能（通用，可跨產業重用）
+│   ├── auth/               # 認證系統
+│   ├── workflow/           # 簽核流程引擎
+│   ├── audit/              # 審計日誌
+│   └── recipe-base/        # 配方基礎架構
+├── industries/              # 產業模組（客製化）
+│   ├── amc-filter/         # AMC 化學濾網產業
+│   │   ├── fields.config.js   # 欄位定義
+│   │   ├── validations.js     # 驗證規則
+│   │   └── templates.js       # 範本定義
+│   ├── food/               # 食品製造（未來）
+│   └── pharma/             # 製藥產業（未來）
+├── api/                     # API 介面層
+│   ├── endpoints.js        # API 端點定義
+│   └── adapter.js          # API 適配器
+└── config/                  # 系統配置
+    └── industry.config.js  # 產業配置檔
+</code></pre>
+<p><strong>架構優勢</strong>：</p>
+<ul>
+<li>80% 程式碼可跨產業重用</li>
+<li>新產業部署快速（僅需新增產業模組）</li>
+<li>各產業獨立演進，互不影響</li>
+<li>維護成本低</li>
+</ul>
+<h3 id="23-技術堆疊">2.3 技術堆疊</h3>
+<table>
+<thead>
+<tr>
+<th>層級</th>
+<th>技術選型</th>
+<th>版本要求</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>前端框架</strong></td>
+<td>Vanilla JavaScript (ES6+)</td>
+<td>ES2020+</td>
+<td>無框架依賴，輕量化</td>
+</tr>
+<tr>
+<td><strong>建置工具</strong></td>
+<td>Vite</td>
+<td>7.1.9+</td>
+<td>快速開發與建置</td>
+</tr>
+<tr>
+<td><strong>樣式系統</strong></td>
+<td>CSS Variables + Utility Classes</td>
+<td>-</td>
+<td>自訂 Design System</td>
+</tr>
+<tr>
+<td><strong>拖拽功能</strong></td>
+<td>@dnd-kit</td>
+<td>latest</td>
+<td>流程設計器</td>
+</tr>
+<tr>
+<td><strong>圖表繪製</strong></td>
+<td>Chart.js</td>
+<td>4.x</td>
+<td>SPC 管制圖</td>
+</tr>
+<tr>
+<td><strong>PDF 生成</strong></td>
+<td>jsPDF</td>
+<td>latest</td>
+<td>報表匯出</td>
+</tr>
+<tr>
+<td><strong>畫布處理</strong></td>
+<td>html2canvas</td>
+<td>latest</td>
+<td>截圖功能</td>
+</tr>
+<tr>
+<td><strong>開發資料庫</strong></td>
+<td>LocalStorage</td>
+<td>-</td>
+<td>開發與 POC 階段</td>
+</tr>
+<tr>
+<td><strong>生產資料庫</strong></td>
+<td>PostgreSQL</td>
+<td>14+</td>
+<td>生產環境建議</td>
+</tr>
+<tr>
+<td><strong>後端框架</strong></td>
+<td>Node.js + Express</td>
+<td>18+</td>
+<td>API 服務（未來）</td>
+</tr>
+<tr>
+<td><strong>容器化</strong></td>
+<td>Docker</td>
+<td>latest</td>
+<td>部署封裝（未來）</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="3-功能規格">3. 功能規格</h2>
+<h3 id="31-配方管理模組">3.1 配方管理模組</h3>
+<h4 id="311-配方建置器recipebuilderpage">3.1.1 配方建置器（RecipeBuilderPage）</h4>
+<p><strong>功能描述</strong>：</p>
+<ul>
+<li>動態載入產業模組欄位定義</li>
+<li>支援 4 大欄位群組：基本資訊、材料配方、製程參數、品質標準</li>
+<li>自動驗證配方資料（必填欄位、數值範圍、格式檢查）</li>
+<li>配方範本系統（快速套用預設值）</li>
+<li>配方編號自動生成（格式：AMC-YYYY-XXX）</li>
+<li>版本號自動管理（新建 1.0，更新 +0.1）</li>
+</ul>
+<p><strong>欄位範例（AMC 化學濾網）</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>群組</th>
+<th>欄位名稱</th>
+<th>類型</th>
+<th>必填</th>
+<th>驗證規則</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>基本資訊</td>
+<td>產品名稱</td>
+<td>text</td>
+<td>✓</td>
+<td>長度 1-100</td>
+</tr>
+<tr>
+<td>基本資訊</td>
+<td>濾網類型</td>
+<td>select</td>
+<td>✓</td>
+<td>活性碳濾網/化學濾網/複合濾網</td>
+</tr>
+<tr>
+<td>材料配方</td>
+<td>化學藥劑</td>
+<td>text</td>
+<td>✓</td>
+<td>-</td>
+</tr>
+<tr>
+<td>材料配方</td>
+<td>濃度 (%)</td>
+<td>number</td>
+<td>✓</td>
+<td>0-100</td>
+</tr>
+<tr>
+<td>製程參數</td>
+<td>反應溫度 (°C)</td>
+<td>number</td>
+<td>✓</td>
+<td>20-200</td>
+</tr>
+<tr>
+<td>製程參數</td>
+<td>壓力 (bar)</td>
+<td>number</td>
+<td>✓</td>
+<td>1-10</td>
+</tr>
+<tr>
+<td>品質標準</td>
+<td>過濾效率 (%)</td>
+<td>number</td>
+<td>✓</td>
+<td>90-100</td>
+</tr>
+<tr>
+<td>品質標準</td>
+<td>使用壽命 (月)</td>
+<td>number</td>
+<td>✓</td>
+<td>12-36</td>
+</tr>
+</tbody>
+</table>
+<p><strong>技術實作</strong>：</p>
+<ul>
+<li><code>src/pages/RecipeBuilderPage.js</code> - 主頁面元件</li>
+<li><code>src/industries/amc-filter/fields.config.js</code> - 欄位定義</li>
+<li><code>src/industries/amc-filter/validations.js</code> - 驗證規則</li>
+<li><code>src/industries/amc-filter/templates.js</code> - 範本定義</li>
+</ul>
+<h4 id="312-配方列表頁面formspage">3.1.2 配方列表頁面（FormsPage）</h4>
+<p><strong>功能描述</strong>：</p>
+<ul>
+<li>顯示所有配方清單（支援分頁）</li>
+<li>搜尋與篩選功能（依配方編號、名稱、狀態）</li>
+<li>顯示配方編號、版本、Golden Score</li>
+<li>配方詳情查看、編輯、刪除</li>
+<li>版本歷史查看與回滾</li>
+</ul>
+<p><strong>資料欄位</strong>：</p>
+<ul>
+<li>配方編號（font-mono 顯示）</li>
+<li>配方名稱</li>
+<li>版本號（badge 樣式）</li>
+<li>Golden Score（顏色標記：綠色 ≥92，黃色 85-91，灰色 &lt;85）</li>
+<li>建立時間</li>
+<li>最後更新時間</li>
+<li>操作按鈕（查看、編輯、刪除、版本歷史）</li>
+</ul>
+<h4 id="313-範本管理系統templatespage">3.1.3 範本管理系統（TemplatesPage）</h4>
+<p><strong>功能描述</strong>：</p>
+<ul>
+<li>範本 CRUD 功能（建立、讀取、更新、刪除）</li>
+<li>範本版本控制</li>
+<li>範本匯入/匯出（JSON 格式）</li>
+<li>範本使用統計追蹤</li>
+<li>範本預覽功能</li>
+</ul>
+<p><strong>範本資料結構</strong>：</p>
+<pre><code class="language-javascript">{
+  <span class="hljs-attr">id</span>: <span class="hljs-string">&quot;TMPL-001&quot;</span>,
+  <span class="hljs-attr">name</span>: <span class="hljs-string">&quot;標準 AMC 濾網配方&quot;</span>,
+  <span class="hljs-attr">description</span>: <span class="hljs-string">&quot;適用於一般室內空氣淨化&quot;</span>,
+  <span class="hljs-attr">category</span>: <span class="hljs-string">&quot;amc-filter&quot;</span>,
+  <span class="hljs-attr">tags</span>: [<span class="hljs-string">&quot;標準&quot;</span>, <span class="hljs-string">&quot;室內&quot;</span>],
+  <span class="hljs-attr">version</span>: <span class="hljs-string">&quot;1.0&quot;</span>,
+  <span class="hljs-attr">defaultValues</span>: {
+    <span class="hljs-attr">productName</span>: <span class="hljs-string">&quot;標準化學濾網&quot;</span>,
+    <span class="hljs-attr">filterType</span>: <span class="hljs-string">&quot;化學濾網&quot;</span>,
+    <span class="hljs-attr">chemicalAgent</span>: <span class="hljs-string">&quot;活性氧化鋁&quot;</span>,
+    <span class="hljs-attr">concentration</span>: <span class="hljs-number">15</span>,
+    <span class="hljs-comment">// ... 更多欄位</span>
+  },
+  <span class="hljs-attr">usageCount</span>: <span class="hljs-number">42</span>,
+  <span class="hljs-attr">createdAt</span>: <span class="hljs-string">&quot;2025-10-01T00:00:00.000Z&quot;</span>,
+  <span class="hljs-attr">updatedAt</span>: <span class="hljs-string">&quot;2025-10-11T00:00:00.000Z&quot;</span>
+}
+</code></pre>
+<h3 id="32-簽核流程模組">3.2 簽核流程模組</h3>
+<h4 id="321-流程設計器workflowbuilderpage">3.2.1 流程設計器（WorkflowBuilderPage）</h4>
+<p><strong>功能描述</strong>：</p>
+<ul>
+<li>拖拽式流程節點設計</li>
+<li>支援節點類型：
+<ul>
+<li><strong>開始節點</strong>：流程起點</li>
+<li><strong>單簽節點</strong>：單一簽核人</li>
+<li><strong>並簽節點</strong>：多人同時簽核（全部同意才通過）</li>
+<li><strong>串簽節點</strong>：多人依序簽核（任一同意即可進行下一關）</li>
+<li><strong>條件分支節點</strong>：根據條件分流（例如：金額 &gt; 100萬 → 總經理核准）</li>
+<li><strong>結束節點</strong>：流程終點</li>
+</ul>
+</li>
+<li>節點連線設定</li>
+<li>簽核人員選擇（支援選擇使用者或角色）</li>
+<li>流程驗證（檢查是否有未連接節點、循環路徑等）</li>
+</ul>
+<p><strong>節點資料結構</strong>：</p>
+<pre><code class="language-javascript">{
+  <span class="hljs-attr">id</span>: <span class="hljs-string">&quot;node-001&quot;</span>,
+  <span class="hljs-attr">type</span>: <span class="hljs-string">&quot;approval&quot;</span>, <span class="hljs-comment">// start, approval, parallel, sequential, condition, end</span>
+  <span class="hljs-attr">label</span>: <span class="hljs-string">&quot;部門主管審核&quot;</span>,
+  <span class="hljs-attr">position</span>: { <span class="hljs-attr">x</span>: <span class="hljs-number">100</span>, <span class="hljs-attr">y</span>: <span class="hljs-number">100</span> },
+  <span class="hljs-attr">config</span>: {
+    <span class="hljs-attr">approvers</span>: [<span class="hljs-string">&quot;user-002&quot;</span>, <span class="hljs-string">&quot;user-003&quot;</span>], <span class="hljs-comment">// 簽核人員 ID</span>
+    <span class="hljs-attr">mode</span>: <span class="hljs-string">&quot;all&quot;</span>, <span class="hljs-comment">// all: 並簽, any: 串簽</span>
+    <span class="hljs-attr">condition</span>: <span class="hljs-literal">null</span> <span class="hljs-comment">// 條件分支邏輯</span>
+  }
+}
+</code></pre>
+<h4 id="322-簽核中心approvalcenterpage">3.2.2 簽核中心（ApprovalCenterPage）</h4>
+<p><strong>功能描述</strong>：</p>
+<ul>
+<li><strong>我的申請</strong>：查看自己提交的申請單</li>
+<li><strong>待我簽核</strong>：需要我審核的申請單</li>
+<li><strong>已簽核</strong>：我已處理的申請單</li>
+<li><strong>所有申請</strong>：系統所有申請單（管理員）</li>
+<li>申請單詳情查看</li>
+<li>核准/退回操作（支援意見填寫）</li>
+<li>申請單狀態追蹤</li>
+<li>簽核歷史記錄</li>
+</ul>
+<p><strong>申請單狀態</strong>：</p>
+<ul>
+<li><code>draft</code>：草稿</li>
+<li><code>pending</code>：審核中</li>
+<li><code>approved</code>：已核准</li>
+<li><code>rejected</code>：已退回</li>
+<li><code>cancelled</code>：已取消</li>
+</ul>
+<p><strong>簽核操作</strong>：</p>
+<pre><code class="language-javascript"><span class="hljs-comment">// 核准</span>
+<span class="hljs-title function_">approveApplication</span>(instanceId, {
+  <span class="hljs-attr">comment</span>: <span class="hljs-string">&quot;審核通過&quot;</span>,
+  <span class="hljs-attr">approver</span>: currentUser,
+  <span class="hljs-attr">timestamp</span>: <span class="hljs-title class_">Date</span>.<span class="hljs-title function_">now</span>()
+})
+
+<span class="hljs-comment">// 退回</span>
+<span class="hljs-title function_">rejectApplication</span>(instanceId, {
+  <span class="hljs-attr">comment</span>: <span class="hljs-string">&quot;配方濃度過高，請調整&quot;</span>,
+  <span class="hljs-attr">approver</span>: currentUser,
+  <span class="hljs-attr">timestamp</span>: <span class="hljs-title class_">Date</span>.<span class="hljs-title function_">now</span>()
+})
+</code></pre>
+<h3 id="33-版本控制模組">3.3 版本控制模組</h3>
+<h4 id="331-版本控制引擎versioncontroljs">3.3.1 版本控制引擎（versionControl.js）</h4>
+<p><strong>功能描述</strong>：</p>
+<ul>
+<li>自動版本追蹤（每次儲存配方時自動建立版本）</li>
+<li>版本歷史查看</li>
+<li>版本差異比對（找出兩個版本間的差異）</li>
+<li>回滾到指定版本</li>
+<li>版本清理（保留最近 N 個版本，清除舊版本）</li>
+<li>版本匯出/匯入（JSON 格式）</li>
+</ul>
+<p><strong>版本資料結構</strong>：</p>
+<pre><code class="language-javascript">{
+  <span class="hljs-attr">id</span>: <span class="hljs-string">&quot;form-001_v1728456789000&quot;</span>,
+  <span class="hljs-attr">entityId</span>: <span class="hljs-string">&quot;form-001&quot;</span>,
+  <span class="hljs-attr">version</span>: <span class="hljs-number">5</span>,
+  <span class="hljs-attr">data</span>: { <span class="hljs-comment">/* 配方完整資料快照 */</span> },
+  <span class="hljs-attr">comment</span>: <span class="hljs-string">&quot;調整濃度參數&quot;</span>,
+  <span class="hljs-attr">createdBy</span>: <span class="hljs-string">&quot;張三&quot;</span>,
+  <span class="hljs-attr">createdById</span>: <span class="hljs-string">&quot;user-001&quot;</span>,
+  <span class="hljs-attr">createdAt</span>: <span class="hljs-string">&quot;2025-10-11T10:30:00.000Z&quot;</span>,
+  <span class="hljs-attr">size</span>: <span class="hljs-number">2048</span> <span class="hljs-comment">// JSON 字串長度（bytes）</span>
+}
+</code></pre>
+<p><strong>版本儲存策略</strong>：</p>
+<ul>
+<li>新建配方時：建立版本 1</li>
+<li>更新配方時：自動建立新版本（版本號 +1）</li>
+<li>回滾操作時：將回滾作為新版本儲存（不刪除歷史）</li>
+</ul>
+<p><strong>版本比對演算法</strong>：</p>
+<pre><code class="language-javascript"><span class="hljs-comment">// 遞迴比較兩個物件，找出新增、修改、刪除的欄位</span>
+<span class="hljs-title function_">findDifferences</span>(<span class="hljs-params">obj1, obj2</span>) {
+  <span class="hljs-comment">// 回傳差異列表：</span>
+  <span class="hljs-comment">// [</span>
+  <span class="hljs-comment">//   { path: &quot;concentration&quot;, type: &quot;modified&quot;, oldValue: 15, newValue: 18 },</span>
+  <span class="hljs-comment">//   { path: &quot;testMethod&quot;, type: &quot;added&quot;, oldValue: undefined, newValue: &quot;...&quot; }</span>
+  <span class="hljs-comment">// ]</span>
+}
+</code></pre>
+<h4 id="332-版本歷史-ui">3.3.2 版本歷史 UI</h4>
+<p><strong>功能描述</strong>：</p>
+<ul>
+<li>時間軸式版本列表</li>
+<li>顯示版本號、建立時間、建立人、註解</li>
+<li>點選版本查看完整資料</li>
+<li>比對兩個版本的差異（視覺化標記）</li>
+<li>回滾到指定版本（需確認操作）</li>
+</ul>
+<h3 id="34-golden-recipe-模組">3.4 Golden Recipe 模組</h3>
+<h4 id="341-品質回饋數據模型qualityfeedbackmodel">3.4.1 品質回饋數據模型（QualityFeedbackModel）</h4>
+<p><strong>功能描述</strong>：</p>
+<ul>
+<li>接收生產執行後的品質數據</li>
+<li>支援多種數據來源：SPC 系統、手動輸入、檔案匯入</li>
+<li>儲存品質指標：良率、過濾效率、使用壽命、缺陷率、CPK、穩定性</li>
+<li>自動觸發配方評分更新</li>
+</ul>
+<p><strong>品質數據結構</strong>：</p>
+<pre><code class="language-javascript">{
+  <span class="hljs-attr">id</span>: <span class="hljs-string">&quot;QF-1728456789000&quot;</span>,
+  <span class="hljs-attr">recipeId</span>: <span class="hljs-string">&quot;form-001&quot;</span>,
+  <span class="hljs-attr">recipeVersion</span>: <span class="hljs-string">&quot;1.0&quot;</span>,
+  <span class="hljs-attr">executionId</span>: <span class="hljs-string">&quot;EXEC-001&quot;</span>,
+  <span class="hljs-attr">batchNo</span>: <span class="hljs-string">&quot;BATCH-20251011-001&quot;</span>,
+  <span class="hljs-attr">qualityMetrics</span>: {
+    <span class="hljs-attr">yieldRate</span>: <span class="hljs-number">98.5</span>,           <span class="hljs-comment">// 良率 (%)</span>
+    <span class="hljs-attr">filterEfficiency</span>: <span class="hljs-number">99.2</span>,    <span class="hljs-comment">// 過濾效率 (%)</span>
+    <span class="hljs-attr">lifespan</span>: <span class="hljs-number">28</span>,              <span class="hljs-comment">// 使用壽命 (月)</span>
+    <span class="hljs-attr">defectRate</span>: <span class="hljs-number">1.5</span>,           <span class="hljs-comment">// 缺陷率 (%)</span>
+    <span class="hljs-attr">cpk</span>: <span class="hljs-number">1.67</span>,                 <span class="hljs-comment">// 製程能力指標</span>
+    <span class="hljs-attr">stabilityScore</span>: <span class="hljs-number">95</span>         <span class="hljs-comment">// 穩定性評分 (0-100)</span>
+  },
+  <span class="hljs-attr">testResults</span>: {
+    <span class="hljs-attr">passed</span>: <span class="hljs-literal">true</span>,
+    <span class="hljs-attr">testDate</span>: <span class="hljs-string">&quot;2025-10-11T10:00:00.000Z&quot;</span>,
+    <span class="hljs-attr">inspector</span>: <span class="hljs-string">&quot;王品管&quot;</span>
+  },
+  <span class="hljs-attr">productionInfo</span>: {
+    <span class="hljs-attr">line</span>: <span class="hljs-string">&quot;產線 A&quot;</span>,
+    <span class="hljs-attr">shift</span>: <span class="hljs-string">&quot;早班&quot;</span>,
+    <span class="hljs-attr">operator</span>: <span class="hljs-string">&quot;李操作員&quot;</span>
+  },
+  <span class="hljs-attr">issues</span>: [],                  <span class="hljs-comment">// 品質異常記錄</span>
+  <span class="hljs-attr">notes</span>: <span class="hljs-string">&quot;正常生產&quot;</span>,
+  <span class="hljs-attr">createdAt</span>: <span class="hljs-string">&quot;2025-10-11T10:00:00.000Z&quot;</span>,
+  <span class="hljs-attr">source</span>: <span class="hljs-string">&quot;SPC-SYSTEM&quot;</span>         <span class="hljs-comment">// 數據來源</span>
+}
+</code></pre>
+<h4 id="342-golden-recipe-評分引擎">3.4.2 Golden Recipe 評分引擎</h4>
+<p><strong>評分公式</strong>：</p>
+<pre><code>Golden Score =
+  良率 × 30% +
+  過濾效率 × 25% +
+  壽命達標率 × 20% +
+  CPK × 10 × 15% +
+  穩定性 × 10%
+
+其中：
+- 良率、效率、穩定性：0-100 分
+- 壽命達標率 = (平均壽命 / 24個月) × 100%，允許超過 100%
+- CPK × 10：將 CPK 值（通常 1.0-2.0）轉換為百分比
+</code></pre>
+<p><strong>自動認證條件</strong>（系統自動認證為 Golden Recipe）：</p>
+<ol>
+<li>最低樣本數 ≥ 10 批次</li>
+<li>時間跨度 ≥ 30 天</li>
+<li>Golden Score ≥ 92 分</li>
+<li>最近 20 批次平均良率 ≥ 97%</li>
+<li>平均 CPK ≥ 1.33</li>
+<li>無重大品質異常</li>
+</ol>
+<p><strong>候選配方條件</strong>（推薦為候選，需人工審核）：</p>
+<ul>
+<li>Golden Score ≥ 85 分</li>
+<li>尚未符合自動認證條件</li>
+</ul>
+<h4 id="343-golden-recipe-管理頁面goldenrecipepage">3.4.3 Golden Recipe 管理頁面（GoldenRecipePage）</h4>
+<p><strong>功能描述</strong>：</p>
+<ul>
+<li>顯示所有 Golden Recipe 清單</li>
+<li>顯示 Golden Recipe 候選清單</li>
+<li>配方品質統計圖表</li>
+<li>手動認證 Golden Recipe（需審核主管核准）</li>
+<li>降級 Golden Recipe（取消認證）</li>
+<li>品質趨勢分析</li>
+</ul>
+<p><strong>手動認證流程</strong>：</p>
+<pre><code>品質工程師提出認證申請 → 指定審核主管 → 主管審核 → 核准/退回 → 正式認證
+</code></pre>
+<h3 id="35-spc-統計製程管制模組">3.5 SPC 統計製程管制模組</h3>
+<h4 id="351-spc-數據模型">3.5.1 SPC 數據模型</h4>
+<p><strong>功能描述</strong>：</p>
+<ul>
+<li>接收製程量測數據</li>
+<li>支援多種數據來源：研華 ECU、數據中台、API、Webhook、手動輸入、檔案匯入</li>
+<li>儲存關鍵參數：溫度、壓力、濃度、流量等</li>
+<li>計算統計指標：平均值、標準差、上下限</li>
+</ul>
+<p><strong>SPC 數據結構</strong>：</p>
+<pre><code class="language-javascript">{
+  <span class="hljs-attr">id</span>: <span class="hljs-string">&quot;SPC-001&quot;</span>,
+  <span class="hljs-attr">recipeId</span>: <span class="hljs-string">&quot;form-001&quot;</span>,
+  <span class="hljs-attr">batchNo</span>: <span class="hljs-string">&quot;BATCH-20251011-001&quot;</span>,
+  <span class="hljs-attr">parameter</span>: <span class="hljs-string">&quot;temperature&quot;</span>,    <span class="hljs-comment">// 量測參數</span>
+  <span class="hljs-attr">value</span>: <span class="hljs-number">85.2</span>,                 <span class="hljs-comment">// 量測值</span>
+  <span class="hljs-attr">timestamp</span>: <span class="hljs-string">&quot;2025-10-11T10:00:00.000Z&quot;</span>,
+  <span class="hljs-attr">operator</span>: <span class="hljs-string">&quot;李操作員&quot;</span>,
+  <span class="hljs-attr">equipment</span>: <span class="hljs-string">&quot;反應槽 A&quot;</span>,
+  <span class="hljs-attr">notes</span>: <span class="hljs-string">&quot;&quot;</span>
+}
+</code></pre>
+<h4 id="352-製程能力分析">3.5.2 製程能力分析</h4>
+<p><strong>分析指標</strong>：</p>
+<ul>
+<li><strong>Cp（製程能力指數）</strong>：<code>Cp = (USL - LSL) / (6σ)</code></li>
+<li><strong>Cpk（製程能力指標）</strong>：<code>Cpk = min[(USL - μ) / 3σ, (μ - LSL) / 3σ]</code></li>
+<li><strong>Pp（製程績效指數）</strong>：長期製程能力</li>
+<li><strong>Ppk（製程績效指標）</strong>：長期製程能力（考慮偏移）</li>
+</ul>
+<p>其中：</p>
+<ul>
+<li>USL: Upper Specification Limit（規格上限）</li>
+<li>LSL: Lower Specification Limit（規格下限）</li>
+<li>μ: 平均值</li>
+<li>σ: 標準差</li>
+</ul>
+<p><strong>判定標準</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>Cpk 值</th>
+<th>製程能力</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Cpk &lt; 1.0</td>
+<td>不足</td>
+<td>需改善</td>
+</tr>
+<tr>
+<td>1.0 ≤ Cpk &lt; 1.33</td>
+<td>尚可</td>
+<td>可接受</td>
+</tr>
+<tr>
+<td>1.33 ≤ Cpk &lt; 1.67</td>
+<td>良好</td>
+<td>符合標準</td>
+</tr>
+<tr>
+<td>Cpk ≥ 1.67</td>
+<td>優秀</td>
+<td>六標準差水準</td>
+</tr>
+</tbody>
+</table>
+<h4 id="353-spc-管制圖">3.5.3 SPC 管制圖</h4>
+<p><strong>圖表類型</strong>：</p>
+<ul>
+<li><strong>X-bar &amp; R Chart</strong>（平均值-全距管制圖）</li>
+<li><strong>X-bar &amp; S Chart</strong>（平均值-標準差管制圖）</li>
+<li><strong>I-MR Chart</strong>（個別值-移動全距管制圖）</li>
+</ul>
+<p><strong>異常檢測規則</strong>（Western Electric Rules）：</p>
+<ol>
+<li>任一點超出管制界限（±3σ）</li>
+<li>連續 9 點在中心線同側</li>
+<li>連續 6 點遞增或遞減</li>
+<li>連續 14 點交替上下</li>
+<li>連續 2/3 點落在 2σ 區域</li>
+<li>連續 4/5 點落在 1σ 區域</li>
+</ol>
+<p><strong>技術實作</strong>：</p>
+<ul>
+<li>使用 Chart.js 繪製管制圖</li>
+<li>即時計算管制界限</li>
+<li>標記異常點（紅色）</li>
+<li>顯示趨勢線</li>
+</ul>
+<h3 id="36-權限控制模組">3.6 權限控制模組</h3>
+<p>系統採用「<strong>權限表 + 角色對應</strong>」的 RBAC（Role-Based Access Control）架構，實現靈活且易於擴展的權限管理。</p>
+<p><strong>架構組成</strong>：</p>
+<ol>
+<li>
+<p><strong>權限定義檔</strong>（<code>src/config/permissions.config.js</code>）</p>
+<ul>
+<li>定義所有頁面權限（17 個）- 格式：<code>page:xxx</code></li>
+<li>定義所有功能權限（22 個）- 格式：<code>action:xxx</code></li>
+<li>按群組分類（工作區、配方管理、流程管理、組織管理、系統管理、開發工具）</li>
+<li>提供權限查詢方法</li>
+</ul>
+</li>
+<li>
+<p><strong>角色配置檔</strong>（<code>src/config/roles.config.js</code>）</p>
+<ul>
+<li>定義角色與權限的對應關係</li>
+<li>支援系統內建角色與自訂角色</li>
+<li>儲存自訂角色至 localStorage</li>
+<li>向後兼容舊版角色名稱</li>
+</ul>
+</li>
+<li>
+<p><strong>權限管理器</strong>（<code>src/utils/permissionManager.js</code>）</p>
+<ul>
+<li>集中處理權限檢查邏輯</li>
+<li>權限快取機制（提升效能）</li>
+<li>動態選單生成（根據角色）</li>
+<li>資源擁有權檢查</li>
+</ul>
+</li>
+<li>
+<p><strong>權限管理頁面</strong>（<code>src/pages/PermissionsPage.js</code>）</p>
+<ul>
+<li>視覺化角色與權限管理</li>
+<li>僅系統管理員可訪問</li>
+<li>支援查看角色權限列表</li>
+<li>未來擴展：建立/編輯/刪除自訂角色</li>
+</ul>
+</li>
+</ol>
+<h4 id="361-權限管理器permissionmanagerjs">3.6.1 權限管理器（permissionManager.js）</h4>
+<p><strong>功能描述</strong>：</p>
+<ul>
+<li>基於權限配置檔實現靈活的權限控制</li>
+<li>頁面訪問權限檢查</li>
+<li>動作執行權限檢查</li>
+<li>動態選單生成（根據角色）</li>
+<li>資源擁有權檢查</li>
+<li>向後兼容舊版 API</li>
+</ul>
+<p><strong>角色定義</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>角色</th>
+<th>英文</th>
+<th>說明</th>
+<th>徽章顏色</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>系統管理員</td>
+<td>Admin</td>
+<td>完整系統管理權限</td>
+<td>紅色</td>
+</tr>
+<tr>
+<td>主管</td>
+<td>Manager</td>
+<td>管理與審核權限</td>
+<td>藍色</td>
+</tr>
+<tr>
+<td>一般員工</td>
+<td>Employee</td>
+<td>基本操作權限</td>
+<td>綠色</td>
+</tr>
+</tbody>
+</table>
+<p><strong>權限矩陣</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>功能模組</th>
+<th>系統管理員</th>
+<th>主管</th>
+<th>一般員工</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>工作區</strong></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>總覽</td>
+<td>✓</td>
+<td>✓</td>
+<td>✓</td>
+</tr>
+<tr>
+<td>我的申請</td>
+<td>✓</td>
+<td>✓</td>
+<td>✓</td>
+</tr>
+<tr>
+<td>待我簽核</td>
+<td>✓</td>
+<td>✓</td>
+<td>✗</td>
+</tr>
+<tr>
+<td><strong>管理功能</strong></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>配方管理</td>
+<td>✓</td>
+<td>✓</td>
+<td>✓ (僅檢視)</td>
+</tr>
+<tr>
+<td>配方範本</td>
+<td>✓</td>
+<td>✓</td>
+<td>✓ (僅檢視)</td>
+</tr>
+<tr>
+<td>產業模組配置</td>
+<td>✓</td>
+<td>✗</td>
+<td>✗</td>
+</tr>
+<tr>
+<td>Golden Recipe</td>
+<td>✓</td>
+<td>✓</td>
+<td>✓ (僅檢視)</td>
+</tr>
+<tr>
+<td>SPC 品質管制</td>
+<td>✓</td>
+<td>✓</td>
+<td>✓ (僅檢視)</td>
+</tr>
+<tr>
+<td>審核流程</td>
+<td>✓</td>
+<td>✓</td>
+<td>✗</td>
+</tr>
+<tr>
+<td>人員管理</td>
+<td>✓</td>
+<td>✗</td>
+<td>✗</td>
+</tr>
+<tr>
+<td>部門管理</td>
+<td>✓</td>
+<td>✗</td>
+<td>✗</td>
+</tr>
+<tr>
+<td><strong>系統功能</strong></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>報表統計</td>
+<td>✓</td>
+<td>✓</td>
+<td>✗</td>
+</tr>
+<tr>
+<td>操作日誌</td>
+<td>✓</td>
+<td>✗</td>
+<td>✗</td>
+</tr>
+<tr>
+<td><strong>權限管理</strong></td>
+<td><strong>✓</strong></td>
+<td><strong>✗</strong></td>
+<td><strong>✗</strong></td>
+</tr>
+<tr>
+<td>測試中心</td>
+<td>✓</td>
+<td>✗</td>
+<td>✗</td>
+</tr>
+<tr>
+<td>模擬中心</td>
+<td>✓</td>
+<td>✗</td>
+<td>✗</td>
+</tr>
+</tbody>
+</table>
+<p><strong>動作權限</strong>：</p>
+<p>系統使用新的權限代碼格式（<code>action:xxx</code>），向後兼容舊版格式。</p>
+<pre><code class="language-javascript"><span class="hljs-comment">// 系統管理員可執行的動作（共 22 個）</span>
+<span class="hljs-attr">permissions</span>: [
+  <span class="hljs-string">&#x27;action:create-form&#x27;</span>,          <span class="hljs-comment">// 建立配方</span>
+  <span class="hljs-string">&#x27;action:edit-form&#x27;</span>,            <span class="hljs-comment">// 編輯所有配方</span>
+  <span class="hljs-string">&#x27;action:delete-form&#x27;</span>,          <span class="hljs-comment">// 刪除配方</span>
+  <span class="hljs-string">&#x27;action:create-template&#x27;</span>,      <span class="hljs-comment">// 建立範本</span>
+  <span class="hljs-string">&#x27;action:edit-template&#x27;</span>,        <span class="hljs-comment">// 編輯範本</span>
+  <span class="hljs-string">&#x27;action:delete-template&#x27;</span>,      <span class="hljs-comment">// 刪除範本</span>
+  <span class="hljs-string">&#x27;action:create-workflow&#x27;</span>,      <span class="hljs-comment">// 建立流程</span>
+  <span class="hljs-string">&#x27;action:edit-workflow&#x27;</span>,        <span class="hljs-comment">// 編輯流程</span>
+  <span class="hljs-string">&#x27;action:delete-workflow&#x27;</span>,      <span class="hljs-comment">// 刪除流程</span>
+  <span class="hljs-string">&#x27;action:approve-application&#x27;</span>,  <span class="hljs-comment">// 審核申請</span>
+  <span class="hljs-string">&#x27;action:reject-application&#x27;</span>,   <span class="hljs-comment">// 退回申請</span>
+  <span class="hljs-string">&#x27;action:certify-golden&#x27;</span>,       <span class="hljs-comment">// 認證 Golden Recipe</span>
+  <span class="hljs-string">&#x27;action:revoke-golden&#x27;</span>,        <span class="hljs-comment">// 撤銷 Golden Recipe</span>
+  <span class="hljs-string">&#x27;action:view-spc&#x27;</span>,             <span class="hljs-comment">// 查看 SPC 數據</span>
+  <span class="hljs-string">&#x27;action:edit-spc&#x27;</span>,             <span class="hljs-comment">// 編輯 SPC 數據</span>
+  <span class="hljs-string">&#x27;action:delete-spc&#x27;</span>,           <span class="hljs-comment">// 刪除 SPC 數據</span>
+  <span class="hljs-string">&#x27;action:manage-users&#x27;</span>,         <span class="hljs-comment">// 管理使用者</span>
+  <span class="hljs-string">&#x27;action:manage-departments&#x27;</span>,   <span class="hljs-comment">// 管理部門</span>
+  <span class="hljs-string">&#x27;action:view-reports&#x27;</span>,         <span class="hljs-comment">// 查看報表</span>
+  <span class="hljs-string">&#x27;action:view-logs&#x27;</span>,            <span class="hljs-comment">// 查看日誌</span>
+  <span class="hljs-string">&#x27;action:manage-industry-config&#x27;</span>, <span class="hljs-comment">// 管理產業配置</span>
+  <span class="hljs-string">&#x27;action:manage-permissions&#x27;</span>,   <span class="hljs-comment">// 管理權限</span>
+  <span class="hljs-string">&#x27;action:run-tests&#x27;</span>,            <span class="hljs-comment">// 執行測試</span>
+  <span class="hljs-string">&#x27;action:use-simulator&#x27;</span>         <span class="hljs-comment">// 使用模擬器</span>
+]
+
+<span class="hljs-comment">// 主管可執行的動作（共 12 個）</span>
+<span class="hljs-attr">permissions</span>: [
+  <span class="hljs-string">&#x27;action:create-form&#x27;</span>,
+  <span class="hljs-string">&#x27;action:edit-form&#x27;</span>,            <span class="hljs-comment">// 可編輯所有配方</span>
+  <span class="hljs-string">&#x27;action:view-forms&#x27;</span>,
+  <span class="hljs-string">&#x27;action:export-form&#x27;</span>,
+  <span class="hljs-string">&#x27;action:create-template&#x27;</span>,
+  <span class="hljs-string">&#x27;action:edit-template&#x27;</span>,
+  <span class="hljs-string">&#x27;action:approve-application&#x27;</span>,
+  <span class="hljs-string">&#x27;action:reject-application&#x27;</span>,
+  <span class="hljs-string">&#x27;action:certify-golden&#x27;</span>,
+  <span class="hljs-string">&#x27;action:view-spc&#x27;</span>,
+  <span class="hljs-string">&#x27;action:edit-spc&#x27;</span>,
+  <span class="hljs-string">&#x27;action:view-reports&#x27;</span>
+]
+
+<span class="hljs-comment">// 一般員工可執行的動作（共 4 個）</span>
+<span class="hljs-attr">permissions</span>: [
+  <span class="hljs-string">&#x27;action:create-form&#x27;</span>,
+  <span class="hljs-string">&#x27;action:edit-own-form&#x27;</span>,        <span class="hljs-comment">// 僅能編輯自己的配方</span>
+  <span class="hljs-string">&#x27;action:view-forms&#x27;</span>,
+  <span class="hljs-string">&#x27;action:view-spc&#x27;</span>
+]
+</code></pre>
+<p><strong>向後兼容</strong>：
+系統保留舊版 action 名稱支援（使用底線格式），自動轉換為新格式：</p>
+<ul>
+<li><code>create_form</code> → <code>action:create-form</code></li>
+<li><code>edit_own_form</code> → <code>action:edit-own-form</code></li>
+<li><code>certify_golden_recipe</code> → <code>action:certify-golden</code></li>
+</ul>
+<h4 id="362-權限檢查機制">3.6.2 權限檢查機制</h4>
+<p><strong>頁面訪問控制</strong>：</p>
+<p>系統在 Router 層級實施權限檢查，當使用者嘗試訪問頁面時：</p>
+<ol>
+<li>檢查使用者是否已登入</li>
+<li>取得使用者角色</li>
+<li>查詢該角色是否有權限訪問該頁面</li>
+<li>若無權限，顯示「權限不足」頁面並記錄日誌</li>
+</ol>
+<pre><code class="language-javascript"><span class="hljs-comment">// Router 權限檢查</span>
+<span class="hljs-keyword">async</span> <span class="hljs-title function_">handleRoute</span>(<span class="hljs-params"></span>) {
+  <span class="hljs-keyword">const</span> path = <span class="hljs-variable language_">window</span>.<span class="hljs-property">location</span>.<span class="hljs-property">hash</span>.<span class="hljs-title function_">slice</span>(<span class="hljs-number">1</span>) || <span class="hljs-string">&#x27;/&#x27;</span>;
+
+  <span class="hljs-comment">// 權限檢查</span>
+  <span class="hljs-keyword">if</span> (!permissionManager.<span class="hljs-title function_">canAccessPage</span>(path)) {
+    <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">showAccessDenied</span>(path);
+    <span class="hljs-keyword">return</span>;
+  }
+
+  <span class="hljs-comment">// 載入頁面</span>
+  <span class="hljs-keyword">const</span> content = <span class="hljs-keyword">await</span> <span class="hljs-title function_">route</span>();
+  <span class="hljs-variable language_">this</span>.<span class="hljs-property">layout</span>.<span class="hljs-title function_">setContent</span>(content);
+}
+</code></pre>
+<p><strong>動態選單生成</strong>：</p>
+<p>Sidebar 根據使用者角色動態生成選單，只顯示有權限的項目：</p>
+<pre><code class="language-javascript"><span class="hljs-comment">// 取得可訪問的選單</span>
+<span class="hljs-keyword">const</span> accessibleMenu = permissionManager.<span class="hljs-title function_">getAccessibleMenu</span>();
+
+<span class="hljs-comment">// 動態生成 HTML</span>
+<span class="hljs-keyword">const</span> menuHTML = accessibleMenu.<span class="hljs-title function_">map</span>(<span class="hljs-function"><span class="hljs-params">section</span> =&gt;</span> <span class="hljs-string">`
+  &lt;div class=&quot;sidebar-section&quot;&gt;
+    &lt;h3&gt;<span class="hljs-subst">${section.title}</span>&lt;/h3&gt;
+    &lt;ul&gt;
+      <span class="hljs-subst">${section.items.map(item =&gt; <span class="hljs-string">`
+        &lt;li&gt;&lt;a href=&quot;#<span class="hljs-subst">${item.path}</span>&quot;&gt;<span class="hljs-subst">${item.label}</span>&lt;/a&gt;&lt;/li&gt;
+      `</span>).join(<span class="hljs-string">&#x27;&#x27;</span>)}</span>
+    &lt;/ul&gt;
+  &lt;/div&gt;
+`</span>).<span class="hljs-title function_">join</span>(<span class="hljs-string">&#x27;&#x27;</span>);
+</code></pre>
+<p><strong>資源擁有權檢查</strong>：</p>
+<p>對於配方等資源，系統檢查是否為使用者自己建立：</p>
+<pre><code class="language-javascript"><span class="hljs-comment">// 檢查是否可編輯配方</span>
+<span class="hljs-title function_">canEditForm</span>(<span class="hljs-params">form</span>) {
+  <span class="hljs-keyword">const</span> user = authService.<span class="hljs-title function_">getCurrentUser</span>();
+
+  <span class="hljs-comment">// 管理員和主管可編輯所有配方</span>
+  <span class="hljs-keyword">if</span> (user.<span class="hljs-property">role</span> === <span class="hljs-string">&#x27;系統管理員&#x27;</span> || user.<span class="hljs-property">role</span> === <span class="hljs-string">&#x27;主管&#x27;</span>) {
+    <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+  }
+
+  <span class="hljs-comment">// 一般員工只能編輯自己的配方</span>
+  <span class="hljs-keyword">return</span> user.<span class="hljs-property">id</span> === form.<span class="hljs-property">createdBy</span>;
+}
+
+<span class="hljs-comment">// 檢查是否可刪除配方</span>
+<span class="hljs-title function_">canDeleteForm</span>(<span class="hljs-params">form</span>) {
+  <span class="hljs-comment">// 只有系統管理員可刪除</span>
+  <span class="hljs-keyword">return</span> user.<span class="hljs-property">role</span> === <span class="hljs-string">&#x27;系統管理員&#x27;</span>;
+}
+</code></pre>
+<h4 id="363-使用者介面權限呈現">3.6.3 使用者介面權限呈現</h4>
+<p><strong>Header 角色徽章</strong>：</p>
+<p>Header 顯示當前使用者資訊與角色徽章：</p>
+<ul>
+<li><strong>系統管理員</strong>：紅色徽章，顯示「管理員」</li>
+<li><strong>主管</strong>：藍色徽章，顯示「主管」</li>
+<li><strong>一般員工</strong>：綠色徽章，顯示「員工」</li>
+</ul>
+<p><strong>權限不足頁面</strong>：</p>
+<p>當使用者嘗試訪問無權限頁面時，顯示友善的錯誤訊息：</p>
+<pre><code>🚫 權限不足
+
+您的帳號（張三，角色：一般員工）無法訪問此頁面。
+
+請求路徑：/simulator
+
+[返回首頁]
+</code></pre>
+<p><strong>切換使用者</strong>：</p>
+<p>系統提供使用者切換功能（開發/測試用），切換後自動：</p>
+<ol>
+<li>更新 Header 顯示</li>
+<li>重新生成 Sidebar 選單</li>
+<li>重新載入當前頁面</li>
+</ol>
+<h3 id="37-測試與模擬模組">3.7 測試與模擬模組</h3>
+<h4 id="371-自動化測試系統testrunner">3.7.1 自動化測試系統（TestRunner）</h4>
+<p><strong>功能描述</strong>：</p>
+<ul>
+<li>完整的測試執行引擎</li>
+<li>支援測試劇本（Scenario-based Testing）</li>
+<li>豐富的斷言函數</li>
+<li>可視化測試報告</li>
+</ul>
+<p><strong>支援的斷言函數</strong>：</p>
+<pre><code class="language-javascript"><span class="hljs-title function_">assertEqual</span>(actual, expected)           <span class="hljs-comment">// 相等斷言</span>
+<span class="hljs-title function_">assertDeepEqual</span>(actual, expected)       <span class="hljs-comment">// 深度相等斷言</span>
+<span class="hljs-title function_">assertNotEqual</span>(actual, expected)        <span class="hljs-comment">// 不相等斷言</span>
+<span class="hljs-title function_">assertTrue</span>(value)                       <span class="hljs-comment">// 真值斷言</span>
+<span class="hljs-title function_">assertFalse</span>(value)                      <span class="hljs-comment">// 假值斷言</span>
+<span class="hljs-title function_">assertThrows</span>(fn, errorMessage)          <span class="hljs-comment">// 例外斷言</span>
+<span class="hljs-title function_">assertGreaterThan</span>(value, threshold)     <span class="hljs-comment">// 大於斷言</span>
+<span class="hljs-title function_">assertLessThan</span>(value, threshold)        <span class="hljs-comment">// 小於斷言</span>
+<span class="hljs-title function_">assertArrayLength</span>(arr, length)          <span class="hljs-comment">// 陣列長度斷言</span>
+<span class="hljs-title function_">assertObjectHasKey</span>(obj, key)            <span class="hljs-comment">// 物件屬性斷言</span>
+</code></pre>
+<p><strong>測試劇本範例</strong>：</p>
+<pre><code class="language-javascript">{
+  <span class="hljs-attr">name</span>: <span class="hljs-string">&quot;配方建立與版本控制測試&quot;</span>,
+  <span class="hljs-attr">description</span>: <span class="hljs-string">&quot;測試配方建立、更新、版本追蹤功能&quot;</span>,
+  <span class="hljs-attr">steps</span>: [
+    {
+      <span class="hljs-attr">name</span>: <span class="hljs-string">&quot;建立新配方&quot;</span>,
+      <span class="hljs-attr">action</span>: <span class="hljs-function">() =&gt;</span> {
+        <span class="hljs-keyword">const</span> form = <span class="hljs-keyword">new</span> <span class="hljs-title class_">FormModel</span>({
+          <span class="hljs-attr">name</span>: <span class="hljs-string">&quot;測試配方&quot;</span>,
+          <span class="hljs-attr">description</span>: <span class="hljs-string">&quot;測試用配方&quot;</span>,
+          <span class="hljs-attr">fields</span>: [...]
+        });
+        form.<span class="hljs-title function_">save</span>(<span class="hljs-string">&quot;初始版本&quot;</span>);
+        <span class="hljs-keyword">return</span> form;
+      },
+      <span class="hljs-attr">assertions</span>: [
+        { <span class="hljs-attr">type</span>: <span class="hljs-string">&quot;assertEqual&quot;</span>, <span class="hljs-attr">params</span>: [<span class="hljs-string">&quot;{{result.version}}&quot;</span>, <span class="hljs-number">1</span>] },
+        { <span class="hljs-attr">type</span>: <span class="hljs-string">&quot;assertGreaterThan&quot;</span>, <span class="hljs-attr">params</span>: [<span class="hljs-string">&quot;{{result.id.length}}&quot;</span>, <span class="hljs-number">0</span>] }
+      ]
+    },
+    {
+      <span class="hljs-attr">name</span>: <span class="hljs-string">&quot;更新配方&quot;</span>,
+      <span class="hljs-attr">action</span>: <span class="hljs-function">() =&gt;</span> {
+        form.<span class="hljs-property">name</span> = <span class="hljs-string">&quot;測試配方（已更新）&quot;</span>;
+        form.<span class="hljs-title function_">save</span>(<span class="hljs-string">&quot;更新名稱&quot;</span>);
+        <span class="hljs-keyword">return</span> form;
+      },
+      <span class="hljs-attr">assertions</span>: [
+        { <span class="hljs-attr">type</span>: <span class="hljs-string">&quot;assertEqual&quot;</span>, <span class="hljs-attr">params</span>: [<span class="hljs-string">&quot;{{result.version}}&quot;</span>, <span class="hljs-number">2</span>] }
+      ]
+    }
+  ]
+}
+</code></pre>
+<p><strong>測試報告格式</strong>：</p>
+<pre><code class="language-javascript">{
+  <span class="hljs-attr">scenarioName</span>: <span class="hljs-string">&quot;配方建立與版本控制測試&quot;</span>,
+  <span class="hljs-attr">totalSteps</span>: <span class="hljs-number">5</span>,
+  <span class="hljs-attr">passedSteps</span>: <span class="hljs-number">5</span>,
+  <span class="hljs-attr">failedSteps</span>: <span class="hljs-number">0</span>,
+  <span class="hljs-attr">passRate</span>: <span class="hljs-number">100</span>,
+  <span class="hljs-attr">duration</span>: <span class="hljs-number">145</span>, <span class="hljs-comment">// ms</span>
+  <span class="hljs-attr">results</span>: [
+    {
+      <span class="hljs-attr">stepName</span>: <span class="hljs-string">&quot;建立新配方&quot;</span>,
+      <span class="hljs-attr">passed</span>: <span class="hljs-literal">true</span>,
+      <span class="hljs-attr">assertions</span>: [
+        { <span class="hljs-attr">type</span>: <span class="hljs-string">&quot;assertEqual&quot;</span>, <span class="hljs-attr">passed</span>: <span class="hljs-literal">true</span>, <span class="hljs-attr">message</span>: <span class="hljs-string">&quot;版本號正確&quot;</span> },
+        { <span class="hljs-attr">type</span>: <span class="hljs-string">&quot;assertGreaterThan&quot;</span>, <span class="hljs-attr">passed</span>: <span class="hljs-literal">true</span>, <span class="hljs-attr">message</span>: <span class="hljs-string">&quot;ID 已生成&quot;</span> }
+      ]
+    }
+  ]
+}
+</code></pre>
+<h4 id="362-資料模擬器datasimulator">3.6.2 資料模擬器（DataSimulator）</h4>
+<p><strong>功能描述</strong>：</p>
+<ul>
+<li>快速生成測試資料</li>
+<li>支援生成：部門、使用者、配方、工作流程、申請單、SPC 數據、品質回饋</li>
+<li>支援壓力測試（生成大量資料）</li>
+<li>支援清除所有模擬資料</li>
+</ul>
+<p><strong>生成策略</strong>：</p>
+<pre><code class="language-javascript"><span class="hljs-comment">// 部門生成：隨機中文部門名稱</span>
+<span class="hljs-title function_">generateDepartments</span>(count) <span class="hljs-comment">// 研發部、生產部、品保部等</span>
+
+<span class="hljs-comment">// 使用者生成：隨機中文姓名 + 職位</span>
+<span class="hljs-title function_">generateUsers</span>(count) <span class="hljs-comment">// 張三（研發工程師）、李四（品保主管）等</span>
+
+<span class="hljs-comment">// 配方生成：符合產業模組定義的完整配方</span>
+<span class="hljs-title function_">generateForms</span>(count) <span class="hljs-comment">// 包含所有必填欄位，數值在合理範圍內</span>
+
+<span class="hljs-comment">// 品質數據生成：支援指定品質分佈</span>
+<span class="hljs-title function_">generateProductionQualityData</span>({
+  <span class="hljs-attr">superhighQualityCount</span>: <span class="hljs-number">1</span>,  <span class="hljs-comment">// 超高品質（≥95分，自動認證）</span>
+  <span class="hljs-attr">highQualityCount</span>: <span class="hljs-number">2</span>,        <span class="hljs-comment">// 高品質（85-91分，候選）</span>
+  <span class="hljs-attr">mediumQualityCount</span>: <span class="hljs-number">0</span>,      <span class="hljs-comment">// 中等品質（80-84分）</span>
+  <span class="hljs-attr">lowQualityCount</span>: <span class="hljs-number">1</span>,         <span class="hljs-comment">// 低品質（&lt;80分）</span>
+  <span class="hljs-attr">minBatches</span>: <span class="hljs-number">25</span>,             <span class="hljs-comment">// 最小批次數（建議 ≥10 符合認證）</span>
+  <span class="hljs-attr">maxBatches</span>: <span class="hljs-number">25</span>              <span class="hljs-comment">// 最大批次數</span>
+})
+</code></pre>
+<p><strong>Golden Recipe 測試工具</strong>：</p>
+<pre><code class="language-javascript"><span class="hljs-comment">// 快速測試（一鍵完成所有流程）</span>
+<span class="hljs-title function_">runGoldenQuickTest</span>(<span class="hljs-params"></span>) {
+  <span class="hljs-comment">// 1. 清除舊資料</span>
+  <span class="hljs-comment">// 2. 生成 4 個配方</span>
+  <span class="hljs-comment">// 3. 生成混合品質數據（1超高 + 2高 + 1低）</span>
+  <span class="hljs-comment">// 4. 自動評分</span>
+  <span class="hljs-comment">// 5. 自動認證</span>
+  <span class="hljs-comment">// 6. 回報結果</span>
+}
+
+<span class="hljs-comment">// 分析評分（顯示所有配方的評分詳情）</span>
+<span class="hljs-title function_">debugGoldenScores</span>()
+
+<span class="hljs-comment">// 檢查候選（顯示所有候選配方）</span>
+<span class="hljs-title function_">checkGoldenCandidates</span>()
+
+<span class="hljs-comment">// 檢查已認證（顯示所有 Golden Recipe）</span>
+<span class="hljs-title function_">checkCertifiedGolden</span>()
+</code></pre>
+<hr>
+<h2 id="4-技術規格">4. 技術規格</h2>
+<h3 id="41-前端技術規格">4.1 前端技術規格</h3>
+<h4 id="411-專案結構">4.1.1 專案結構</h4>
+<pre><code>RMS/
+├── index.html                   # HTML 入口
+├── vite.config.js              # Vite 建置配置
+├── package.json                # 專案配置
+├── .gitignore                  # Git 忽略檔案
+├── README.md                   # 專案說明
+├── CHANGELOG.md                # 版本變更記錄
+├── docs/                        # 文件目錄
+│   ├── GOLDEN_RECIPE_DESIGN.md
+│   ├── TEMPLATE_MANAGEMENT_PLAN.md
+│   └── 工作說明書_RMS配方管理系統.md
+├── public/                      # 靜態資源
+└── src/
+    ├── main.js                 # 程式入口
+    ├── router.js               # 路由管理
+    ├── components/             # 元件目錄
+    │   ├── common/             # 通用元件
+    │   │   ├── Button.js
+    │   │   ├── Modal.js
+    │   │   ├── Table.js
+    │   │   └── ...
+    │   └── workflow/           # 工作流程元件
+    │       ├── WorkflowCanvas.js
+    │       ├── NodeEditor.js
+    │       └── ...
+    ├── pages/                  # 頁面元件
+    │   ├── DashboardPage.js
+    │   ├── FormsPage.js
+    │   ├── RecipeBuilderPage.js
+    │   ├── WorkflowBuilderPage.js
+    │   ├── ApprovalCenterPage.js
+    │   ├── GoldenRecipePage.js
+    │   ├── TemplatesPage.js
+    │   ├── SPCPage.js
+    │   ├── TestPage.js
+    │   ├── SimulatorPage.js
+    │   └── ...
+    ├── utils/                  # 工具函數
+    │   ├── storage.js          # LocalStorage 封裝
+    │   ├── dataModel.js        # 資料模型
+    │   ├── goldenRecipeModel.js
+    │   ├── versionControl.js
+    │   ├── workflowEngine.js   # 簽核流程引擎
+    │   ├── spcAnalysis.js      # SPC 分析工具
+    │   ├── dataSimulator.js    # 資料模擬器
+    │   ├── testRunner.js       # 測試執行器
+    │   ├── testScenarios.js    # 測試劇本
+    │   ├── auditLogger.js      # 審計日誌
+    │   └── authService.js      # 認證服務
+    ├── industries/             # 產業模組
+    │   └── amc-filter/
+    │       ├── fields.config.js
+    │       ├── validations.js
+    │       └── templates.js
+    ├── config/                 # 配置檔案
+    │   └── industry.config.js
+    └── styles/                 # 全域樣式
+        ├── global.css
+        ├── variables.css
+        └── utilities.css
+</code></pre>
+<h4 id="412-程式碼規範">4.1.2 程式碼規範</h4>
+<p><strong>JavaScript 規範</strong>：</p>
+<ul>
+<li>使用 ES6+ 語法（箭頭函數、解構賦值、模組化等）</li>
+<li>使用 <code>const</code> / <code>let</code>，避免 <code>var</code></li>
+<li>函數命名：camelCase（例如：<code>getUserById</code>）</li>
+<li>類別命名：PascalCase（例如：<code>FormModel</code>）</li>
+<li>常數命名：UPPER_SNAKE_CASE（例如：<code>STORAGE_KEY</code>）</li>
+<li>檔案命名：PascalCase for components（例如：<code>RecipeBuilderPage.js</code>）</li>
+<li>檔案命名：camelCase for utilities（例如：<code>dataModel.js</code>）</li>
+</ul>
+<p><strong>註解規範</strong>：</p>
+<pre><code class="language-javascript"><span class="hljs-comment">/**
+ * 儲存新版本
+ * <span class="hljs-doctag">@param</span> {<span class="hljs-type">string</span>} <span class="hljs-variable">entityId</span> - 實體 ID
+ * <span class="hljs-doctag">@param</span> {<span class="hljs-type">Object</span>} <span class="hljs-variable">data</span> - 資料內容
+ * <span class="hljs-doctag">@param</span> {<span class="hljs-type">string</span>} <span class="hljs-variable">comment</span> - 版本註解
+ * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">Object</span>} - 版本資訊
+ */</span>
+<span class="hljs-title function_">saveVersion</span>(<span class="hljs-params">entityId, data, comment = <span class="hljs-string">&#x27;&#x27;</span></span>) {
+  <span class="hljs-comment">// 實作邏輯</span>
+}
+</code></pre>
+<p><strong>錯誤處理</strong>：</p>
+<pre><code class="language-javascript"><span class="hljs-keyword">try</span> {
+  <span class="hljs-keyword">const</span> result = <span class="hljs-title function_">doSomething</span>();
+  <span class="hljs-keyword">return</span> { <span class="hljs-attr">success</span>: <span class="hljs-literal">true</span>, <span class="hljs-attr">data</span>: result };
+} <span class="hljs-keyword">catch</span> (error) {
+  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">error</span>(<span class="hljs-string">&#x27;操作失敗:&#x27;</span>, error);
+  <span class="hljs-keyword">return</span> { <span class="hljs-attr">success</span>: <span class="hljs-literal">false</span>, <span class="hljs-attr">error</span>: error.<span class="hljs-property">message</span> };
+}
+</code></pre>
+<h4 id="413-樣式規範">4.1.3 樣式規範</h4>
+<p><strong>CSS Variables（全域變數）</strong>：</p>
+<pre><code class="language-css"><span class="hljs-selector-pseudo">:root</span> {
+  <span class="hljs-comment">/* 主色 */</span>
+  <span class="hljs-attr">--color-primary</span>: <span class="hljs-number">#3b82f6</span>;
+  <span class="hljs-attr">--color-primary-dark</span>: <span class="hljs-number">#2563eb</span>;
+
+  <span class="hljs-comment">/* 灰階 */</span>
+  <span class="hljs-attr">--color-gray-50</span>: <span class="hljs-number">#f9fafb</span>;
+  <span class="hljs-attr">--color-gray-100</span>: <span class="hljs-number">#f3f4f6</span>;
+  <span class="hljs-attr">--color-gray-200</span>: <span class="hljs-number">#e5e7eb</span>;
+  <span class="hljs-comment">/* ... */</span>
+
+  <span class="hljs-comment">/* 語意色 */</span>
+  <span class="hljs-attr">--color-success</span>: <span class="hljs-number">#10b981</span>;
+  <span class="hljs-attr">--color-warning</span>: <span class="hljs-number">#f59e0b</span>;
+  <span class="hljs-attr">--color-danger</span>: <span class="hljs-number">#ef4444</span>;
+
+  <span class="hljs-comment">/* 字體 */</span>
+  <span class="hljs-attr">--font-family</span>: -apple-system, BlinkMacSystemFont, <span class="hljs-string">&quot;Segoe UI&quot;</span>, Roboto, sans-serif;
+  <span class="hljs-attr">--font-mono</span>: <span class="hljs-string">&quot;SF Mono&quot;</span>, Monaco, Consolas, monospace;
+
+  <span class="hljs-comment">/* 間距 */</span>
+  <span class="hljs-attr">--spacing-xs</span>: <span class="hljs-number">4px</span>;
+  <span class="hljs-attr">--spacing-sm</span>: <span class="hljs-number">8px</span>;
+  <span class="hljs-attr">--spacing-md</span>: <span class="hljs-number">16px</span>;
+  <span class="hljs-attr">--spacing-lg</span>: <span class="hljs-number">24px</span>;
+  <span class="hljs-attr">--spacing-xl</span>: <span class="hljs-number">32px</span>;
+}
+</code></pre>
+<p><strong>Utility Classes</strong>：</p>
+<pre><code class="language-css"><span class="hljs-comment">/* 文字 */</span>
+<span class="hljs-selector-class">.text-xs</span> { <span class="hljs-attribute">font-size</span>: <span class="hljs-number">12px</span>; }
+<span class="hljs-selector-class">.text-sm</span> { <span class="hljs-attribute">font-size</span>: <span class="hljs-number">14px</span>; }
+<span class="hljs-selector-class">.text-base</span> { <span class="hljs-attribute">font-size</span>: <span class="hljs-number">16px</span>; }
+<span class="hljs-selector-class">.text-center</span> { <span class="hljs-attribute">text-align</span>: center; }
+<span class="hljs-selector-class">.font-mono</span> { <span class="hljs-attribute">font-family</span>: <span class="hljs-built_in">var</span>(--font-mono); }
+
+<span class="hljs-comment">/* Badge 樣式 */</span>
+<span class="hljs-selector-class">.badge</span> { <span class="hljs-attribute">display</span>: inline-block; <span class="hljs-attribute">padding</span>: <span class="hljs-number">2px</span> <span class="hljs-number">8px</span>; <span class="hljs-attribute">border-radius</span>: <span class="hljs-number">4px</span>; }
+<span class="hljs-selector-class">.badge-success</span> { <span class="hljs-attribute">background</span>: <span class="hljs-number">#10b981</span>; <span class="hljs-attribute">color</span>: white; }
+<span class="hljs-selector-class">.badge-warning</span> { <span class="hljs-attribute">background</span>: <span class="hljs-number">#f59e0b</span>; <span class="hljs-attribute">color</span>: white; }
+</code></pre>
+<h3 id="42-後端技術規格未來擴展">4.2 後端技術規格（未來擴展）</h3>
+<h4 id="421-api-服務架構">4.2.1 API 服務架構</h4>
+<pre><code>Node.js + Express
+├── /api/v1/recipes          # 配方管理 API
+├── /api/v1/workflows        # 工作流程 API
+├── /api/v1/approvals        # 簽核 API
+├── /api/v1/quality          # 品質數據 API
+├── /api/v1/spc              # SPC 數據 API
+├── /api/v1/users            # 使用者管理 API
+└── /api/v1/webhooks         # Webhook 端點
+</code></pre>
+<h4 id="422-資料庫設計postgresql">4.2.2 資料庫設計（PostgreSQL）</h4>
+<p><strong>主要資料表</strong>：</p>
+<ul>
+<li><code>forms</code>：配方定義</li>
+<li><code>form_versions</code>：配方版本</li>
+<li><code>form_instances</code>：申請單</li>
+<li><code>workflows</code>：工作流程定義</li>
+<li><code>approval_history</code>：簽核歷史</li>
+<li><code>quality_feedbacks</code>：品質回饋數據</li>
+<li><code>spc_data</code>：SPC 量測數據</li>
+<li><code>users</code>：使用者</li>
+<li><code>departments</code>：部門</li>
+<li><code>audit_logs</code>：操作日誌</li>
+</ul>
+<hr>
+<h2 id="5-資料模型">5. 資料模型</h2>
+<h3 id="51-配方模型formmodel">5.1 配方模型（FormModel）</h3>
+<pre><code class="language-javascript">{
+  <span class="hljs-attr">id</span>: <span class="hljs-string">&quot;form-001&quot;</span>,                    <span class="hljs-comment">// 配方 ID（自動生成）</span>
+  <span class="hljs-attr">name</span>: <span class="hljs-string">&quot;高效化學濾網配方&quot;</span>,          <span class="hljs-comment">// 配方名稱</span>
+  <span class="hljs-attr">description</span>: <span class="hljs-string">&quot;適用於高污染環境&quot;</span>,   <span class="hljs-comment">// 配方描述</span>
+  <span class="hljs-attr">fields</span>: [                           <span class="hljs-comment">// 配方欄位陣列</span>
+    {
+      <span class="hljs-attr">name</span>: <span class="hljs-string">&quot;recipeNo&quot;</span>,               <span class="hljs-comment">// 欄位名稱</span>
+      <span class="hljs-attr">label</span>: <span class="hljs-string">&quot;配方編號&quot;</span>,              <span class="hljs-comment">// 欄位標籤</span>
+      <span class="hljs-attr">value</span>: <span class="hljs-string">&quot;AMC-2025-001&quot;</span>,          <span class="hljs-comment">// 欄位值</span>
+      <span class="hljs-attr">type</span>: <span class="hljs-string">&quot;text&quot;</span>,                   <span class="hljs-comment">// 欄位類型</span>
+      <span class="hljs-attr">required</span>: <span class="hljs-literal">true</span>                  <span class="hljs-comment">// 是否必填</span>
+    },
+    <span class="hljs-comment">// ... 更多欄位</span>
+  ],
+  <span class="hljs-attr">industry</span>: <span class="hljs-string">&quot;amc-filter&quot;</span>,             <span class="hljs-comment">// 產業模組</span>
+  <span class="hljs-attr">createdAt</span>: <span class="hljs-number">1728456789000</span>,           <span class="hljs-comment">// 建立時間（timestamp）</span>
+  <span class="hljs-attr">updatedAt</span>: <span class="hljs-number">1728456789000</span>,           <span class="hljs-comment">// 更新時間（timestamp）</span>
+
+  <span class="hljs-comment">// Golden Recipe 相關</span>
+  <span class="hljs-attr">goldenScore</span>: <span class="hljs-number">95.3</span>,                  <span class="hljs-comment">// Golden 評分（0-100）</span>
+  <span class="hljs-attr">qualityStats</span>: {                     <span class="hljs-comment">// 品質統計</span>
+    <span class="hljs-attr">totalExecutions</span>: <span class="hljs-number">25</span>,              <span class="hljs-comment">// 總執行次數</span>
+    <span class="hljs-attr">avgYield</span>: <span class="hljs-number">98.5</span>,                   <span class="hljs-comment">// 平均良率 (%)</span>
+    <span class="hljs-attr">avgEfficiency</span>: <span class="hljs-number">99.2</span>,              <span class="hljs-comment">// 平均效率 (%)</span>
+    <span class="hljs-attr">avgLifespan</span>: <span class="hljs-number">28</span>,                  <span class="hljs-comment">// 平均壽命 (月)</span>
+    <span class="hljs-attr">avgCpk</span>: <span class="hljs-number">1.67</span>,                     <span class="hljs-comment">// 平均 CPK</span>
+    <span class="hljs-attr">avgDefectRate</span>: <span class="hljs-number">1.5</span>,               <span class="hljs-comment">// 平均缺陷率 (%)</span>
+    <span class="hljs-attr">lastExecutionDate</span>: <span class="hljs-string">&quot;2025-10-11T10:00:00.000Z&quot;</span>,
+    <span class="hljs-attr">qualityTrend</span>: <span class="hljs-string">&quot;improving&quot;</span>         <span class="hljs-comment">// improving, stable, declining</span>
+  },
+  <span class="hljs-attr">isGolden</span>: <span class="hljs-literal">true</span>,                     <span class="hljs-comment">// 是否為 Golden Recipe</span>
+  <span class="hljs-attr">goldenCertifiedAt</span>: <span class="hljs-string">&quot;2025-10-11T00:00:00.000Z&quot;</span>,
+  <span class="hljs-attr">goldenCertifiedBy</span>: <span class="hljs-string">&quot;SYSTEM-AUTO&quot;</span>,   <span class="hljs-comment">// SYSTEM-AUTO or 使用者 ID</span>
+  <span class="hljs-attr">goldenCertificationReason</span>: <span class="hljs-string">&quot;自動認證：符合所有 Golden Recipe 標準&quot;</span>,
+  <span class="hljs-attr">certificationStatus</span>: <span class="hljs-string">&quot;approved&quot;</span>,    <span class="hljs-comment">// pending, approved, rejected</span>
+  <span class="hljs-attr">reviewers</span>: [                        <span class="hljs-comment">// 審核者清單（手動認證時）</span>
+    {
+      <span class="hljs-attr">id</span>: <span class="hljs-string">&quot;user-002&quot;</span>,
+      <span class="hljs-attr">name</span>: <span class="hljs-string">&quot;李主管&quot;</span>,
+      <span class="hljs-attr">status</span>: <span class="hljs-string">&quot;approved&quot;</span>,             <span class="hljs-comment">// pending, approved, rejected</span>
+      <span class="hljs-attr">approvedAt</span>: <span class="hljs-string">&quot;2025-10-11T00:00:00.000Z&quot;</span>,
+      <span class="hljs-attr">comment</span>: <span class="hljs-string">&quot;符合標準&quot;</span>
+    }
+  ]
+}
+</code></pre>
+<h3 id="52-工作流程模型workflowmodel">5.2 工作流程模型（WorkflowModel）</h3>
+<pre><code class="language-javascript">{
+  <span class="hljs-attr">id</span>: <span class="hljs-string">&quot;workflow-001&quot;</span>,
+  <span class="hljs-attr">name</span>: <span class="hljs-string">&quot;標準配方審核流程&quot;</span>,
+  <span class="hljs-attr">formId</span>: <span class="hljs-string">&quot;form-001&quot;</span>,                 <span class="hljs-comment">// 關聯的配方 ID</span>
+  <span class="hljs-attr">nodes</span>: [
+    {
+      <span class="hljs-attr">id</span>: <span class="hljs-string">&quot;node-001&quot;</span>,
+      <span class="hljs-attr">type</span>: <span class="hljs-string">&quot;start&quot;</span>,                  <span class="hljs-comment">// 節點類型</span>
+      <span class="hljs-attr">label</span>: <span class="hljs-string">&quot;開始&quot;</span>,
+      <span class="hljs-attr">position</span>: { <span class="hljs-attr">x</span>: <span class="hljs-number">100</span>, <span class="hljs-attr">y</span>: <span class="hljs-number">100</span> }
+    },
+    {
+      <span class="hljs-attr">id</span>: <span class="hljs-string">&quot;node-002&quot;</span>,
+      <span class="hljs-attr">type</span>: <span class="hljs-string">&quot;approval&quot;</span>,               <span class="hljs-comment">// 單簽節點</span>
+      <span class="hljs-attr">label</span>: <span class="hljs-string">&quot;部門主管審核&quot;</span>,
+      <span class="hljs-attr">position</span>: { <span class="hljs-attr">x</span>: <span class="hljs-number">100</span>, <span class="hljs-attr">y</span>: <span class="hljs-number">200</span> },
+      <span class="hljs-attr">config</span>: {
+        <span class="hljs-attr">approvers</span>: [<span class="hljs-string">&quot;user-002&quot;</span>],      <span class="hljs-comment">// 簽核人 ID</span>
+        <span class="hljs-attr">mode</span>: <span class="hljs-string">&quot;single&quot;</span>                <span class="hljs-comment">// single, all, any</span>
+      }
+    },
+    {
+      <span class="hljs-attr">id</span>: <span class="hljs-string">&quot;node-003&quot;</span>,
+      <span class="hljs-attr">type</span>: <span class="hljs-string">&quot;parallel&quot;</span>,               <span class="hljs-comment">// 並簽節點</span>
+      <span class="hljs-attr">label</span>: <span class="hljs-string">&quot;品保與研發並簽&quot;</span>,
+      <span class="hljs-attr">position</span>: { <span class="hljs-attr">x</span>: <span class="hljs-number">100</span>, <span class="hljs-attr">y</span>: <span class="hljs-number">300</span> },
+      <span class="hljs-attr">config</span>: {
+        <span class="hljs-attr">approvers</span>: [<span class="hljs-string">&quot;user-003&quot;</span>, <span class="hljs-string">&quot;user-004&quot;</span>],
+        <span class="hljs-attr">mode</span>: <span class="hljs-string">&quot;all&quot;</span>                   <span class="hljs-comment">// 所有人都要同意</span>
+      }
+    },
+    {
+      <span class="hljs-attr">id</span>: <span class="hljs-string">&quot;node-004&quot;</span>,
+      <span class="hljs-attr">type</span>: <span class="hljs-string">&quot;condition&quot;</span>,              <span class="hljs-comment">// 條件分支節點</span>
+      <span class="hljs-attr">label</span>: <span class="hljs-string">&quot;金額判斷&quot;</span>,
+      <span class="hljs-attr">position</span>: { <span class="hljs-attr">x</span>: <span class="hljs-number">100</span>, <span class="hljs-attr">y</span>: <span class="hljs-number">400</span> },
+      <span class="hljs-attr">config</span>: {
+        <span class="hljs-attr">condition</span>: {
+          <span class="hljs-attr">field</span>: <span class="hljs-string">&quot;totalCost&quot;</span>,
+          <span class="hljs-attr">operator</span>: <span class="hljs-string">&quot;&gt;&quot;</span>,
+          <span class="hljs-attr">value</span>: <span class="hljs-number">1000000</span>
+        },
+        <span class="hljs-attr">truePath</span>: <span class="hljs-string">&quot;node-005&quot;</span>,         <span class="hljs-comment">// 條件為真時的下一節點</span>
+        <span class="hljs-attr">falsePath</span>: <span class="hljs-string">&quot;node-006&quot;</span>         <span class="hljs-comment">// 條件為假時的下一節點</span>
+      }
+    },
+    {
+      <span class="hljs-attr">id</span>: <span class="hljs-string">&quot;node-005&quot;</span>,
+      <span class="hljs-attr">type</span>: <span class="hljs-string">&quot;end&quot;</span>,
+      <span class="hljs-attr">label</span>: <span class="hljs-string">&quot;結束&quot;</span>,
+      <span class="hljs-attr">position</span>: { <span class="hljs-attr">x</span>: <span class="hljs-number">100</span>, <span class="hljs-attr">y</span>: <span class="hljs-number">500</span> }
+    }
+  ],
+  <span class="hljs-attr">connections</span>: [                      <span class="hljs-comment">// 節點連線</span>
+    { <span class="hljs-attr">from</span>: <span class="hljs-string">&quot;node-001&quot;</span>, <span class="hljs-attr">to</span>: <span class="hljs-string">&quot;node-002&quot;</span> },
+    { <span class="hljs-attr">from</span>: <span class="hljs-string">&quot;node-002&quot;</span>, <span class="hljs-attr">to</span>: <span class="hljs-string">&quot;node-003&quot;</span> },
+    { <span class="hljs-attr">from</span>: <span class="hljs-string">&quot;node-003&quot;</span>, <span class="hljs-attr">to</span>: <span class="hljs-string">&quot;node-004&quot;</span> },
+    { <span class="hljs-attr">from</span>: <span class="hljs-string">&quot;node-004&quot;</span>, <span class="hljs-attr">to</span>: <span class="hljs-string">&quot;node-005&quot;</span> }
+  ],
+  <span class="hljs-attr">createdAt</span>: <span class="hljs-number">1728456789000</span>,
+  <span class="hljs-attr">updatedAt</span>: <span class="hljs-number">1728456789000</span>
+}
+</code></pre>
+<h3 id="53-申請單模型forminstancemodel">5.3 申請單模型（FormInstanceModel）</h3>
+<pre><code class="language-javascript">{
+  <span class="hljs-attr">id</span>: <span class="hljs-string">&quot;instance-001&quot;</span>,
+  <span class="hljs-attr">applicationNo</span>: <span class="hljs-string">&quot;20251011-001&quot;</span>,      <span class="hljs-comment">// 申請編號</span>
+  <span class="hljs-attr">formId</span>: <span class="hljs-string">&quot;form-001&quot;</span>,                 <span class="hljs-comment">// 配方 ID</span>
+  <span class="hljs-attr">formName</span>: <span class="hljs-string">&quot;高效化學濾網配方&quot;</span>,       <span class="hljs-comment">// 配方名稱</span>
+  <span class="hljs-attr">workflowId</span>: <span class="hljs-string">&quot;workflow-001&quot;</span>,         <span class="hljs-comment">// 工作流程 ID</span>
+  <span class="hljs-attr">workflowName</span>: <span class="hljs-string">&quot;標準配方審核流程&quot;</span>,   <span class="hljs-comment">// 流程名稱</span>
+  <span class="hljs-attr">applicant</span>: <span class="hljs-string">&quot;張三&quot;</span>,                  <span class="hljs-comment">// 申請人</span>
+  <span class="hljs-attr">department</span>: <span class="hljs-string">&quot;研發部&quot;</span>,               <span class="hljs-comment">// 部門</span>
+  <span class="hljs-attr">data</span>: {                             <span class="hljs-comment">// 申請資料（配方完整資料）</span>
+    <span class="hljs-attr">recipeNo</span>: <span class="hljs-string">&quot;AMC-2025-001&quot;</span>,
+    <span class="hljs-attr">productName</span>: <span class="hljs-string">&quot;高效化學濾網&quot;</span>,
+    <span class="hljs-comment">// ... 所有配方欄位</span>
+  },
+  <span class="hljs-attr">status</span>: <span class="hljs-string">&quot;pending&quot;</span>,                  <span class="hljs-comment">// draft, pending, approved, rejected</span>
+  <span class="hljs-attr">currentNodeId</span>: <span class="hljs-string">&quot;node-002&quot;</span>,          <span class="hljs-comment">// 當前節點 ID</span>
+  <span class="hljs-attr">history</span>: [                          <span class="hljs-comment">// 簽核歷史</span>
+    {
+      <span class="hljs-attr">nodeId</span>: <span class="hljs-string">&quot;node-001&quot;</span>,
+      <span class="hljs-attr">nodeName</span>: <span class="hljs-string">&quot;開始&quot;</span>,
+      <span class="hljs-attr">userId</span>: <span class="hljs-string">&quot;user-001&quot;</span>,
+      <span class="hljs-attr">userName</span>: <span class="hljs-string">&quot;張三&quot;</span>,
+      <span class="hljs-attr">action</span>: <span class="hljs-string">&quot;submit&quot;</span>,
+      <span class="hljs-attr">comment</span>: <span class="hljs-string">&quot;提交配方審核&quot;</span>,
+      <span class="hljs-attr">timestamp</span>: <span class="hljs-number">1728456789000</span>
+    },
+    {
+      <span class="hljs-attr">nodeId</span>: <span class="hljs-string">&quot;node-002&quot;</span>,
+      <span class="hljs-attr">nodeName</span>: <span class="hljs-string">&quot;部門主管審核&quot;</span>,
+      <span class="hljs-attr">userId</span>: <span class="hljs-string">&quot;user-002&quot;</span>,
+      <span class="hljs-attr">userName</span>: <span class="hljs-string">&quot;李主管&quot;</span>,
+      <span class="hljs-attr">action</span>: <span class="hljs-string">&quot;approve&quot;</span>,
+      <span class="hljs-attr">comment</span>: <span class="hljs-string">&quot;核准通過&quot;</span>,
+      <span class="hljs-attr">timestamp</span>: <span class="hljs-number">1728456889000</span>
+    }
+  ],
+  <span class="hljs-attr">parallelState</span>: {},                  <span class="hljs-comment">// 並簽狀態追蹤</span>
+  <span class="hljs-attr">sequentialState</span>: {},                <span class="hljs-comment">// 串簽狀態追蹤</span>
+  <span class="hljs-attr">createdAt</span>: <span class="hljs-number">1728456789000</span>,
+  <span class="hljs-attr">updatedAt</span>: <span class="hljs-number">1728456889000</span>
+}
+</code></pre>
+<h3 id="54-版本控制模型version">5.4 版本控制模型（Version）</h3>
+<pre><code class="language-javascript">{
+  <span class="hljs-attr">id</span>: <span class="hljs-string">&quot;form-001_v1728456789000&quot;</span>,
+  <span class="hljs-attr">entityType</span>: <span class="hljs-string">&quot;form&quot;</span>,                 <span class="hljs-comment">// form, workflow, template</span>
+  <span class="hljs-attr">entityId</span>: <span class="hljs-string">&quot;form-001&quot;</span>,
+  <span class="hljs-attr">version</span>: <span class="hljs-number">3</span>,                         <span class="hljs-comment">// 版本號</span>
+  <span class="hljs-attr">data</span>: {                             <span class="hljs-comment">// 完整資料快照</span>
+    <span class="hljs-attr">id</span>: <span class="hljs-string">&quot;form-001&quot;</span>,
+    <span class="hljs-attr">name</span>: <span class="hljs-string">&quot;高效化學濾網配方&quot;</span>,
+    <span class="hljs-attr">fields</span>: [<span class="hljs-comment">/* ... */</span>],
+    <span class="hljs-comment">// ... 所有欄位</span>
+  },
+  <span class="hljs-attr">comment</span>: <span class="hljs-string">&quot;調整濃度參數從 15% 到 18%&quot;</span>,
+  <span class="hljs-attr">createdBy</span>: <span class="hljs-string">&quot;張三&quot;</span>,
+  <span class="hljs-attr">createdById</span>: <span class="hljs-string">&quot;user-001&quot;</span>,
+  <span class="hljs-attr">createdAt</span>: <span class="hljs-string">&quot;2025-10-11T10:30:00.000Z&quot;</span>,
+  <span class="hljs-attr">size</span>: <span class="hljs-number">2048</span>                          <span class="hljs-comment">// JSON 字串大小（bytes）</span>
+}
+</code></pre>
+<h3 id="55-品質回饋模型qualityfeedback">5.5 品質回饋模型（QualityFeedback）</h3>
+<p>參見 <a href="#341-%E5%93%81%E8%B3%AA%E5%9B%9E%E9%A5%8B%E6%95%B8%E6%93%9A%E6%A8%A1%E5%9E%8Bqualityfeedbackmodel">3.4.1 品質回饋數據模型</a></p>
+<h3 id="56-spc-數據模型spcdata">5.6 SPC 數據模型（SPCData）</h3>
+<pre><code class="language-javascript">{
+  <span class="hljs-attr">id</span>: <span class="hljs-string">&quot;spc-001&quot;</span>,
+  <span class="hljs-attr">recipeId</span>: <span class="hljs-string">&quot;form-001&quot;</span>,
+  <span class="hljs-attr">batchNo</span>: <span class="hljs-string">&quot;BATCH-20251011-001&quot;</span>,
+  <span class="hljs-attr">parameter</span>: <span class="hljs-string">&quot;temperature&quot;</span>,           <span class="hljs-comment">// 量測參數名稱</span>
+  <span class="hljs-attr">parameterName</span>: <span class="hljs-string">&quot;反應溫度&quot;</span>,
+  <span class="hljs-attr">value</span>: <span class="hljs-number">85.2</span>,                        <span class="hljs-comment">// 量測值</span>
+  <span class="hljs-attr">unit</span>: <span class="hljs-string">&quot;°C&quot;</span>,                         <span class="hljs-comment">// 單位</span>
+  <span class="hljs-attr">target</span>: <span class="hljs-number">85</span>,                         <span class="hljs-comment">// 目標值</span>
+  <span class="hljs-attr">usl</span>: <span class="hljs-number">90</span>,                            <span class="hljs-comment">// 規格上限</span>
+  <span class="hljs-attr">lsl</span>: <span class="hljs-number">80</span>,                            <span class="hljs-comment">// 規格下限</span>
+  <span class="hljs-attr">ucl</span>: <span class="hljs-number">88</span>,                            <span class="hljs-comment">// 管制上限（+3σ）</span>
+  <span class="hljs-attr">lcl</span>: <span class="hljs-number">82</span>,                            <span class="hljs-comment">// 管制下限（-3σ）</span>
+  <span class="hljs-attr">timestamp</span>: <span class="hljs-string">&quot;2025-10-11T10:00:00.000Z&quot;</span>,
+  <span class="hljs-attr">operator</span>: <span class="hljs-string">&quot;李操作員&quot;</span>,
+  <span class="hljs-attr">equipment</span>: <span class="hljs-string">&quot;反應槽 A&quot;</span>,
+  <span class="hljs-attr">shift</span>: <span class="hljs-string">&quot;早班&quot;</span>,
+  <span class="hljs-attr">line</span>: <span class="hljs-string">&quot;產線 A&quot;</span>,
+  <span class="hljs-attr">notes</span>: <span class="hljs-string">&quot;&quot;</span>,
+  <span class="hljs-attr">source</span>: <span class="hljs-string">&quot;ECU&quot;</span>                       <span class="hljs-comment">// ECU, API, MANUAL, FILE</span>
+}
+</code></pre>
+<h3 id="57-使用者模型usermodel">5.7 使用者模型（UserModel）</h3>
+<pre><code class="language-javascript">{
+  <span class="hljs-attr">id</span>: <span class="hljs-string">&quot;user-001&quot;</span>,
+  <span class="hljs-attr">account</span>: <span class="hljs-string">&quot;user001&quot;</span>,                 <span class="hljs-comment">// 帳號</span>
+  <span class="hljs-attr">name</span>: <span class="hljs-string">&quot;張三&quot;</span>,                       <span class="hljs-comment">// 姓名</span>
+  <span class="hljs-attr">department</span>: <span class="hljs-string">&quot;研發部&quot;</span>,               <span class="hljs-comment">// 部門</span>
+  <span class="hljs-attr">role</span>: <span class="hljs-string">&quot;一般員工&quot;</span>,                   <span class="hljs-comment">// 一般員工, 主管, 系統管理員</span>
+  <span class="hljs-attr">email</span>: <span class="hljs-string">&quot;user001@example.com&quot;</span>,
+  <span class="hljs-attr">phone</span>: <span class="hljs-string">&quot;0912-345-678&quot;</span>,
+  <span class="hljs-attr">status</span>: <span class="hljs-string">&quot;在職&quot;</span>,                     <span class="hljs-comment">// 在職, 離職</span>
+  <span class="hljs-attr">password</span>: <span class="hljs-string">&quot;hashed_password&quot;</span>,        <span class="hljs-comment">// 加密後的密碼（生產環境需使用 bcrypt）</span>
+  <span class="hljs-attr">createdAt</span>: <span class="hljs-number">1728456789000</span>,
+  <span class="hljs-attr">updatedAt</span>: <span class="hljs-number">1728456789000</span>
+}
+</code></pre>
+<h3 id="58-操作日誌模型auditlog">5.8 操作日誌模型（AuditLog）</h3>
+<pre><code class="language-javascript">{
+  <span class="hljs-attr">id</span>: <span class="hljs-string">&quot;log-001&quot;</span>,
+  <span class="hljs-attr">timestamp</span>: <span class="hljs-number">1728456789000</span>,
+  <span class="hljs-attr">userId</span>: <span class="hljs-string">&quot;user-001&quot;</span>,
+  <span class="hljs-attr">userName</span>: <span class="hljs-string">&quot;張三&quot;</span>,
+  <span class="hljs-attr">userAccount</span>: <span class="hljs-string">&quot;user001&quot;</span>,
+  <span class="hljs-attr">action</span>: <span class="hljs-string">&quot;create&quot;</span>,                   <span class="hljs-comment">// login, logout, create, update, delete, approve, reject</span>
+  <span class="hljs-attr">module</span>: <span class="hljs-string">&quot;form&quot;</span>,                     <span class="hljs-comment">// form, workflow, application, user, department, auth</span>
+  <span class="hljs-attr">targetId</span>: <span class="hljs-string">&quot;form-001&quot;</span>,
+  <span class="hljs-attr">targetName</span>: <span class="hljs-string">&quot;高效化學濾網配方&quot;</span>,
+  <span class="hljs-attr">result</span>: <span class="hljs-string">&quot;success&quot;</span>,                  <span class="hljs-comment">// success, failure</span>
+  <span class="hljs-attr">ipAddress</span>: <span class="hljs-string">&quot;192.168.1.100&quot;</span>,
+  <span class="hljs-attr">details</span>: <span class="hljs-string">&quot;建立配方：高效化學濾網配方&quot;</span>,
+  <span class="hljs-attr">changes</span>: {                          <span class="hljs-comment">// 變更內容（update 時）</span>
+    <span class="hljs-attr">oldValue</span>: { <span class="hljs-attr">concentration</span>: <span class="hljs-number">15</span> },
+    <span class="hljs-attr">newValue</span>: { <span class="hljs-attr">concentration</span>: <span class="hljs-number">18</span> }
+  }
+}
+</code></pre>
+<hr>
+<h2 id="6-api-介面規格">6. API 介面規格</h2>
+<h3 id="61-配方管理-api">6.1 配方管理 API</h3>
+<h4 id="611-查詢配方清單">6.1.1 查詢配方清單</h4>
+<p><strong>端點</strong>：<code>GET /api/v1/recipes</code></p>
+<p><strong>查詢參數</strong>：</p>
+<ul>
+<li><code>status</code> (string, optional): 配方狀態（<code>all</code>, <code>approved</code>, <code>pending</code>, <code>draft</code>）</li>
+<li><code>industry</code> (string, optional): 產業模組（<code>amc-filter</code>, <code>food</code>, <code>pharma</code>）</li>
+<li><code>isGolden</code> (boolean, optional): 是否為 Golden Recipe</li>
+<li><code>page</code> (number, optional): 頁碼，預設 1</li>
+<li><code>limit</code> (number, optional): 每頁筆數，預設 20</li>
+</ul>
+<p><strong>回應範例</strong>：</p>
+<pre><code class="language-json"><span class="hljs-punctuation">{</span>
+  <span class="hljs-attr">&quot;success&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-keyword">true</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">&quot;data&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+    <span class="hljs-attr">&quot;recipes&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span>
+      <span class="hljs-punctuation">{</span>
+        <span class="hljs-attr">&quot;id&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;form-001&quot;</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">&quot;recipeNo&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;AMC-2025-001&quot;</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">&quot;name&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;高效化學濾網配方&quot;</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">&quot;version&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;1.2&quot;</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">&quot;status&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;approved&quot;</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">&quot;goldenScore&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">95.3</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">&quot;isGolden&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-keyword">true</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">&quot;createdAt&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;2025-10-01T00:00:00.000Z&quot;</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">&quot;updatedAt&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;2025-10-11T00:00:00.000Z&quot;</span>
+      <span class="hljs-punctuation">}</span>
+    <span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">&quot;total&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">42</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">&quot;page&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">1</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">&quot;limit&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">20</span>
+  <span class="hljs-punctuation">}</span>
+<span class="hljs-punctuation">}</span>
+</code></pre>
+<h4 id="612-查詢單一配方">6.1.2 查詢單一配方</h4>
+<p><strong>端點</strong>：<code>GET /api/v1/recipes/:id</code></p>
+<p><strong>回應範例</strong>：</p>
+<pre><code class="language-json"><span class="hljs-punctuation">{</span>
+  <span class="hljs-attr">&quot;success&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-keyword">true</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">&quot;data&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+    <span class="hljs-attr">&quot;recipe&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+      <span class="hljs-attr">&quot;id&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;form-001&quot;</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">&quot;recipeNo&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;AMC-2025-001&quot;</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">&quot;name&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;高效化學濾網配方&quot;</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">&quot;description&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;適用於高污染環境&quot;</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">&quot;fields&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span>
+        <span class="hljs-punctuation">{</span>
+          <span class="hljs-attr">&quot;name&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;productName&quot;</span><span class="hljs-punctuation">,</span>
+          <span class="hljs-attr">&quot;label&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;產品名稱&quot;</span><span class="hljs-punctuation">,</span>
+          <span class="hljs-attr">&quot;value&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;高效化學濾網&quot;</span><span class="hljs-punctuation">,</span>
+          <span class="hljs-attr">&quot;type&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;text&quot;</span>
+        <span class="hljs-punctuation">}</span>
+      <span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">&quot;goldenScore&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">95.3</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">&quot;qualityStats&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+        <span class="hljs-attr">&quot;totalExecutions&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">25</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">&quot;avgYield&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">98.5</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">&quot;avgEfficiency&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">99.2</span>
+      <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">&quot;isGolden&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-keyword">true</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">&quot;createdAt&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;2025-10-01T00:00:00.000Z&quot;</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">&quot;updatedAt&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;2025-10-11T00:00:00.000Z&quot;</span>
+    <span class="hljs-punctuation">}</span>
+  <span class="hljs-punctuation">}</span>
+<span class="hljs-punctuation">}</span>
+</code></pre>
+<h4 id="613-建立配方">6.1.3 建立配方</h4>
+<p><strong>端點</strong>：<code>POST /api/v1/recipes</code></p>
+<p><strong>請求本文</strong>：</p>
+<pre><code class="language-json"><span class="hljs-punctuation">{</span>
+  <span class="hljs-attr">&quot;name&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;高效化學濾網配方&quot;</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">&quot;description&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;適用於高污染環境&quot;</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">&quot;industry&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;amc-filter&quot;</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">&quot;fields&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span>
+    <span class="hljs-punctuation">{</span>
+      <span class="hljs-attr">&quot;name&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;productName&quot;</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">&quot;label&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;產品名稱&quot;</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">&quot;value&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;高效化學濾網&quot;</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">&quot;type&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;text&quot;</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">&quot;required&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-keyword">true</span>
+    <span class="hljs-punctuation">}</span>
+  <span class="hljs-punctuation">]</span>
+<span class="hljs-punctuation">}</span>
+</code></pre>
+<p><strong>回應範例</strong>：</p>
+<pre><code class="language-json"><span class="hljs-punctuation">{</span>
+  <span class="hljs-attr">&quot;success&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-keyword">true</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">&quot;data&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+    <span class="hljs-attr">&quot;recipe&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+      <span class="hljs-attr">&quot;id&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;form-042&quot;</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">&quot;recipeNo&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;AMC-2025-042&quot;</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">&quot;name&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;高效化學濾網配方&quot;</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">&quot;version&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;1.0&quot;</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">&quot;createdAt&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;2025-10-11T10:00:00.000Z&quot;</span>
+    <span class="hljs-punctuation">}</span>
+  <span class="hljs-punctuation">}</span>
+<span class="hljs-punctuation">}</span>
+</code></pre>
+<h4 id="614-更新配方">6.1.4 更新配方</h4>
+<p><strong>端點</strong>：<code>PUT /api/v1/recipes/:id</code></p>
+<p><strong>請求本文</strong>：</p>
+<pre><code class="language-json"><span class="hljs-punctuation">{</span>
+  <span class="hljs-attr">&quot;name&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;高效化學濾網配方（已優化）&quot;</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">&quot;fields&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-comment">/* 更新後的欄位 */</span><span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">&quot;versionComment&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;優化濃度參數&quot;</span>
+<span class="hljs-punctuation">}</span>
+</code></pre>
+<p><strong>回應範例</strong>：</p>
+<pre><code class="language-json"><span class="hljs-punctuation">{</span>
+  <span class="hljs-attr">&quot;success&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-keyword">true</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">&quot;data&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+    <span class="hljs-attr">&quot;recipe&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+      <span class="hljs-attr">&quot;id&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;form-042&quot;</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">&quot;recipeNo&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;AMC-2025-042&quot;</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">&quot;name&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;高效化學濾網配方（已優化）&quot;</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">&quot;version&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;1.1&quot;</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">&quot;updatedAt&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;2025-10-11T11:00:00.000Z&quot;</span>
+    <span class="hljs-punctuation">}</span>
+  <span class="hljs-punctuation">}</span>
+<span class="hljs-punctuation">}</span>
+</code></pre>
+<h4 id="615-匯出配方供-eap-使用">6.1.5 匯出配方（供 EAP 使用）</h4>
+<p><strong>端點</strong>：<code>GET /api/v1/recipes/:id/export</code></p>
+<p><strong>回應範例</strong>：</p>
+<pre><code class="language-json"><span class="hljs-punctuation">{</span>
+  <span class="hljs-attr">&quot;success&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-keyword">true</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">&quot;data&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+    <span class="hljs-attr">&quot;recipeId&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;form-001&quot;</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">&quot;recipeNo&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;AMC-2025-001&quot;</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">&quot;version&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;1.2&quot;</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">&quot;status&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;approved&quot;</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">&quot;parameters&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+      <span class="hljs-attr">&quot;productName&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;高效化學濾網&quot;</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">&quot;filterType&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;化學濾網&quot;</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">&quot;chemicalAgent&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;活性氧化鋁&quot;</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">&quot;concentration&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">18</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">&quot;carbonType&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;椰殼活性碳&quot;</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">&quot;carbonWeight&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">500</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">&quot;temperature&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">85</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">&quot;pressure&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">5</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">&quot;mixingTime&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">30</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">&quot;curingTime&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">24</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">&quot;filterEfficiency&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">99.5</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">&quot;lifespan&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">30</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">&quot;testMethod&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;ASHRAE 145.2&quot;</span>
+    <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">&quot;timestamp&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">1728456789000</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">&quot;exportedBy&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;EAP-SYSTEM&quot;</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">&quot;exportedAt&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;2025-10-11T10:00:00.000Z&quot;</span>
+  <span class="hljs-punctuation">}</span>
+<span class="hljs-punctuation">}</span>
+</code></pre>
+<h4 id="616-批次匯出配方">6.1.6 批次匯出配方</h4>
+<p><strong>端點</strong>：<code>POST /api/v1/recipes/export</code></p>
+<p><strong>請求本文</strong>：</p>
+<pre><code class="language-json"><span class="hljs-punctuation">{</span>
+  <span class="hljs-attr">&quot;recipeIds&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-string">&quot;form-001&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-string">&quot;form-002&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-string">&quot;form-003&quot;</span><span class="hljs-punctuation">]</span>
+<span class="hljs-punctuation">}</span>
+</code></pre>
+<p><strong>回應範例</strong>：</p>
+<pre><code class="language-json"><span class="hljs-punctuation">{</span>
+  <span class="hljs-attr">&quot;success&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-keyword">true</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">&quot;data&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+    <span class="hljs-attr">&quot;recipes&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span>
+      <span class="hljs-punctuation">{</span>
+        <span class="hljs-attr">&quot;recipeId&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;form-001&quot;</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">&quot;recipeNo&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;AMC-2025-001&quot;</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">&quot;parameters&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span><span class="hljs-comment">/* ... */</span><span class="hljs-punctuation">}</span>
+      <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-punctuation">{</span>
+        <span class="hljs-attr">&quot;recipeId&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;form-002&quot;</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">&quot;recipeNo&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;AMC-2025-002&quot;</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">&quot;parameters&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span><span class="hljs-comment">/* ... */</span><span class="hljs-punctuation">}</span>
+      <span class="hljs-punctuation">}</span>
+    <span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">&quot;total&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">3</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">&quot;exportedAt&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;2025-10-11T10:00:00.000Z&quot;</span>
+  <span class="hljs-punctuation">}</span>
+<span class="hljs-punctuation">}</span>
+</code></pre>
+<h3 id="62-簽核流程-api">6.2 簽核流程 API</h3>
+<h4 id="621-查詢待我簽核的申請單">6.2.1 查詢待我簽核的申請單</h4>
+<p><strong>端點</strong>：<code>GET /api/v1/approvals/pending</code></p>
+<p><strong>查詢參數</strong>：</p>
+<ul>
+<li><code>userId</code> (string, required): 使用者 ID</li>
+</ul>
+<p><strong>回應範例</strong>：</p>
+<pre><code class="language-json"><span class="hljs-punctuation">{</span>
+  <span class="hljs-attr">&quot;success&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-keyword">true</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">&quot;data&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+    <span class="hljs-attr">&quot;applications&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span>
+      <span class="hljs-punctuation">{</span>
+        <span class="hljs-attr">&quot;id&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;instance-001&quot;</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">&quot;applicationNo&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;20251011-001&quot;</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">&quot;formName&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;高效化學濾網配方&quot;</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">&quot;applicant&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;張三&quot;</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">&quot;department&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;研發部&quot;</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">&quot;currentNode&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;部門主管審核&quot;</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">&quot;createdAt&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;2025-10-11T09:00:00.000Z&quot;</span>
+      <span class="hljs-punctuation">}</span>
+    <span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">&quot;total&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">5</span>
+  <span class="hljs-punctuation">}</span>
+<span class="hljs-punctuation">}</span>
+</code></pre>
+<h4 id="622-核准申請">6.2.2 核准申請</h4>
+<p><strong>端點</strong>：<code>POST /api/v1/approvals/:instanceId/approve</code></p>
+<p><strong>請求本文</strong>：</p>
+<pre><code class="language-json"><span class="hljs-punctuation">{</span>
+  <span class="hljs-attr">&quot;userId&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;user-002&quot;</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">&quot;comment&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;審核通過&quot;</span>
+<span class="hljs-punctuation">}</span>
+</code></pre>
+<p><strong>回應範例</strong>：</p>
+<pre><code class="language-json"><span class="hljs-punctuation">{</span>
+  <span class="hljs-attr">&quot;success&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-keyword">true</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">&quot;data&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+    <span class="hljs-attr">&quot;instance&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+      <span class="hljs-attr">&quot;id&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;instance-001&quot;</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">&quot;status&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;approved&quot;</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">&quot;currentNode&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;結束&quot;</span>
+    <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">&quot;message&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;配方已核准&quot;</span>
+  <span class="hljs-punctuation">}</span>
+<span class="hljs-punctuation">}</span>
+</code></pre>
+<h4 id="623-退回申請">6.2.3 退回申請</h4>
+<p><strong>端點</strong>：<code>POST /api/v1/approvals/:instanceId/reject</code></p>
+<p><strong>請求本文</strong>：</p>
+<pre><code class="language-json"><span class="hljs-punctuation">{</span>
+  <span class="hljs-attr">&quot;userId&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;user-002&quot;</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">&quot;comment&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;配方濃度過高，請調整後重新提交&quot;</span>
+<span class="hljs-punctuation">}</span>
+</code></pre>
+<p><strong>回應範例</strong>：</p>
+<pre><code class="language-json"><span class="hljs-punctuation">{</span>
+  <span class="hljs-attr">&quot;success&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-keyword">true</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">&quot;data&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+    <span class="hljs-attr">&quot;instance&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+      <span class="hljs-attr">&quot;id&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;instance-001&quot;</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">&quot;status&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;rejected&quot;</span>
+    <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">&quot;message&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;申請已退回&quot;</span>
+  <span class="hljs-punctuation">}</span>
+<span class="hljs-punctuation">}</span>
+</code></pre>
+<h3 id="63-品質數據-api">6.3 品質數據 API</h3>
+<h4 id="631-提交品質回饋">6.3.1 提交品質回饋</h4>
+<p><strong>端點</strong>：<code>POST /api/v1/quality/feedbacks</code></p>
+<p><strong>請求本文</strong>：</p>
+<pre><code class="language-json"><span class="hljs-punctuation">{</span>
+  <span class="hljs-attr">&quot;recipeId&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;form-001&quot;</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">&quot;batchNo&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;BATCH-20251011-001&quot;</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">&quot;qualityMetrics&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+    <span class="hljs-attr">&quot;yieldRate&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">98.5</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">&quot;filterEfficiency&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">99.2</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">&quot;lifespan&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">28</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">&quot;defectRate&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">1.5</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">&quot;cpk&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">1.67</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">&quot;stabilityScore&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">95</span>
+  <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">&quot;testResults&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+    <span class="hljs-attr">&quot;passed&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-keyword">true</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">&quot;testDate&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;2025-10-11T10:00:00.000Z&quot;</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">&quot;inspector&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;王品管&quot;</span>
+  <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">&quot;productionInfo&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+    <span class="hljs-attr">&quot;line&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;產線 A&quot;</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">&quot;shift&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;早班&quot;</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">&quot;operator&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;李操作員&quot;</span>
+  <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">&quot;source&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;SPC-SYSTEM&quot;</span>
+<span class="hljs-punctuation">}</span>
+</code></pre>
+<p><strong>回應範例</strong>：</p>
+<pre><code class="language-json"><span class="hljs-punctuation">{</span>
+  <span class="hljs-attr">&quot;success&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-keyword">true</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">&quot;data&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+    <span class="hljs-attr">&quot;feedback&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+      <span class="hljs-attr">&quot;id&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;QF-1728456789000&quot;</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">&quot;recipeId&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;form-001&quot;</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">&quot;createdAt&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;2025-10-11T10:00:00.000Z&quot;</span>
+    <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">&quot;updatedRecipe&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+      <span class="hljs-attr">&quot;goldenScore&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">95.3</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">&quot;qualityStats&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+        <span class="hljs-attr">&quot;totalExecutions&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">26</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">&quot;avgYield&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">98.4</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">&quot;avgEfficiency&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">99.1</span>
+      <span class="hljs-punctuation">}</span>
+    <span class="hljs-punctuation">}</span>
+  <span class="hljs-punctuation">}</span>
+<span class="hljs-punctuation">}</span>
+</code></pre>
+<h4 id="632-批次同步品質數據">6.3.2 批次同步品質數據</h4>
+<p><strong>端點</strong>：<code>POST /api/v1/quality/sync</code></p>
+<p><strong>請求本文</strong>：</p>
+<pre><code class="language-json"><span class="hljs-punctuation">{</span>
+  <span class="hljs-attr">&quot;feedbacks&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span>
+    <span class="hljs-punctuation">{</span>
+      <span class="hljs-attr">&quot;recipeId&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;form-001&quot;</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">&quot;batchNo&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;BATCH-001&quot;</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">&quot;qualityMetrics&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span><span class="hljs-comment">/* ... */</span><span class="hljs-punctuation">}</span>
+    <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-punctuation">{</span>
+      <span class="hljs-attr">&quot;recipeId&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;form-002&quot;</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">&quot;batchNo&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;BATCH-002&quot;</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">&quot;qualityMetrics&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span><span class="hljs-comment">/* ... */</span><span class="hljs-punctuation">}</span>
+    <span class="hljs-punctuation">}</span>
+  <span class="hljs-punctuation">]</span>
+<span class="hljs-punctuation">}</span>
+</code></pre>
+<p><strong>回應範例</strong>：</p>
+<pre><code class="language-json"><span class="hljs-punctuation">{</span>
+  <span class="hljs-attr">&quot;success&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-keyword">true</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">&quot;data&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+    <span class="hljs-attr">&quot;total&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">50</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">&quot;success&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">48</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">&quot;failed&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">2</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">&quot;results&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-comment">/* ... */</span><span class="hljs-punctuation">]</span>
+  <span class="hljs-punctuation">}</span>
+<span class="hljs-punctuation">}</span>
+</code></pre>
+<h3 id="64-webhook-通知">6.4 Webhook 通知</h3>
+<h4 id="641-配方核准通知">6.4.1 配方核准通知</h4>
+<p>當配方核准完成時，系統自動推送通知到 EAP 系統。</p>
+<p><strong>端點</strong>：<code>POST http://eap-system/api/recipes/import</code> (EAP 系統提供)</p>
+<p><strong>請求本文</strong>：</p>
+<pre><code class="language-json"><span class="hljs-punctuation">{</span>
+  <span class="hljs-attr">&quot;event&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;recipe.approved&quot;</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">&quot;recipeId&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;form-001&quot;</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">&quot;recipeNo&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;AMC-2025-001&quot;</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">&quot;version&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;1.2&quot;</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">&quot;approvedAt&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;2025-10-11T10:00:00.000Z&quot;</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">&quot;approvedBy&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;李主管&quot;</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">&quot;parameters&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span><span class="hljs-comment">/* 完整配方參數 */</span><span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">&quot;timestamp&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">1728456789000</span>
+<span class="hljs-punctuation">}</span>
+</code></pre>
+<h4 id="642-golden-recipe-認證通知">6.4.2 Golden Recipe 認證通知</h4>
+<p>當配方自動認證為 Golden Recipe 時，系統推送通知。</p>
+<p><strong>端點</strong>：<code>POST http://notification-system/api/notify</code> (通知系統提供)</p>
+<p><strong>請求本文</strong>：</p>
+<pre><code class="language-json"><span class="hljs-punctuation">{</span>
+  <span class="hljs-attr">&quot;event&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;golden_recipe.certified&quot;</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">&quot;recipeId&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;form-001&quot;</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">&quot;recipeNo&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;AMC-2025-001&quot;</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">&quot;recipeName&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;高效化學濾網配方&quot;</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">&quot;goldenScore&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">95.3</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">&quot;certifiedAt&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;2025-10-11T10:00:00.000Z&quot;</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">&quot;certifiedBy&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;SYSTEM-AUTO&quot;</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">&quot;timestamp&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">1728456789000</span>
+<span class="hljs-punctuation">}</span>
+</code></pre>
+<hr>
+<h2 id="7-品質要求">7. 品質要求</h2>
+<h3 id="71-功能品質">7.1 功能品質</h3>
+<table>
+<thead>
+<tr>
+<th>品質指標</th>
+<th>要求標準</th>
+<th>驗證方法</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>功能完整性</strong></td>
+<td>符合功能規格 100%</td>
+<td>功能測試、驗收測試</td>
+</tr>
+<tr>
+<td><strong>資料正確性</strong></td>
+<td>計算結果誤差 &lt; 0.01%</td>
+<td>單元測試、整合測試</td>
+</tr>
+<tr>
+<td><strong>流程正確性</strong></td>
+<td>簽核流程邏輯正確</td>
+<td>流程測試、邊界測試</td>
+</tr>
+<tr>
+<td><strong>版本控制</strong></td>
+<td>版本追蹤無遺漏</td>
+<td>版本測試、回滾測試</td>
+</tr>
+</tbody>
+</table>
+<h3 id="72-效能品質">7.2 效能品質</h3>
+<table>
+<thead>
+<tr>
+<th>效能指標</th>
+<th>要求標準</th>
+<th>驗證方法</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>頁面載入時間</strong></td>
+<td>&lt; 2 秒（首次載入）<br>&lt; 0.5 秒（快取後）</td>
+<td>效能測試工具</td>
+</tr>
+<tr>
+<td><strong>API 回應時間</strong></td>
+<td>一般查詢 &lt; 500ms<br>複雜查詢 &lt; 2s</td>
+<td>API 壓力測試</td>
+</tr>
+<tr>
+<td><strong>資料處理能力</strong></td>
+<td>支援 1000+ 配方<br>支援 10000+ 申請單</td>
+<td>壓力測試</td>
+</tr>
+<tr>
+<td><strong>並發使用者</strong></td>
+<td>支援 100 人同時線上</td>
+<td>並發測試</td>
+</tr>
+</tbody>
+</table>
+<h3 id="73-安全品質">7.3 安全品質</h3>
+<table>
+<thead>
+<tr>
+<th>安全指標</th>
+<th>要求標準</th>
+<th>驗證方法</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>認證機制</strong></td>
+<td>強制登入、Session 管理</td>
+<td>安全測試</td>
+</tr>
+<tr>
+<td><strong>權限控制</strong></td>
+<td>角色權限分離（RBAC）</td>
+<td>權限測試</td>
+</tr>
+<tr>
+<td><strong>資料加密</strong></td>
+<td>密碼 bcrypt 加密</td>
+<td>安全審查</td>
+</tr>
+<tr>
+<td><strong>SQL 注入防護</strong></td>
+<td>使用參數化查詢</td>
+<td>滲透測試</td>
+</tr>
+<tr>
+<td><strong>XSS 防護</strong></td>
+<td>輸入輸出過濾</td>
+<td>安全掃描</td>
+</tr>
+<tr>
+<td><strong>CSRF 防護</strong></td>
+<td>Token 驗證</td>
+<td>安全測試</td>
+</tr>
+<tr>
+<td><strong>操作日誌</strong></td>
+<td>所有敏感操作記錄</td>
+<td>審計測試</td>
+</tr>
+</tbody>
+</table>
+<h3 id="74-可用性品質">7.4 可用性品質</h3>
+<table>
+<thead>
+<tr>
+<th>可用性指標</th>
+<th>要求標準</th>
+<th>驗證方法</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>UI 一致性</strong></td>
+<td>遵循 Design System</td>
+<td>UI 審查</td>
+</tr>
+<tr>
+<td><strong>回饋機制</strong></td>
+<td>所有操作提供即時回饋</td>
+<td>使用者測試</td>
+</tr>
+<tr>
+<td><strong>錯誤處理</strong></td>
+<td>友善的錯誤訊息</td>
+<td>錯誤測試</td>
+</tr>
+<tr>
+<td><strong>響應式設計</strong></td>
+<td>支援桌面/平板瀏覽器</td>
+<td>相容性測試</td>
+</tr>
+</tbody>
+</table>
+<h3 id="75-維護性品質">7.5 維護性品質</h3>
+<table>
+<thead>
+<tr>
+<th>維護性指標</th>
+<th>要求標準</th>
+<th>驗證方法</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>程式碼註解</strong></td>
+<td>關鍵函數需有 JSDoc</td>
+<td>Code Review</td>
+</tr>
+<tr>
+<td><strong>模組化程度</strong></td>
+<td>單一職責、低耦合</td>
+<td>架構審查</td>
+</tr>
+<tr>
+<td><strong>測試覆蓋率</strong></td>
+<td>核心模組 &gt; 80%</td>
+<td>測試報告</td>
+</tr>
+<tr>
+<td><strong>文件完整性</strong></td>
+<td>README、API 文件、使用手冊</td>
+<td>文件審查</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="8-交付標準">8. 交付標準</h2>
+<h3 id="81-交付項目清單">8.1 交付項目清單</h3>
+<table>
+<thead>
+<tr>
+<th>交付項目</th>
+<th>說明</th>
+<th>格式</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>原始碼</strong></td>
+<td>完整專案原始碼（含註解）</td>
+<td>Git Repository</td>
+</tr>
+<tr>
+<td><strong>建置檔案</strong></td>
+<td>生產環境建置檔案</td>
+<td>dist/ 目錄</td>
+</tr>
+<tr>
+<td><strong>資料庫腳本</strong></td>
+<td>資料庫建立、遷移腳本</td>
+<td>SQL 檔案</td>
+</tr>
+<tr>
+<td><strong>部署指南</strong></td>
+<td>環境設定、部署步驟</td>
+<td>Markdown / PDF</td>
+</tr>
+<tr>
+<td><strong>API 文件</strong></td>
+<td>完整 API 規格說明</td>
+<td>Swagger / Postman</td>
+</tr>
+<tr>
+<td><strong>使用手冊</strong></td>
+<td>使用者操作手冊</td>
+<td>PDF</td>
+</tr>
+<tr>
+<td><strong>測試報告</strong></td>
+<td>測試結果與覆蓋率報告</td>
+<td>HTML / PDF</td>
+</tr>
+<tr>
+<td><strong>原始碼授權</strong></td>
+<td>MIT License</td>
+<td>LICENSE 檔案</td>
+</tr>
+</tbody>
+</table>
+<h3 id="82-文件交付要求">8.2 文件交付要求</h3>
+<h4 id="821-技術文件">8.2.1 技術文件</h4>
+<ul>
+<li><strong><a href="http://README.html">README.md</a></strong>：專案說明、快速開始、安裝指南</li>
+<li><strong><a href="http://CHANGELOG.html">CHANGELOG.md</a></strong>：版本變更記錄</li>
+<li><strong>API 文件</strong>：完整 API 端點說明（使用 Swagger 或 Postman Collection）</li>
+<li><strong>資料庫設計文件</strong>：ER Diagram、資料表說明</li>
+<li><strong>系統架構文件</strong>：架構圖、模組說明、技術堆疊</li>
+<li><strong>部署文件</strong>：環境需求、部署步驟、設定說明</li>
+</ul>
+<h4 id="822-使用者文件">8.2.2 使用者文件</h4>
+<ul>
+<li><strong>使用者手冊</strong>：操作流程、功能說明、常見問題</li>
+<li><strong>管理員手冊</strong>：系統設定、使用者管理、資料維護</li>
+<li><strong>教學影片</strong>（選配）：主要功能操作示範</li>
+</ul>
+<h3 id="83-驗收程序">8.3 驗收程序</h3>
+<h4 id="階段-1功能驗收uat">階段 1：功能驗收（UAT）</h4>
+<ol>
+<li>廠商提交功能完成通知</li>
+<li>依照驗收測試計畫進行測試</li>
+<li>記錄缺陷並要求修正</li>
+<li>重新測試直到通過</li>
+</ol>
+<h4 id="階段-2效能驗收">階段 2：效能驗收</h4>
+<ol>
+<li>執行效能測試腳本</li>
+<li>驗證效能指標符合要求</li>
+<li>記錄效能瓶頸並優化</li>
+</ol>
+<h4 id="階段-3安全驗收">階段 3：安全驗收</h4>
+<ol>
+<li>執行安全掃描工具</li>
+<li>檢查安全機制實作</li>
+<li>驗證權限控制正確性</li>
+</ol>
+<h4 id="階段-4文件驗收">階段 4：文件驗收</h4>
+<ol>
+<li>檢查文件完整性</li>
+<li>驗證文件與實作一致性</li>
+<li>確認文件可讀性</li>
+</ol>
+<h4 id="階段-5最終驗收">階段 5：最終驗收</h4>
+<ol>
+<li>所有測試通過</li>
+<li>文件齊全</li>
+<li>簽署驗收報告</li>
+</ol>
+<hr>
+<h2 id="9-測試要求">9. 測試要求</h2>
+<h3 id="91-測試範圍">9.1 測試範圍</h3>
+<table>
+<thead>
+<tr>
+<th>測試類型</th>
+<th>測試範圍</th>
+<th>覆蓋率要求</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>單元測試</strong></td>
+<td>所有工具函數、資料模型</td>
+<td>&gt; 80%</td>
+</tr>
+<tr>
+<td><strong>整合測試</strong></td>
+<td>模組間整合、API 整合</td>
+<td>&gt; 70%</td>
+</tr>
+<tr>
+<td><strong>功能測試</strong></td>
+<td>所有使用者功能</td>
+<td>100%</td>
+</tr>
+<tr>
+<td><strong>流程測試</strong></td>
+<td>簽核流程各種情境</td>
+<td>100%</td>
+</tr>
+<tr>
+<td><strong>效能測試</strong></td>
+<td>關鍵功能效能指標</td>
+<td>100%</td>
+</tr>
+<tr>
+<td><strong>安全測試</strong></td>
+<td>認證、權限、注入攻擊</td>
+<td>100%</td>
+</tr>
+<tr>
+<td><strong>相容性測試</strong></td>
+<td>Chrome, Firefox, Safari, Edge</td>
+<td>100%</td>
+</tr>
+</tbody>
+</table>
+<h3 id="92-測試案例範例">9.2 測試案例範例</h3>
+<h4 id="921-配方建立測試">9.2.1 配方建立測試</h4>
+<pre><code>測試案例 ID: TC-FORM-001
+測試名稱: 建立新配方（正常流程）
+前置條件: 使用者已登入
+測試步驟:
+1. 進入「配方建置器」頁面
+2. 選擇範本「標準 AMC 濾網配方」
+3. 填寫所有必填欄位
+4. 點選「儲存」按鈕
+預期結果:
+- 配方儲存成功
+- 自動生成配方編號（格式：AMC-2025-XXX）
+- 版本號為 1.0
+- 顯示成功訊息
+- 建立版本 1 記錄
+</code></pre>
+<h4 id="922-簽核流程測試">9.2.2 簽核流程測試</h4>
+<pre><code>測試案例 ID: TC-WORKFLOW-001
+測試名稱: 單簽流程（核准）
+前置條件:
+- 已建立配方
+- 已設定單簽流程（部門主管審核）
+測試步驟:
+1. 使用者 A 提交申請
+2. 部門主管（使用者 B）登入
+3. 進入「待我簽核」
+4. 查看申請詳情
+5. 點選「核准」並填寫意見
+6. 確認核准
+預期結果:
+- 申請狀態變更為「已核准」
+- 簽核歷史記錄正確
+- 申請人收到通知
+- 操作日誌記錄正確
+</code></pre>
+<h4 id="923-版本控制測試">9.2.3 版本控制測試</h4>
+<pre><code>測試案例 ID: TC-VERSION-001
+測試名稱: 版本回滾功能
+前置條件:
+- 配方已有 3 個版本
+測試步驟:
+1. 進入配方詳情頁面
+2. 點選「版本歷史」
+3. 選擇版本 2
+4. 點選「回滾到此版本」
+5. 確認回滾操作
+預期結果:
+- 配方資料還原為版本 2 的內容
+- 建立新版本 4（內容與版本 2 相同）
+- 版本註解為「回滾到版本 2」
+- 版本 3 保留不刪除
+</code></pre>
+<h4 id="924-golden-recipe-評分測試">9.2.4 Golden Recipe 評分測試</h4>
+<pre><code>測試案例 ID: TC-GOLDEN-001
+測試名稱: 自動評分與認證
+前置條件:
+- 配方已建立
+- 已有 25 批次品質數據
+測試步驟:
+1. 使用資料模擬器生成超高品質數據（良率 98.5%、CPK 1.67）
+2. 系統自動計算 Golden Score
+3. 檢查是否符合自動認證條件
+預期結果:
+- Golden Score = 95.3（誤差 &lt; 0.1）
+- 自動認證為 Golden Recipe（isGolden = true）
+- goldenCertifiedBy = &quot;SYSTEM-AUTO&quot;
+- 配方顯示 🏆 Golden Recipe 標記
+</code></pre>
+<h3 id="93-測試環境">9.3 測試環境</h3>
+<table>
+<thead>
+<tr>
+<th>環境類型</th>
+<th>說明</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>開發環境</strong></td>
+<td>本機開發環境</td>
+<td>開發與單元測試</td>
+</tr>
+<tr>
+<td><strong>測試環境</strong></td>
+<td>獨立測試伺服器</td>
+<td>整合測試、功能測試</td>
+</tr>
+<tr>
+<td><strong>預生產環境</strong></td>
+<td>與生產環境相同配置</td>
+<td>UAT、效能測試</td>
+</tr>
+<tr>
+<td><strong>生產環境</strong></td>
+<td>正式上線環境</td>
+<td>正式服務</td>
+</tr>
+</tbody>
+</table>
+<h3 id="94-測試工具">9.4 測試工具</h3>
+<table>
+<thead>
+<tr>
+<th>工具類型</th>
+<th>工具名稱</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>單元測試</strong></td>
+<td>Jest / Vitest</td>
+<td>JavaScript 單元測試</td>
+</tr>
+<tr>
+<td><strong>整合測試</strong></td>
+<td>Cypress / Playwright</td>
+<td>E2E 測試</td>
+</tr>
+<tr>
+<td><strong>API 測試</strong></td>
+<td>Postman / Newman</td>
+<td>API 自動化測試</td>
+</tr>
+<tr>
+<td><strong>效能測試</strong></td>
+<td>Apache JMeter / k6</td>
+<td>壓力測試</td>
+</tr>
+<tr>
+<td><strong>安全掃描</strong></td>
+<td>OWASP ZAP / Burp Suite</td>
+<td>安全漏洞掃描</td>
+</tr>
+<tr>
+<td><strong>程式碼品質</strong></td>
+<td>ESLint / SonarQube</td>
+<td>程式碼靜態分析</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="10-部署要求">10. 部署要求</h2>
+<h3 id="101-系統需求">10.1 系統需求</h3>
+<h4 id="1011-伺服器需求生產環境">10.1.1 伺服器需求（生產環境）</h4>
+<table>
+<thead>
+<tr>
+<th>項目</th>
+<th>最低需求</th>
+<th>建議配置</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>CPU</strong></td>
+<td>2 Core</td>
+<td>4 Core</td>
+</tr>
+<tr>
+<td><strong>記憶體</strong></td>
+<td>4 GB</td>
+<td>8 GB</td>
+</tr>
+<tr>
+<td><strong>硬碟</strong></td>
+<td>50 GB SSD</td>
+<td>100 GB SSD</td>
+</tr>
+<tr>
+<td><strong>網路</strong></td>
+<td>100 Mbps</td>
+<td>1 Gbps</td>
+</tr>
+<tr>
+<td><strong>作業系統</strong></td>
+<td>Ubuntu 20.04+ / CentOS 8+</td>
+<td>Ubuntu 22.04 LTS</td>
+</tr>
+</tbody>
+</table>
+<h4 id="1012-軟體需求">10.1.2 軟體需求</h4>
+<table>
+<thead>
+<tr>
+<th>軟體</th>
+<th>版本要求</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Node.js</strong></td>
+<td>18.x LTS</td>
+<td>執行環境</td>
+</tr>
+<tr>
+<td><strong>PostgreSQL</strong></td>
+<td>14+</td>
+<td>資料庫</td>
+</tr>
+<tr>
+<td><strong>Nginx</strong></td>
+<td>1.20+</td>
+<td>反向代理</td>
+</tr>
+<tr>
+<td><strong>Redis</strong></td>
+<td>6.x</td>
+<td>Session 儲存（選配）</td>
+</tr>
+<tr>
+<td><strong>Docker</strong></td>
+<td>20.x</td>
+<td>容器化部署（選配）</td>
+</tr>
+</tbody>
+</table>
+<h4 id="1013-瀏覽器支援">10.1.3 瀏覽器支援</h4>
+<table>
+<thead>
+<tr>
+<th>瀏覽器</th>
+<th>最低版本</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Chrome</td>
+<td>100+</td>
+</tr>
+<tr>
+<td>Firefox</td>
+<td>100+</td>
+</tr>
+<tr>
+<td>Safari</td>
+<td>15+</td>
+</tr>
+<tr>
+<td>Edge</td>
+<td>100+</td>
+</tr>
+</tbody>
+</table>
+<h3 id="102-部署架構">10.2 部署架構</h3>
+<h4 id="1021-單機部署小型環境">10.2.1 單機部署（小型環境）</h4>
+<pre><code>                    ┌─────────────────┐
+                    │   Users (瀏覽器) │
+                    └────────┬────────┘
+                             │
+                    ┌────────▼────────┐
+                    │   Nginx (80/443)│
+                    └────────┬────────┘
+                             │
+        ┌────────────────────┼────────────────────┐
+        │                    │                    │
+┌───────▼────────┐  ┌────────▼────────┐  ┌───────▼────────┐
+│ Static Files   │  │ Node.js (3000)  │  │ PostgreSQL     │
+│ (HTML/CSS/JS)  │  │ API Server      │  │ (5432)         │
+└────────────────┘  └─────────────────┘  └────────────────┘
+</code></pre>
+<h4 id="1022-負載平衡部署大型環境">10.2.2 負載平衡部署（大型環境）</h4>
+<pre><code>                         ┌─────────────────┐
+                         │   Users (瀏覽器) │
+                         └────────┬────────┘
+                                  │
+                         ┌────────▼────────┐
+                         │ Load Balancer   │
+                         │ (Nginx / HAProxy)│
+                         └────────┬────────┘
+                                  │
+                  ┌───────────────┼───────────────┐
+                  │               │               │
+         ┌────────▼────────┐ ┌───▼───────┐ ┌────▼─────────┐
+         │ Web Server 1    │ │ Web 2     │ │ Web 3        │
+         │ (Nginx+Node.js) │ │ (Nginx+   │ │ (Nginx+      │
+         │                 │ │ Node.js)  │ │ Node.js)     │
+         └────────┬────────┘ └───┬───────┘ └────┬─────────┘
+                  │              │              │
+                  └──────────────┼──────────────┘
+                                 │
+                  ┌──────────────▼──────────────┐
+                  │ PostgreSQL (Primary)        │
+                  │ + Read Replicas             │
+                  └─────────────────────────────┘
+                                 │
+                  ┌──────────────▼──────────────┐
+                  │ Redis (Session Store)       │
+                  └─────────────────────────────┘
+</code></pre>
+<h3 id="103-部署步驟">10.3 部署步驟</h3>
+<h4 id="1031-準備階段">10.3.1 準備階段</h4>
+<ol>
+<li>
+<p><strong>環境檢查</strong></p>
+<pre><code class="language-bash"><span class="hljs-comment"># 檢查 Node.js 版本</span>
+node -v  <span class="hljs-comment"># 應為 v18.x</span>
+
+<span class="hljs-comment"># 檢查 PostgreSQL 版本</span>
+psql --version  <span class="hljs-comment"># 應為 14+</span>
+
+<span class="hljs-comment"># 檢查 Nginx 版本</span>
+nginx -v  <span class="hljs-comment"># 應為 1.20+</span>
+</code></pre>
+</li>
+<li>
+<p><strong>建立資料庫</strong></p>
+<pre><code class="language-bash"><span class="hljs-comment"># 連線到 PostgreSQL</span>
+psql -U postgres
+
+<span class="hljs-comment"># 建立資料庫與使用者</span>
+CREATE DATABASE rms_db;
+CREATE USER rms_user WITH PASSWORD <span class="hljs-string">&#x27;secure_password&#x27;</span>;
+GRANT ALL PRIVILEGES ON DATABASE rms_db TO rms_user;
+</code></pre>
+</li>
+<li>
+<p><strong>執行資料庫遷移</strong></p>
+<pre><code class="language-bash"><span class="hljs-comment"># 執行建立資料表腳本</span>
+psql -U rms_user -d rms_db -f database/schema.sql
+
+<span class="hljs-comment"># 執行初始資料腳本</span>
+psql -U rms_user -d rms_db -f database/seed.sql
+</code></pre>
+</li>
+</ol>
+<h4 id="1032-應用部署">10.3.2 應用部署</h4>
+<ol>
+<li>
+<p><strong>下載原始碼</strong></p>
+<pre><code class="language-bash">git <span class="hljs-built_in">clone</span> https://github.com/your-org/RMS.git
+<span class="hljs-built_in">cd</span> RMS
+</code></pre>
+</li>
+<li>
+<p><strong>安裝依賴</strong></p>
+<pre><code class="language-bash">npm install --production
+</code></pre>
+</li>
+<li>
+<p><strong>環境變數設定</strong></p>
+<pre><code class="language-bash"><span class="hljs-comment"># 建立 .env 檔案</span>
+<span class="hljs-built_in">cp</span> .env.example .<span class="hljs-built_in">env</span>
+
+<span class="hljs-comment"># 編輯 .env</span>
+nano .<span class="hljs-built_in">env</span>
+</code></pre>
+<p><code>.env</code> 內容範例：</p>
+<pre><code class="language-env">NODE_ENV=production
+PORT=3000
+
+# 資料庫設定
+DB_HOST=localhost
+DB_PORT=5432
+DB_NAME=rms_db
+DB_USER=rms_user
+DB_PASSWORD=secure_password
+
+# Session 設定
+SESSION_SECRET=your_random_secret_key
+
+# API 設定
+API_BASE_URL=https://api.yourdomain.com
+
+# EAP 系統整合
+EAP_WEBHOOK_URL=http://eap-system/api/recipes/import
+
+# Logging
+LOG_LEVEL=info
+</code></pre>
+</li>
+<li>
+<p><strong>建置前端</strong></p>
+<pre><code class="language-bash">npm run build
+</code></pre>
+</li>
+<li>
+<p><strong>啟動應用</strong></p>
+<pre><code class="language-bash"><span class="hljs-comment"># 使用 PM2 管理 Node.js 程序</span>
+npm install -g pm2
+pm2 start npm --name <span class="hljs-string">&quot;rms-api&quot;</span> -- start
+pm2 save
+pm2 startup
+</code></pre>
+</li>
+</ol>
+<h4 id="1033-nginx-設定">10.3.3 Nginx 設定</h4>
+<ol>
+<li>
+<p><strong>建立 Nginx 設定檔</strong></p>
+<pre><code class="language-bash">sudo nano /etc/nginx/sites-available/rms
+</code></pre>
+</li>
+<li>
+<p><strong>設定檔內容</strong></p>
+<pre><code class="language-nginx"><span class="hljs-section">server</span> {
+    <span class="hljs-attribute">listen</span> <span class="hljs-number">80</span>;
+    <span class="hljs-attribute">server_name</span> yourdomain.com;
+
+    <span class="hljs-comment"># 重導向到 HTTPS</span>
+    <span class="hljs-attribute">return</span> <span class="hljs-number">301</span> https://<span class="hljs-variable">$server_name</span><span class="hljs-variable">$request_uri</span>;
+}
+
+<span class="hljs-section">server</span> {
+    <span class="hljs-attribute">listen</span> <span class="hljs-number">443</span> ssl http2;
+    <span class="hljs-attribute">server_name</span> yourdomain.com;
+
+    <span class="hljs-comment"># SSL 憑證</span>
+    <span class="hljs-attribute">ssl_certificate</span> /etc/ssl/certs/yourdomain.com.crt;
+    <span class="hljs-attribute">ssl_certificate_key</span> /etc/ssl/private/yourdomain.com.key;
+
+    <span class="hljs-comment"># 靜態檔案</span>
+    <span class="hljs-section">location</span> / {
+        <span class="hljs-attribute">root</span> /var/www/rms/dist;
+        <span class="hljs-attribute">try_files</span> <span class="hljs-variable">$uri</span> <span class="hljs-variable">$uri</span>/ /index.html;
+    }
+
+    <span class="hljs-comment"># API 代理</span>
+    <span class="hljs-section">location</span> /api/ {
+        <span class="hljs-attribute">proxy_pass</span> http://localhost:3000;
+        <span class="hljs-attribute">proxy_http_version</span> <span class="hljs-number">1</span>.<span class="hljs-number">1</span>;
+        <span class="hljs-attribute">proxy_set_header</span> Upgrade <span class="hljs-variable">$http_upgrade</span>;
+        <span class="hljs-attribute">proxy_set_header</span> Connection <span class="hljs-string">&#x27;upgrade&#x27;</span>;
+        <span class="hljs-attribute">proxy_set_header</span> Host <span class="hljs-variable">$host</span>;
+        <span class="hljs-attribute">proxy_cache_bypass</span> <span class="hljs-variable">$http_upgrade</span>;
+    }
+
+    <span class="hljs-comment"># 快取靜態資源</span>
+    <span class="hljs-section">location</span> <span class="hljs-regexp">~* \.(js|css|png|jpg|jpeg|gif|ico|svg|woff|woff2)$</span> {
+        <span class="hljs-attribute">expires</span> <span class="hljs-number">1y</span>;
+        <span class="hljs-attribute">add_header</span> Cache-Control <span class="hljs-string">&quot;public, immutable&quot;</span>;
+    }
+}
+</code></pre>
+</li>
+<li>
+<p><strong>啟用設定並重啟 Nginx</strong></p>
+<pre><code class="language-bash">sudo <span class="hljs-built_in">ln</span> -s /etc/nginx/sites-available/rms /etc/nginx/sites-enabled/
+sudo nginx -t
+sudo systemctl restart nginx
+</code></pre>
+</li>
+</ol>
+<h4 id="1034-docker-部署選配">10.3.4 Docker 部署（選配）</h4>
+<ol>
+<li>
+<p><strong>Dockerfile</strong></p>
+<pre><code class="language-dockerfile"><span class="hljs-keyword">FROM</span> node:<span class="hljs-number">18</span>-alpine
+
+<span class="hljs-keyword">WORKDIR</span><span class="language-bash"> /app</span>
+
+<span class="hljs-keyword">COPY</span><span class="language-bash"> package*.json ./</span>
+<span class="hljs-keyword">RUN</span><span class="language-bash"> npm install --production</span>
+
+<span class="hljs-keyword">COPY</span><span class="language-bash"> . .</span>
+<span class="hljs-keyword">RUN</span><span class="language-bash"> npm run build</span>
+
+<span class="hljs-keyword">EXPOSE</span> <span class="hljs-number">3000</span>
+
+<span class="hljs-keyword">CMD</span><span class="language-bash"> [<span class="hljs-string">&quot;npm&quot;</span>, <span class="hljs-string">&quot;start&quot;</span>]</span>
+</code></pre>
+</li>
+<li>
+<p><strong>docker-compose.yml</strong></p>
+<pre><code class="language-yaml"><span class="hljs-attr">version:</span> <span class="hljs-string">&#x27;3.8&#x27;</span>
+
+<span class="hljs-attr">services:</span>
+  <span class="hljs-attr">db:</span>
+    <span class="hljs-attr">image:</span> <span class="hljs-string">postgres:14-alpine</span>
+    <span class="hljs-attr">environment:</span>
+      <span class="hljs-attr">POSTGRES_DB:</span> <span class="hljs-string">rms_db</span>
+      <span class="hljs-attr">POSTGRES_USER:</span> <span class="hljs-string">rms_user</span>
+      <span class="hljs-attr">POSTGRES_PASSWORD:</span> <span class="hljs-string">secure_password</span>
+    <span class="hljs-attr">volumes:</span>
+      <span class="hljs-bullet">-</span> <span class="hljs-string">postgres_data:/var/lib/postgresql/data</span>
+    <span class="hljs-attr">ports:</span>
+      <span class="hljs-bullet">-</span> <span class="hljs-string">&quot;5432:5432&quot;</span>
+
+  <span class="hljs-attr">api:</span>
+    <span class="hljs-attr">build:</span> <span class="hljs-string">.</span>
+    <span class="hljs-attr">ports:</span>
+      <span class="hljs-bullet">-</span> <span class="hljs-string">&quot;3000:3000&quot;</span>
+    <span class="hljs-attr">environment:</span>
+      <span class="hljs-attr">NODE_ENV:</span> <span class="hljs-string">production</span>
+      <span class="hljs-attr">DB_HOST:</span> <span class="hljs-string">db</span>
+      <span class="hljs-attr">DB_PORT:</span> <span class="hljs-number">5432</span>
+      <span class="hljs-attr">DB_NAME:</span> <span class="hljs-string">rms_db</span>
+      <span class="hljs-attr">DB_USER:</span> <span class="hljs-string">rms_user</span>
+      <span class="hljs-attr">DB_PASSWORD:</span> <span class="hljs-string">secure_password</span>
+    <span class="hljs-attr">depends_on:</span>
+      <span class="hljs-bullet">-</span> <span class="hljs-string">db</span>
+
+  <span class="hljs-attr">nginx:</span>
+    <span class="hljs-attr">image:</span> <span class="hljs-string">nginx:alpine</span>
+    <span class="hljs-attr">ports:</span>
+      <span class="hljs-bullet">-</span> <span class="hljs-string">&quot;80:80&quot;</span>
+      <span class="hljs-bullet">-</span> <span class="hljs-string">&quot;443:443&quot;</span>
+    <span class="hljs-attr">volumes:</span>
+      <span class="hljs-bullet">-</span> <span class="hljs-string">./nginx.conf:/etc/nginx/nginx.conf</span>
+      <span class="hljs-bullet">-</span> <span class="hljs-string">./dist:/usr/share/nginx/html</span>
+    <span class="hljs-attr">depends_on:</span>
+      <span class="hljs-bullet">-</span> <span class="hljs-string">api</span>
+
+<span class="hljs-attr">volumes:</span>
+  <span class="hljs-attr">postgres_data:</span>
+</code></pre>
+</li>
+<li>
+<p><strong>啟動容器</strong></p>
+<pre><code class="language-bash">docker-compose up -d
+</code></pre>
+</li>
+</ol>
+<h3 id="104-監控與日誌">10.4 監控與日誌</h3>
+<h4 id="1041-應用監控">10.4.1 應用監控</h4>
+<pre><code class="language-bash"><span class="hljs-comment"># 使用 PM2 監控</span>
+pm2 monit
+
+<span class="hljs-comment"># 查看日誌</span>
+pm2 logs rms-api
+
+<span class="hljs-comment"># 重啟應用</span>
+pm2 restart rms-api
+</code></pre>
+<h4 id="1042-日誌管理">10.4.2 日誌管理</h4>
+<pre><code class="language-bash"><span class="hljs-comment"># 應用日誌位置</span>
+/var/log/rms/application.log
+/var/log/rms/error.log
+
+<span class="hljs-comment"># Nginx 日誌位置</span>
+/var/log/nginx/access.log
+/var/log/nginx/error.log
+</code></pre>
+<h4 id="1043-資料庫備份">10.4.3 資料庫備份</h4>
+<pre><code class="language-bash"><span class="hljs-comment"># 每日自動備份腳本</span>
+<span class="hljs-comment">#!/bin/bash</span>
+BACKUP_DIR=<span class="hljs-string">&quot;/backup/rms&quot;</span>
+DATE=$(<span class="hljs-built_in">date</span> +%Y%m%d_%H%M%S)
+
+pg_dump -U rms_user rms_db &gt; <span class="hljs-variable">$BACKUP_DIR</span>/rms_db_<span class="hljs-variable">$DATE</span>.sql
+
+<span class="hljs-comment"># 保留最近 30 天的備份</span>
+find <span class="hljs-variable">$BACKUP_DIR</span> -name <span class="hljs-string">&quot;*.sql&quot;</span> -mtime +30 -delete
+</code></pre>
+<hr>
+<h2 id="11-維護與支援">11. 維護與支援</h2>
+<h3 id="111-維護範圍">11.1 維護範圍</h3>
+<table>
+<thead>
+<tr>
+<th>維護類型</th>
+<th>說明</th>
+<th>回應時間</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>錯誤修正</strong></td>
+<td>修正系統錯誤與 Bug</td>
+<td>關鍵錯誤 4 小時<br>一般錯誤 24 小時</td>
+</tr>
+<tr>
+<td><strong>功能調整</strong></td>
+<td>小幅度功能調整</td>
+<td>依排程協調</td>
+</tr>
+<tr>
+<td><strong>效能優化</strong></td>
+<td>系統效能調校</td>
+<td>依排程協調</td>
+</tr>
+<tr>
+<td><strong>安全更新</strong></td>
+<td>安全性修補</td>
+<td>24 小時內</td>
+</tr>
+<tr>
+<td><strong>版本升級</strong></td>
+<td>系統版本升級</td>
+<td>依排程協調</td>
+</tr>
+</tbody>
+</table>
+<h3 id="112-支援服務">11.2 支援服務</h3>
+<h4 id="1121-技術支援">11.2.1 技術支援</h4>
+<ul>
+<li><strong>支援時間</strong>：週一至週五 09:00-18:00</li>
+<li><strong>支援管道</strong>：Email、電話、線上客服</li>
+<li><strong>支援內容</strong>：
+<ul>
+<li>使用問題諮詢</li>
+<li>錯誤排除協助</li>
+<li>功能操作指導</li>
+<li>系統設定協助</li>
+</ul>
+</li>
+</ul>
+<h4 id="1122-教育訓練">11.2.2 教育訓練</h4>
+<ul>
+<li>
+<p><strong>系統管理員訓練</strong>（4 小時）</p>
+<ul>
+<li>系統架構說明</li>
+<li>使用者管理</li>
+<li>系統設定</li>
+<li>資料備份與還原</li>
+<li>常見問題排除</li>
+</ul>
+</li>
+<li>
+<p><strong>一般使用者訓練</strong>（2 小時）</p>
+<ul>
+<li>配方建立與管理</li>
+<li>簽核流程操作</li>
+<li>品質數據查詢</li>
+<li>報表產生</li>
+</ul>
+</li>
+</ul>
+<h3 id="113-版本更新計畫">11.3 版本更新計畫</h3>
+<table>
+<thead>
+<tr>
+<th>更新類型</th>
+<th>頻率</th>
+<th>內容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>補丁更新</strong></td>
+<td>每月</td>
+<td>Bug 修正、安全更新</td>
+</tr>
+<tr>
+<td><strong>小版本更新</strong></td>
+<td>每季</td>
+<td>功能調整、效能優化</td>
+</tr>
+<tr>
+<td><strong>大版本更新</strong></td>
+<td>每年</td>
+<td>重大功能新增、架構升級</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="12-專案時程">12. 專案時程</h2>
+<h3 id="121-里程碑規劃">12.1 里程碑規劃</h3>
+<table>
+<thead>
+<tr>
+<th>階段</th>
+<th>工作項目</th>
+<th>預計工期</th>
+<th>交付成果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>需求確認</strong></td>
+<td>需求訪談、規格確認</td>
+<td>2 週</td>
+<td>需求規格書（簽核）</td>
+</tr>
+<tr>
+<td><strong>系統設計</strong></td>
+<td>架構設計、UI 設計、資料庫設計</td>
+<td>3 週</td>
+<td>設計文件、原型圖</td>
+</tr>
+<tr>
+<td><strong>開發階段 1</strong></td>
+<td>配方管理、簽核流程</td>
+<td>6 週</td>
+<td>Demo 1（核心功能）</td>
+</tr>
+<tr>
+<td><strong>開發階段 2</strong></td>
+<td>Golden Recipe、SPC</td>
+<td>4 週</td>
+<td>Demo 2（進階功能）</td>
+</tr>
+<tr>
+<td><strong>開發階段 3</strong></td>
+<td>測試系統、API 整合</td>
+<td>3 週</td>
+<td>Demo 3（完整功能）</td>
+</tr>
+<tr>
+<td><strong>測試階段</strong></td>
+<td>單元測試、整合測試、UAT</td>
+<td>4 週</td>
+<td>測試報告</td>
+</tr>
+<tr>
+<td><strong>部署階段</strong></td>
+<td>環境建置、系統部署</td>
+<td>2 週</td>
+<td>上線系統</td>
+</tr>
+<tr>
+<td><strong>驗收階段</strong></td>
+<td>功能驗收、文件驗收</td>
+<td>2 週</td>
+<td>驗收報告</td>
+</tr>
+<tr>
+<td><strong>教育訓練</strong></td>
+<td>使用者訓練、管理員訓練</td>
+<td>1 週</td>
+<td>訓練記錄</td>
+</tr>
+<tr>
+<td><strong>保固維護</strong></td>
+<td>系統維護、問題修正</td>
+<td>12 個月</td>
+<td>維護報告</td>
+</tr>
+</tbody>
+</table>
+<p><strong>總工期</strong>：約 6 個月（不含保固期）</p>
+<h3 id="122-人力配置">12.2 人力配置</h3>
+<table>
+<thead>
+<tr>
+<th>角色</th>
+<th>人數</th>
+<th>主要職責</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>專案經理</strong></td>
+<td>1</td>
+<td>專案管理、進度控制、客戶溝通</td>
+</tr>
+<tr>
+<td><strong>系統分析師</strong></td>
+<td>1</td>
+<td>需求分析、系統設計、文件撰寫</td>
+</tr>
+<tr>
+<td><strong>前端工程師</strong></td>
+<td>2</td>
+<td>UI 開發、前端功能實作</td>
+</tr>
+<tr>
+<td><strong>後端工程師</strong></td>
+<td>2</td>
+<td>API 開發、資料庫設計</td>
+</tr>
+<tr>
+<td><strong>測試工程師</strong></td>
+<td>1</td>
+<td>測試計畫、測試執行、缺陷管理</td>
+</tr>
+<tr>
+<td><strong>UI/UX 設計師</strong></td>
+<td>1</td>
+<td>介面設計、原型設計（部分時間）</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="13-驗收標準">13. 驗收標準</h2>
+<h3 id="131-功能驗收標準">13.1 功能驗收標準</h3>
+<p>所有功能項目需符合以下標準：</p>
+<table>
+<thead>
+<tr>
+<th>驗收項目</th>
+<th>驗收標準</th>
+<th>驗收方法</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>配方管理</strong></td>
+<td>能建立、編輯、刪除、查詢配方<br>配方編號自動生成<br>版本自動管理</td>
+<td>功能測試、實際操作</td>
+</tr>
+<tr>
+<td><strong>簽核流程</strong></td>
+<td>支援單簽、並簽、串簽、條件分支<br>流程正確推進<br>簽核歷史完整記錄</td>
+<td>流程測試、各種情境</td>
+</tr>
+<tr>
+<td><strong>版本控制</strong></td>
+<td>自動版本追蹤<br>版本歷史查看<br>版本比對<br>版本回滾</td>
+<td>版本測試、回滾測試</td>
+</tr>
+<tr>
+<td><strong>Golden Recipe</strong></td>
+<td>自動評分計算正確<br>自動認證邏輯正確<br>候選推薦正確</td>
+<td>評分測試、認證測試</td>
+</tr>
+<tr>
+<td><strong>SPC 模組</strong></td>
+<td>管制圖正確顯示<br>Cp/Cpk 計算正確<br>異常偵測正確</td>
+<td>數據測試、計算驗證</td>
+</tr>
+<tr>
+<td><strong>測試系統</strong></td>
+<td>所有測試劇本通過<br>測試報告正確顯示</td>
+<td>執行測試、檢查報告</td>
+</tr>
+</tbody>
+</table>
+<h3 id="132-效能驗收標準">13.2 效能驗收標準</h3>
+<table>
+<thead>
+<tr>
+<th>效能指標</th>
+<th>驗收標準</th>
+<th>驗收方法</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>頁面載入</strong></td>
+<td>首次載入 &lt; 2 秒</td>
+<td>Chrome DevTools</td>
+</tr>
+<tr>
+<td><strong>API 回應</strong></td>
+<td>一般查詢 &lt; 500ms</td>
+<td>Postman / JMeter</td>
+</tr>
+<tr>
+<td><strong>資料處理</strong></td>
+<td>支援 1000+ 配方</td>
+<td>壓力測試</td>
+</tr>
+<tr>
+<td><strong>並發使用者</strong></td>
+<td>支援 100 人同時線上</td>
+<td>JMeter 並發測試</td>
+</tr>
+</tbody>
+</table>
+<h3 id="133-安全驗收標準">13.3 安全驗收標準</h3>
+<table>
+<thead>
+<tr>
+<th>安全項目</th>
+<th>驗收標準</th>
+<th>驗收方法</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>認證機制</strong></td>
+<td>強制登入、Session 管理正常</td>
+<td>安全測試</td>
+</tr>
+<tr>
+<td><strong>權限控制</strong></td>
+<td>角色權限正確分離</td>
+<td>權限測試</td>
+</tr>
+<tr>
+<td><strong>資料加密</strong></td>
+<td>密碼已加密儲存</td>
+<td>資料庫檢查</td>
+</tr>
+<tr>
+<td><strong>注入防護</strong></td>
+<td>無 SQL 注入、XSS 漏洞</td>
+<td>OWASP ZAP 掃描</td>
+</tr>
+</tbody>
+</table>
+<h3 id="134-文件驗收標準">13.4 文件驗收標準</h3>
+<table>
+<thead>
+<tr>
+<th>文件項目</th>
+<th>驗收標準</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>技術文件</strong></td>
+<td>README、API 文件、架構文件齊全</td>
+</tr>
+<tr>
+<td><strong>使用者手冊</strong></td>
+<td>操作步驟清晰、截圖完整</td>
+</tr>
+<tr>
+<td><strong>測試報告</strong></td>
+<td>測試結果記錄完整、覆蓋率達標</td>
+</tr>
+<tr>
+<td><strong>原始碼註解</strong></td>
+<td>關鍵函數有 JSDoc 註解</td>
+</tr>
+</tbody>
+</table>
+<h3 id="135-驗收簽核">13.5 驗收簽核</h3>
+<p>驗收通過後，雙方簽署「系統驗收報告」，確認以下事項：</p>
+<ul>
+<li>✅ 所有功能符合規格要求</li>
+<li>✅ 效能、安全指標達標</li>
+<li>✅ 文件齊全且正確</li>
+<li>✅ 教育訓練完成</li>
+<li>✅ 原始碼與建置檔案交付</li>
+<li>✅ 進入保固維護期</li>
+</ul>
+<hr>
+<h2 id="附錄">附錄</h2>
+<h3 id="附錄-a術語表">附錄 A：術語表</h3>
+<table>
+<thead>
+<tr>
+<th>術語</th>
+<th>英文</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>配方</td>
+<td>Recipe</td>
+<td>產品製程的參數與步驟定義</td>
+</tr>
+<tr>
+<td>簽核流程</td>
+<td>Approval Workflow</td>
+<td>多層級審核流程</td>
+</tr>
+<tr>
+<td>Golden Recipe</td>
+<td>Golden Recipe</td>
+<td>經過驗證的最佳化配方</td>
+</tr>
+<tr>
+<td>SPC</td>
+<td>Statistical Process Control</td>
+<td>統計製程管制</td>
+</tr>
+<tr>
+<td>CPK</td>
+<td>Process Capability Index</td>
+<td>製程能力指標</td>
+</tr>
+<tr>
+<td>EAP</td>
+<td>Engineering Automation Platform</td>
+<td>工程自動化平台</td>
+</tr>
+<tr>
+<td>ECU</td>
+<td>Equipment Control Unit</td>
+<td>設備控制單元</td>
+</tr>
+</tbody>
+</table>
+<h3 id="附錄-b參考文件">附錄 B：參考文件</h3>
+<ul>
+<li><code>README.md</code> - 系統說明文件</li>
+<li><code>CHANGELOG.md</code> - 版本變更記錄</li>
+<li><code>docs/GOLDEN_RECIPE_DESIGN.md</code> - Golden Recipe 設計文件</li>
+<li><code>docs/TEMPLATE_MANAGEMENT_PLAN.md</code> - 範本管理計畫</li>
+</ul>
+<h3 id="附錄-c聯絡資訊">附錄 C：聯絡資訊</h3>
+<p><strong>專案團隊</strong>：</p>
+<ul>
+<li>專案經理：（待指定）</li>
+<li>技術負責人：（待指定）</li>
+<li>Email：（待提供）</li>
+<li>專案網站：<a href="https://github.com/seikaikyo/Dash-RMS">https://github.com/seikaikyo/Dash-RMS</a></li>
+</ul>
+<hr>
+<p><strong>文件結束</strong></p>
+<p><strong>版本歷史</strong>：</p>
+<ul>
+<li>v1.0 (2025-10-11) - 初版發布</li>
+</ul>
+
+            <script async src="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.js"></script>
+            
+        </body>
+        </html>

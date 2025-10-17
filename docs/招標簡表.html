@@ -1,0 +1,1042 @@
+<!DOCTYPE html>
+        <html>
+        <head>
+            <meta charset="UTF-8">
+            <title>Dash RMS &#x914d;&#x65b9;&#x7ba1;&#x7406;&#x7cfb;&#x7d71; - &#x62db;&#x6a19;&#x7c21;&#x8868;</title>
+            <style>
+/* From extension vscode.github */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+.vscode-dark img[src$=\#gh-light-mode-only],
+.vscode-light img[src$=\#gh-dark-mode-only],
+.vscode-high-contrast:not(.vscode-high-contrast-light) img[src$=\#gh-light-mode-only],
+.vscode-high-contrast-light img[src$=\#gh-dark-mode-only] {
+	display: none;
+}
+
+</style>
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css">
+<link href="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.css" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/markdown.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/highlight.css">
+<style>
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', system-ui, 'Ubuntu', 'Droid Sans', sans-serif;
+                font-size: 14px;
+                line-height: 1.6;
+            }
+        </style>
+        <style>
+.task-list-item {
+    list-style-type: none;
+}
+
+.task-list-item-checkbox {
+    margin-left: -20px;
+    vertical-align: middle;
+    pointer-events: none;
+}
+</style>
+<style>
+:root {
+  --color-note: #0969da;
+  --color-tip: #1a7f37;
+  --color-warning: #9a6700;
+  --color-severe: #bc4c00;
+  --color-caution: #d1242f;
+  --color-important: #8250df;
+}
+
+</style>
+<style>
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-note: #2f81f7;
+    --color-tip: #3fb950;
+    --color-warning: #d29922;
+    --color-severe: #db6d28;
+    --color-caution: #f85149;
+    --color-important: #a371f7;
+  }
+}
+
+</style>
+<style>
+.markdown-alert {
+  padding: 0.5rem 1rem;
+  margin-bottom: 16px;
+  color: inherit;
+  border-left: .25em solid #888;
+}
+
+.markdown-alert>:first-child {
+  margin-top: 0
+}
+
+.markdown-alert>:last-child {
+  margin-bottom: 0
+}
+
+.markdown-alert .markdown-alert-title {
+  display: flex;
+  font-weight: 500;
+  align-items: center;
+  line-height: 1
+}
+
+.markdown-alert .markdown-alert-title .octicon {
+  margin-right: 0.5rem;
+  display: inline-block;
+  overflow: visible !important;
+  vertical-align: text-bottom;
+  fill: currentColor;
+}
+
+.markdown-alert.markdown-alert-note {
+  border-left-color: var(--color-note);
+}
+
+.markdown-alert.markdown-alert-note .markdown-alert-title {
+  color: var(--color-note);
+}
+
+.markdown-alert.markdown-alert-important {
+  border-left-color: var(--color-important);
+}
+
+.markdown-alert.markdown-alert-important .markdown-alert-title {
+  color: var(--color-important);
+}
+
+.markdown-alert.markdown-alert-warning {
+  border-left-color: var(--color-warning);
+}
+
+.markdown-alert.markdown-alert-warning .markdown-alert-title {
+  color: var(--color-warning);
+}
+
+.markdown-alert.markdown-alert-tip {
+  border-left-color: var(--color-tip);
+}
+
+.markdown-alert.markdown-alert-tip .markdown-alert-title {
+  color: var(--color-tip);
+}
+
+.markdown-alert.markdown-alert-caution {
+  border-left-color: var(--color-caution);
+}
+
+.markdown-alert.markdown-alert-caution .markdown-alert-title {
+  color: var(--color-caution);
+}
+
+</style>
+        
+        </head>
+        <body class="vscode-body vscode-light">
+            <h1 id="dash-rms-配方管理系統---招標簡表">Dash RMS 配方管理系統 - 招標簡表</h1>
+<p><strong>專案名稱</strong>：Dash RMS 配方管理系統開發專案
+<strong>發包單位</strong>：（貴公司名稱）
+<strong>招標文件版本</strong>：1.0
+<strong>發布日期</strong>：2025-10-11</p>
+<hr>
+<h2 id="1-專案概述">1. 專案概述</h2>
+<h3 id="11-專案簡介">1.1 專案簡介</h3>
+<p>開發一套模組化配方管理系統，整合簽核流程、版本控制、品質追蹤與 SPC 統計製程管制功能，適用於化學濾網製造產業，並可快速擴展至食品、製藥等其他製造業。</p>
+<h3 id="12-核心需求">1.2 核心需求</h3>
+<table>
+<thead>
+<tr>
+<th>需求類別</th>
+<th>核心功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>配方管理</strong></td>
+<td>配方建立、編輯、查詢、版本控制、範本系統</td>
+</tr>
+<tr>
+<td><strong>簽核流程</strong></td>
+<td>多層級簽核（單簽/並簽/串簽/條件分支）</td>
+</tr>
+<tr>
+<td><strong>品質追蹤</strong></td>
+<td>Golden Recipe 自動評分與認證</td>
+</tr>
+<tr>
+<td><strong>製程管制</strong></td>
+<td>SPC 管制圖、Cp/Cpk 計算、異常偵測</td>
+</tr>
+<tr>
+<td><strong>系統整合</strong></td>
+<td>EAP 系統整合（API/Webhook）</td>
+</tr>
+</tbody>
+</table>
+<h3 id="13-預期效益">1.3 預期效益</h3>
+<ul>
+<li>配方管理標準化，提升管理效率 60%</li>
+<li>簽核流程自動化，縮短審批時間 50%</li>
+<li>Golden Recipe 認證，提升產品品質穩定性</li>
+<li>版本控制完整，降低人為錯誤風險</li>
+</ul>
+<hr>
+<h2 id="2-專案範圍">2. 專案範圍</h2>
+<h3 id="21-功能範圍">2.1 功能範圍</h3>
+<table>
+<thead>
+<tr>
+<th>模組</th>
+<th>功能項目</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>配方管理</strong></td>
+<td>配方建置器、配方列表、範本管理</td>
+<td>✓ 需開發</td>
+</tr>
+<tr>
+<td><strong>簽核流程</strong></td>
+<td>流程設計器、簽核中心</td>
+<td>✓ 需開發</td>
+</tr>
+<tr>
+<td><strong>版本控制</strong></td>
+<td>自動版本追蹤、版本比對、版本回滾</td>
+<td>✓ 需開發</td>
+</tr>
+<tr>
+<td><strong>權限控制</strong></td>
+<td>權限表+角色對應架構、權限管理頁面、動態選單、路由保護</td>
+<td>✓ 需開發</td>
+</tr>
+<tr>
+<td><strong>Golden Recipe</strong></td>
+<td>自動評分、候選推薦、認證管理</td>
+<td>✓ 需開發</td>
+</tr>
+<tr>
+<td><strong>SPC 模組</strong></td>
+<td>管制圖、製程能力分析、異常偵測</td>
+<td>✓ 需開發</td>
+</tr>
+<tr>
+<td><strong>測試系統</strong></td>
+<td>測試執行引擎、測試劇本</td>
+<td>✓ 需開發</td>
+</tr>
+<tr>
+<td><strong>資料模擬器</strong></td>
+<td>測試資料生成、壓力測試</td>
+<td>✓ 需開發</td>
+</tr>
+<tr>
+<td><strong>系統管理</strong></td>
+<td>使用者管理、權限管理、操作日誌</td>
+<td>✓ 需開發</td>
+</tr>
+<tr>
+<td><strong>API 介面</strong></td>
+<td>RESTful API、Webhook</td>
+<td>✓ 需開發</td>
+</tr>
+</tbody>
+</table>
+<h3 id="22-交付項目">2.2 交付項目</h3>
+<table>
+<thead>
+<tr>
+<th>項目類別</th>
+<th>交付內容</th>
+<th>格式</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>原始碼</strong></td>
+<td>完整專案原始碼（含註解）</td>
+<td>Git Repository</td>
+</tr>
+<tr>
+<td><strong>建置檔案</strong></td>
+<td>生產環境建置檔案</td>
+<td>dist/ 目錄</td>
+</tr>
+<tr>
+<td><strong>資料庫</strong></td>
+<td>資料庫建立、遷移腳本</td>
+<td>SQL 檔案</td>
+</tr>
+<tr>
+<td><strong>文件</strong></td>
+<td>技術文件、API 文件、使用手冊、部署指南</td>
+<td>Markdown / PDF</td>
+</tr>
+<tr>
+<td><strong>測試</strong></td>
+<td>測試計畫、測試報告、測試覆蓋率報告</td>
+<td>HTML / PDF</td>
+</tr>
+<tr>
+<td><strong>訓練</strong></td>
+<td>系統管理員訓練（4小時）、使用者訓練（2小時）</td>
+<td>現場/線上</td>
+</tr>
+</tbody>
+</table>
+<h3 id="23-技術規格">2.3 技術規格</h3>
+<table>
+<thead>
+<tr>
+<th>技術項目</th>
+<th>規格要求</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>前端技術</strong></td>
+<td>Vanilla JavaScript (ES6+), Vite, CSS Variables</td>
+</tr>
+<tr>
+<td><strong>後端技術</strong></td>
+<td>Node.js 18+, Express</td>
+</tr>
+<tr>
+<td><strong>資料庫</strong></td>
+<td>PostgreSQL 14+</td>
+</tr>
+<tr>
+<td><strong>圖表繪製</strong></td>
+<td>Chart.js</td>
+</tr>
+<tr>
+<td><strong>開發環境</strong></td>
+<td>LocalStorage（POC階段可用）</td>
+</tr>
+<tr>
+<td><strong>生產環境</strong></td>
+<td>PostgreSQL + Redis（選配）</td>
+</tr>
+<tr>
+<td><strong>瀏覽器支援</strong></td>
+<td>Chrome 100+, Firefox 100+, Safari 15+, Edge 100+</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="3-專案時程">3. 專案時程</h2>
+<h3 id="31-整體時程">3.1 整體時程</h3>
+<p><strong>總工期</strong>：6 個月（不含保固期）
+<strong>保固期</strong>：12 個月</p>
+<h3 id="32-里程碑">3.2 里程碑</h3>
+<table>
+<thead>
+<tr>
+<th>階段</th>
+<th>工作內容</th>
+<th>工期</th>
+<th>交付成果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>階段一</strong></td>
+<td>需求確認</td>
+<td>2 週</td>
+<td>需求規格書（簽核）</td>
+</tr>
+<tr>
+<td><strong>階段二</strong></td>
+<td>系統設計</td>
+<td>3 週</td>
+<td>設計文件、原型圖</td>
+</tr>
+<tr>
+<td><strong>階段三</strong></td>
+<td>開發（核心）</td>
+<td>6 週</td>
+<td>Demo 1（配方+簽核）</td>
+</tr>
+<tr>
+<td><strong>階段四</strong></td>
+<td>開發（進階）</td>
+<td>4 週</td>
+<td>Demo 2（Golden+SPC）</td>
+</tr>
+<tr>
+<td><strong>階段五</strong></td>
+<td>開發（整合）</td>
+<td>3 週</td>
+<td>Demo 3（測試+API）</td>
+</tr>
+<tr>
+<td><strong>階段六</strong></td>
+<td>測試</td>
+<td>4 週</td>
+<td>測試報告</td>
+</tr>
+<tr>
+<td><strong>階段七</strong></td>
+<td>部署</td>
+<td>2 週</td>
+<td>上線系統</td>
+</tr>
+<tr>
+<td><strong>階段八</strong></td>
+<td>驗收</td>
+<td>2 週</td>
+<td>驗收報告</td>
+</tr>
+<tr>
+<td><strong>階段九</strong></td>
+<td>教育訓練</td>
+<td>1 週</td>
+<td>訓練記錄</td>
+</tr>
+</tbody>
+</table>
+<h3 id="33-付款里程碑">3.3 付款里程碑</h3>
+<table>
+<thead>
+<tr>
+<th>里程碑</th>
+<th>付款比例</th>
+<th>驗收標準</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>簽約</strong></td>
+<td>20%</td>
+<td>合約簽署完成</td>
+</tr>
+<tr>
+<td><strong>設計完成</strong></td>
+<td>10%</td>
+<td>設計文件經甲方確認</td>
+</tr>
+<tr>
+<td><strong>Demo 1</strong></td>
+<td>15%</td>
+<td>核心功能展示通過</td>
+</tr>
+<tr>
+<td><strong>Demo 2</strong></td>
+<td>15%</td>
+<td>進階功能展示通過</td>
+</tr>
+<tr>
+<td><strong>Demo 3</strong></td>
+<td>10%</td>
+<td>完整功能展示通過</td>
+</tr>
+<tr>
+<td><strong>系統驗收</strong></td>
+<td>20%</td>
+<td>通過所有驗收測試</td>
+</tr>
+<tr>
+<td><strong>教育訓練</strong></td>
+<td>10%</td>
+<td>訓練完成並交付文件</td>
+</tr>
+</tbody>
+</table>
+<p><strong>尾款保留</strong>：保固期滿無重大缺陷後支付</p>
+<hr>
+<h2 id="4-廠商資格">4. 廠商資格</h2>
+<h3 id="41-基本資格">4.1 基本資格</h3>
+<ul>
+<li>合法登記之公司行號</li>
+<li>具備軟體開發營業項目</li>
+<li>公司成立滿 3 年以上</li>
+<li>實收資本額新台幣 500 萬元以上</li>
+</ul>
+<h3 id="42-技術能力">4.2 技術能力</h3>
+<ul>
+<li>具備 JavaScript / Node.js 開發經驗 3 年以上</li>
+<li>具備 PostgreSQL 資料庫開發經驗</li>
+<li>具備 RESTful API 開發經驗</li>
+<li>具備前端 UI/UX 設計能力</li>
+<li>至少 5 人以上技術團隊</li>
+</ul>
+<h3 id="43-專案經驗需提供">4.3 專案經驗（需提供）</h3>
+<ul>
+<li>近 3 年內完成至少 3 件類似規模專案</li>
+<li>至少 1 件製造業資訊系統開發經驗</li>
+<li>專案實績說明（含客戶名稱、專案規模、完成時間）</li>
+</ul>
+<h3 id="44-需檢附文件">4.4 需檢附文件</h3>
+<ol>
+<li>公司登記證明文件</li>
+<li>營利事業登記證</li>
+<li>公司簡介</li>
+<li>專案實績說明</li>
+<li>主要技術人員履歷</li>
+<li>財務狀況證明（如：資產負債表）</li>
+<li>無不良紀錄聲明書</li>
+</ol>
+<hr>
+<h2 id="5-投標須知">5. 投標須知</h2>
+<h3 id="51-投標文件">5.1 投標文件</h3>
+<p>廠商需提交以下文件：</p>
+<table>
+<thead>
+<tr>
+<th>項次</th>
+<th>文件名稱</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>投標書</td>
+<td>正本 1 份</td>
+</tr>
+<tr>
+<td>2</td>
+<td>報價單</td>
+<td>含詳細工項報價</td>
+</tr>
+<tr>
+<td>3</td>
+<td>公司資格文件</td>
+<td>如第 4.4 節所列</td>
+</tr>
+<tr>
+<td>4</td>
+<td>專案執行計畫</td>
+<td>含時程規劃、人力配置</td>
+</tr>
+<tr>
+<td>5</td>
+<td>技術提案</td>
+<td>技術架構、開發方法</td>
+</tr>
+<tr>
+<td>6</td>
+<td>品質管理計畫</td>
+<td>測試計畫、品質控管</td>
+</tr>
+<tr>
+<td>7</td>
+<td>維護計畫</td>
+<td>保固內容、支援方式</td>
+</tr>
+</tbody>
+</table>
+<h3 id="52-評選標準">5.2 評選標準</h3>
+<table>
+<thead>
+<tr>
+<th>評選項目</th>
+<th>配分</th>
+<th>評選重點</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>價格</strong></td>
+<td>30 分</td>
+<td>總價合理性、付款條件</td>
+</tr>
+<tr>
+<td><strong>技術能力</strong></td>
+<td>25 分</td>
+<td>技術架構、開發方法、技術團隊</td>
+</tr>
+<tr>
+<td><strong>專案經驗</strong></td>
+<td>20 分</td>
+<td>過往實績、客戶評價</td>
+</tr>
+<tr>
+<td><strong>執行計畫</strong></td>
+<td>15 分</td>
+<td>時程規劃、風險管理</td>
+</tr>
+<tr>
+<td><strong>維護方案</strong></td>
+<td>10 分</td>
+<td>保固內容、支援機制</td>
+</tr>
+</tbody>
+</table>
+<p><strong>及格標準</strong>：總分 70 分以上</p>
+<h3 id="53-重要時程">5.3 重要時程</h3>
+<table>
+<thead>
+<tr>
+<th>時程項目</th>
+<th>日期</th>
+<th>備註</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>招標公告日</td>
+<td>（待定）</td>
+<td>公告於採購網</td>
+</tr>
+<tr>
+<td>廠商說明會</td>
+<td>（待定）</td>
+<td>現場說明，可提問</td>
+</tr>
+<tr>
+<td>投標截止日</td>
+<td>（待定）</td>
+<td>下午 5:00 前</td>
+</tr>
+<tr>
+<td>開標日</td>
+<td>（待定）</td>
+<td>資格審查</td>
+</tr>
+<tr>
+<td>評選日</td>
+<td>（待定）</td>
+<td>簡報 30 分鐘 + Q&amp;A 15 分鐘</td>
+</tr>
+<tr>
+<td>決標日</td>
+<td>（待定）</td>
+<td>公告得標廠商</td>
+</tr>
+<tr>
+<td>預計簽約日</td>
+<td>（待定）</td>
+<td>簽訂合約</td>
+</tr>
+<tr>
+<td>預計開工日</td>
+<td>（待定）</td>
+<td>專案啟動</td>
+</tr>
+</tbody>
+</table>
+<h3 id="54-投標限制">5.4 投標限制</h3>
+<ul>
+<li>不接受聯合投標</li>
+<li>不接受分包</li>
+<li>廠商需自行評估系統需求，投標後不得以需求不明為由要求追加預算</li>
+<li>報價應包含所有開發、測試、部署、訓練費用</li>
+</ul>
+<hr>
+<h2 id="6-合約條款重點">6. 合約條款重點</h2>
+<h3 id="61-智慧財產權">6.1 智慧財產權</h3>
+<ul>
+<li>系統原始碼著作權歸甲方所有</li>
+<li>乙方不得將原始碼用於其他專案</li>
+<li>乙方可保留通用元件庫的著作權（需明確列舉）</li>
+</ul>
+<h3 id="62-驗收標準">6.2 驗收標準</h3>
+<ul>
+<li>所有功能需符合需求規格書</li>
+<li>測試覆蓋率需達 80% 以上（核心模組）</li>
+<li>效能指標需符合規格要求</li>
+<li>安全性需通過 OWASP ZAP 掃描（無高風險漏洞）</li>
+</ul>
+<h3 id="63-違約罰則">6.3 違約罰則</h3>
+<table>
+<thead>
+<tr>
+<th>違約情況</th>
+<th>罰則</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>逾期交付</td>
+<td>每逾 1 日，扣罰合約總價 0.5%，最高 10%</td>
+</tr>
+<tr>
+<td>功能缺失</td>
+<td>重大功能缺失，扣罰 5-10%；一般功能缺失，限期改善</td>
+</tr>
+<tr>
+<td>品質不符</td>
+<td>測試未通過，限期改善；逾期未改善，視同逾期</td>
+</tr>
+</tbody>
+</table>
+<h3 id="64-保固條款">6.4 保固條款</h3>
+<ul>
+<li>保固期：12 個月（自驗收合格日起算）</li>
+<li>保固內容：
+<ul>
+<li>免費修正系統錯誤與 Bug</li>
+<li>免費小幅度功能調整（工時不超過 8 小時/次）</li>
+<li>免費技術支援（週一至週五 09:00-18:00）</li>
+<li>關鍵錯誤 4 小時內回應，24 小時內修復</li>
+<li>一般錯誤 24 小時內回應，72 小時內修復</li>
+</ul>
+</li>
+</ul>
+<h3 id="65-保密條款">6.5 保密條款</h3>
+<ul>
+<li>乙方需簽署保密協議</li>
+<li>專案相關資料不得洩漏給第三方</li>
+<li>專案完成後需歸還或銷毀所有資料</li>
+</ul>
+<hr>
+<h2 id="7-報價參考">7. 報價參考</h2>
+<h3 id="71-工項分類">7.1 工項分類</h3>
+<p>為協助廠商報價，建議依以下工項分類報價：</p>
+<table>
+<thead>
+<tr>
+<th>工項編號</th>
+<th>工項名稱</th>
+<th>說明</th>
+<th>建議工時</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A.</td>
+<td><strong>需求與設計階段</strong></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>A1</td>
+<td>需求訪談與分析</td>
+<td>需求確認、規格撰寫</td>
+<td>80 小時</td>
+</tr>
+<tr>
+<td>A2</td>
+<td>系統架構設計</td>
+<td>技術架構、模組設計</td>
+<td>60 小時</td>
+</tr>
+<tr>
+<td>A3</td>
+<td>資料庫設計</td>
+<td>ER Diagram、資料表設計</td>
+<td>40 小時</td>
+</tr>
+<tr>
+<td>A4</td>
+<td>UI/UX 設計</td>
+<td>原型圖、介面設計</td>
+<td>60 小時</td>
+</tr>
+<tr>
+<td>B.</td>
+<td><strong>開發階段</strong></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>B1</td>
+<td>配方管理模組</td>
+<td>配方建置器、列表、範本管理</td>
+<td>120 小時</td>
+</tr>
+<tr>
+<td>B2</td>
+<td>簽核流程模組</td>
+<td>流程設計器、簽核引擎、簽核中心</td>
+<td>160 小時</td>
+</tr>
+<tr>
+<td>B3</td>
+<td>版本控制模組</td>
+<td>版本追蹤、比對、回滾</td>
+<td>80 小時</td>
+</tr>
+<tr>
+<td>B4</td>
+<td>權限控制模組</td>
+<td>權限表+角色對應架構、權限管理頁面、動態選單、路由保護</td>
+<td>80 小時</td>
+</tr>
+<tr>
+<td>B5</td>
+<td>Golden Recipe 模組</td>
+<td>評分引擎、候選推薦、認證管理</td>
+<td>100 小時</td>
+</tr>
+<tr>
+<td>B6</td>
+<td>SPC 模組</td>
+<td>管制圖、Cp/Cpk 計算、異常偵測</td>
+<td>120 小時</td>
+</tr>
+<tr>
+<td>B7</td>
+<td>測試系統</td>
+<td>測試引擎、測試劇本</td>
+<td>60 小時</td>
+</tr>
+<tr>
+<td>B8</td>
+<td>資料模擬器</td>
+<td>測試資料生成</td>
+<td>40 小時</td>
+</tr>
+<tr>
+<td>B9</td>
+<td>系統管理</td>
+<td>使用者管理、部門管理、日誌</td>
+<td>60 小時</td>
+</tr>
+<tr>
+<td>B10</td>
+<td>API 介面</td>
+<td>RESTful API、Webhook</td>
+<td>80 小時</td>
+</tr>
+<tr>
+<td>B11</td>
+<td>前端整合開發</td>
+<td>通用元件、全域樣式</td>
+<td>100 小時</td>
+</tr>
+<tr>
+<td>C.</td>
+<td><strong>測試階段</strong></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>C1</td>
+<td>單元測試</td>
+<td>撰寫單元測試程式</td>
+<td>80 小時</td>
+</tr>
+<tr>
+<td>C2</td>
+<td>整合測試</td>
+<td>模組整合測試</td>
+<td>60 小時</td>
+</tr>
+<tr>
+<td>C3</td>
+<td>功能測試</td>
+<td>UAT 測試執行</td>
+<td>60 小時</td>
+</tr>
+<tr>
+<td>C4</td>
+<td>效能測試</td>
+<td>壓力測試、效能調校</td>
+<td>40 小時</td>
+</tr>
+<tr>
+<td>C5</td>
+<td>安全測試</td>
+<td>漏洞掃描、安全加固</td>
+<td>40 小時</td>
+</tr>
+<tr>
+<td>D.</td>
+<td><strong>部署與訓練</strong></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>D1</td>
+<td>環境建置</td>
+<td>生產環境設定</td>
+<td>40 小時</td>
+</tr>
+<tr>
+<td>D2</td>
+<td>系統部署</td>
+<td>應用部署、上線</td>
+<td>20 小時</td>
+</tr>
+<tr>
+<td>D3</td>
+<td>文件撰寫</td>
+<td>技術文件、使用手冊</td>
+<td>60 小時</td>
+</tr>
+<tr>
+<td>D4</td>
+<td>教育訓練</td>
+<td>管理員訓練、使用者訓練</td>
+<td>16 小時</td>
+</tr>
+<tr>
+<td>E.</td>
+<td><strong>專案管理</strong></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>E1</td>
+<td>專案管理</td>
+<td>進度控管、會議溝通</td>
+<td>120 小時</td>
+</tr>
+<tr>
+<td><strong>總計</strong></td>
+<td></td>
+<td></td>
+<td><strong>約 1,776 小時</strong></td>
+</tr>
+</tbody>
+</table>
+<h3 id="72-人力成本參考">7.2 人力成本參考</h3>
+<table>
+<thead>
+<tr>
+<th>角色</th>
+<th>市場行情（時薪）</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>專案經理</td>
+<td>NT$ 2,000 - 3,000</td>
+<td>Senior 級，5 年以上經驗</td>
+</tr>
+<tr>
+<td>系統分析師</td>
+<td>NT$ 1,500 - 2,500</td>
+<td>Senior 級，5 年以上經驗</td>
+</tr>
+<tr>
+<td>資深工程師</td>
+<td>NT$ 1,200 - 2,000</td>
+<td>3-5 年經驗</td>
+</tr>
+<tr>
+<td>中階工程師</td>
+<td>NT$ 800 - 1,200</td>
+<td>1-3 年經驗</td>
+</tr>
+<tr>
+<td>UI/UX 設計師</td>
+<td>NT$ 1,000 - 1,500</td>
+<td>3 年以上經驗</td>
+</tr>
+<tr>
+<td>測試工程師</td>
+<td>NT$ 800 - 1,200</td>
+<td>1-3 年經驗</td>
+</tr>
+</tbody>
+</table>
+<h3 id="73-預算範圍參考">7.3 預算範圍參考</h3>
+<p>依據市場行情與專案規模，本專案預算範圍建議：</p>
+<table>
+<thead>
+<tr>
+<th>項目</th>
+<th>金額範圍（新台幣）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>開發費用</td>
+<td>180 萬 - 280 萬</td>
+</tr>
+<tr>
+<td>硬體設備（選配）</td>
+<td>20 萬 - 50 萬</td>
+</tr>
+<tr>
+<td>第三方軟體授權（選配）</td>
+<td>5 萬 - 15 萬</td>
+</tr>
+<tr>
+<td><strong>總預算範圍</strong></td>
+<td><strong>200 萬 - 350 萬</strong></td>
+</tr>
+</tbody>
+</table>
+<p><strong>註</strong>：</p>
+<ol>
+<li>實際報價請依廠商成本結構自行評估</li>
+<li>以上僅為參考，不代表採購預算</li>
+<li>報價需包含所有稅金</li>
+</ol>
+<hr>
+<h2 id="8-參考資料">8. 參考資料</h2>
+<h3 id="81-系統展示">8.1 系統展示</h3>
+<ul>
+<li><strong>原型系統</strong>：<a href="https://dash-rms.vercel.app">https://dash-rms.vercel.app</a></li>
+<li><strong>GitHub Repository</strong>：<a href="https://github.com/seikaikyo/Dash-RMS">https://github.com/seikaikyo/Dash-RMS</a></li>
+<li><strong>測試帳號</strong>：user001 / user001</li>
+</ul>
+<h3 id="82-技術文件">8.2 技術文件</h3>
+<ul>
+<li>詳細工作說明書：<code>docs/工作說明書_RMS配方管理系統.md</code></li>
+<li>系統架構圖：<a href="http://README.html">README.md</a></li>
+<li>API 規格：<a href="http://README.html">README.md</a> (API 介面設計章節)</li>
+</ul>
+<h3 id="83-聯絡資訊">8.3 聯絡資訊</h3>
+<p><strong>承辦人</strong>：（待填）
+<strong>電話</strong>：（待填）
+<strong>Email</strong>：（待填）
+<strong>地址</strong>：（待填）</p>
+<hr>
+<h2 id="9-投標廠商檢核表">9. 投標廠商檢核表</h2>
+<p>投標前請確認以下事項：</p>
+<ul class="contains-task-list">
+<li class="task-list-item enabled"><input class="task-list-item-checkbox"type="checkbox"> 已詳閱工作說明書</li>
+<li class="task-list-item enabled"><input class="task-list-item-checkbox"type="checkbox"> 已測試原型系統</li>
+<li class="task-list-item enabled"><input class="task-list-item-checkbox"type="checkbox"> 已準備所有資格文件</li>
+<li class="task-list-item enabled"><input class="task-list-item-checkbox"type="checkbox"> 已完成報價單（含詳細工項）</li>
+<li class="task-list-item enabled"><input class="task-list-item-checkbox"type="checkbox"> 已撰寫專案執行計畫</li>
+<li class="task-list-item enabled"><input class="task-list-item-checkbox"type="checkbox"> 已撰寫技術提案</li>
+<li class="task-list-item enabled"><input class="task-list-item-checkbox"type="checkbox"> 已撰寫品質管理計畫</li>
+<li class="task-list-item enabled"><input class="task-list-item-checkbox"type="checkbox"> 已撰寫維護計畫</li>
+<li class="task-list-item enabled"><input class="task-list-item-checkbox"type="checkbox"> 已確認投標截止時間</li>
+<li class="task-list-item enabled"><input class="task-list-item-checkbox"type="checkbox"> 已確認評選簡報時間</li>
+</ul>
+<hr>
+<h2 id="10-常見問題faq">10. 常見問題（FAQ）</h2>
+<h3 id="q1-是否可以使用現成的開源框架">Q1: 是否可以使用現成的開源框架？</h3>
+<p>A: 可以，但需在技術提案中說明使用的框架及授權方式。前端框架需使用 Vanilla JavaScript 或符合規格要求的輕量框架。</p>
+<h3 id="q2-資料庫是否一定要使用-postgresql">Q2: 資料庫是否一定要使用 PostgreSQL？</h3>
+<p>A: 生產環境建議使用 PostgreSQL，但若有更適合的方案可在技術提案中說明理由。開發階段可使用 LocalStorage。</p>
+<h3 id="q3-是否需要提供行動版手機介面">Q3: 是否需要提供行動版（手機）介面？</h3>
+<p>A: 本專案主要針對桌面瀏覽器，需支援響應式設計（平板可用），但不強制要求手機版優化。</p>
+<h3 id="q4-eap-系統整合的-api-規格是否已確定">Q4: EAP 系統整合的 API 規格是否已確定？</h3>
+<p>A: 目前 API 規格已在工作說明書中定義，實際整合時可依 EAP 系統需求調整，不影響報價。</p>
+<h3 id="q5-保固期內的免費調整有工時限制嗎">Q5: 保固期內的免費調整有工時限制嗎？</h3>
+<p>A: 單次調整不超過 8 小時工時視為免費，超過部分需另行報價。</p>
+<h3 id="q6-是否需要提供雲端部署服務">Q6: 是否需要提供雲端部署服務？</h3>
+<p>A: 本專案以地端（On-Premise）部署為主，若需雲端部署（AWS/Azure/GCP）請另行報價。</p>
+<h3 id="q7-原型系統是否代表最終交付標準">Q7: 原型系統是否代表最終交付標準？</h3>
+<p>A: 原型系統為功能展示用，實際交付需符合工作說明書的完整規格。</p>
+<h3 id="q8-是否可以使用-ai-輔助開發工具如-github-copilot">Q8: 是否可以使用 AI 輔助開發工具（如 GitHub Copilot）？</h3>
+<p>A: 可以使用 AI 輔助工具，但程式碼品質仍由廠商負責，需通過所有測試標準。</p>
+<h3 id="q9-測試覆蓋率如何計算">Q9: 測試覆蓋率如何計算？</h3>
+<p>A: 使用 Jest/Vitest 等測試框架的覆蓋率報告，核心業務邏輯模組需達 80% 以上。</p>
+<h3 id="q10-驗收失敗是否可以重新驗收">Q10: 驗收失敗是否可以重新驗收？</h3>
+<p>A: 可以，廠商修正缺陷後可申請重新驗收，但逾期計算不中斷。</p>
+<hr>
+<p><strong>招標文件結束</strong></p>
+<p><strong>附件清單</strong>：</p>
+<ul>
+<li>附件一：工作說明書（<code>docs/工作說明書_RMS配方管理系統.md</code>）</li>
+<li>附件二：投標書格式範本（另行提供）</li>
+<li>附件三：報價單格式範本（另行提供）</li>
+<li>附件四：合約書範本（另行提供）</li>
+</ul>
+<p><strong>文件版本歷史</strong>：</p>
+<ul>
+<li>v1.0 (2025-10-11) - 初版發布</li>
+</ul>
+
+            <script async src="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.js"></script>
+            
+        </body>
+        </html>

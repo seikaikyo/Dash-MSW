@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <title>建立測試工單</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    .success {
+      color: green;
+      font-weight: bold;
+      padding: 10px;
+      background: #e8f5e9;
+      border-radius: 4px;
+      margin: 20px 0;
+    }
+    .workorder-info {
+      background: #f5f5f5;
+      padding: 15px;
+      border-radius: 4px;
+      font-family: monospace;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      background: #1976d2;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #1565c0;
+    }
+  </style>
+</head>
+<body>
+  <h1>建立測試工單</h1>
+  <button onclick="createTestWorkOrder()">建立測試工單</button>
+  <div id="result"></div>
+
+  <script type="module">
+    import { FormInstanceModel } from './src/utils/dataModel.js';
+
+    window.createTestWorkOrder = function() {
+      const testWorkOrder = new FormInstanceModel({
+        formId: 'filter-regeneration',
+        formName: '濾網再生工單',
+        applicant: '測試人員',
+        department: '製造部',
+        status: 'pending',
+        data: {
+          workOrderNo: 'WO-20250117-0001',
+          batchNo: 'BATCH-2025-001',
+          sourceFactory: '柳營廠',
+          filterType: '活性碳濾網',
+          quantity: 100,
+          regenerationCycle: 'R0 (首次再生)'
+        }
+      });
+
+      testWorkOrder.save();
+
+      document.getElementById('result').innerHTML = `
+        <div class="success">✓ 測試工單建立成功！</div>
+        <div class="workorder-info">
+          <h3>工單資訊：</h3>
+          <p><strong>工單編號：</strong> WO-20250117-0001</p>
+          <p><strong>批次號：</strong> BATCH-2025-001</p>
+          <p><strong>來源廠別：</strong> 柳營廠</p>
+          <p><strong>濾網類型：</strong> 活性碳濾網</p>
+          <p><strong>數量：</strong> 100 片</p>
+          <p><strong>再生次數：</strong> R0 (首次再生)</p>
+          <p><strong>狀態：</strong> 待處理</p>
+        </div>
+        <p style="margin-top: 20px;">
+          請在除膠站掃描此工單號碼：<br>
+          <strong style="font-size: 24px; color: #1976d2;">WO-20250117-0001</strong>
+        </p>
+      `;
+    };
+  </script>
+</body>
+</html>

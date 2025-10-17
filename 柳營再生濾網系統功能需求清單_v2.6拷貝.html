@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>柳營再生濾網系統功能需求清單</title>
+    <style>
+        body {
+            font-family: "Microsoft JhengHei", "PingFang TC", Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+            background-color: #fff;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            border-bottom: 3px solid #2c5aa0;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            color: #2c5aa0;
+            font-size: 28px;
+            margin: 0;
+        }
+
+        .header .subtitle {
+            color: #666;
+            font-size: 16px;
+            margin-top: 10px;
+        }
+
+        .section {
+            margin-bottom: 40px;
+        }
+
+        .section h2 {
+            color: #2c5aa0;
+            border-left: 4px solid #2c5aa0;
+            padding-left: 15px;
+            font-size: 20px;
+            margin-bottom: 20px;
+        }
+
+        .section h3 {
+            color: #4a6fa5;
+            font-size: 16px;
+            margin-bottom: 15px;
+            border-bottom: 1px solid #e0e0e0;
+            padding-bottom: 5px;
+        }
+
+        .section h4 {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+            font-size: 13px;
+        }
+
+        table th {
+            background-color: #2c5aa0;
+            color: white;
+            padding: 12px 8px;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        table td {
+            padding: 10px 8px;
+            border: 1px solid #ddd;
+            vertical-align: top;
+        }
+
+        table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        .feature-box {
+            background-color: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 5px;
+            padding: 15px;
+            margin-bottom: 15px;
+        }
+
+        .feature-box h4 {
+            color: #2c5aa0;
+            margin-top: 0;
+            margin-bottom: 10px;
+        }
+
+        .feature-list {
+            margin: 0;
+            padding-left: 20px;
+        }
+
+        .feature-list li {
+            margin-bottom: 5px;
+            font-size: 13px;
+        }
+
+        .highlight {
+            background-color: #e8f4fd;
+            border-left: 4px solid #2c5aa0;
+            padding: 15px;
+            margin: 15px 0;
+        }
+
+        .comparison-table td.advantage {
+            background-color: #d4edda;
+            font-weight: bold;
+        }
+
+        .comparison-table td.disadvantage {
+            background-color: #f8d7da;
+        }
+
+        .tech-architecture {
+            background-color: #f1f3f4;
+            border-radius: 5px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .process-flow {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 20px 0;
+        }
+
+        .process-step {
+            background-color: #e8f4fd;
+            border: 1px solid #2c5aa0;
+            border-radius: 5px;
+            padding: 10px;
+            flex: 1;
+            min-width: 120px;
+            text-align: center;
+            font-size: 12px;
+        }
+
+        .cost-benefit {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .cost-item, .benefit-item {
+            background-color: #f8f9fa;
+            border-radius: 5px;
+            padding: 15px;
+        }
+
+        .cost-item h4, .benefit-item h4 {
+            margin-top: 0;
+            color: #2c5aa0;
+        }
+
+        .energy-highlight {
+            background-color: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin: 15px 0;
+        }
+
+        @media print {
+            body { font-size: 12px; }
+            .section { page-break-inside: avoid; }
+            table { font-size: 11px; }
+            .header h1 { font-size: 24px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>研華IoTSuite數據中台延伸系統功能需求清單</h1>
+            <div class="subtitle">柳營再生濾網製程專業系統規格書</div>
+            <div class="subtitle">版本：2.6 | 日期：2025年9月</div>
+        </div>
+
+        <div class="section">
+            <h2>一、專案概述</h2>
+            <p>本專案充分運用柳營廠現有研華IoTSuite數據中台完善基礎設施，包括烘箱ECU數據、所羅門AOI光學影像辨識檢測數據、電表MAU、FFU等廠務設備已完整收集上報的數據優勢，針對柳營再生濾網特殊製程（鐳雕再生產品序號R0及RFID再生次數追蹤），需具備 MES+SPC+WMS 模組及能源管理系統，因量產在即必須具備開箱即用軟體優勢，實現從工單建立到出貨交付的完整半自動化數位管理。</p>
+
+            <div class="energy-highlight">
+                <strong>柳營廠獨特優勢：</strong>
+                <ul>
+                    <li><strong>完善數據基礎：</strong>烘箱ECU、所羅門AOI光學影像辨識、電表MAU、FFU等設備數據已透過研華IoTSuite完整收集</li>
+                    <li><strong>能源數據整合：</strong>柳營再生廠最重要的核心特色是能源數據與製程管理的完美結合</li>
+                    <li><strong>再生濾網專業追蹤：</strong>鐳雕再生產品序號(R0)及RFID再生次數追蹤，完整記錄濾網生命週期</li>
+                    <li><strong>接近全自動化：</strong>再生製程搭配現有數據基礎，實現最少人為介入的半自動化管理</li>
+                    <li><strong>零額外建置成本：</strong>充分利用現有IoTSuite數據中台，不需額外設備數據收集投資</li>
+                </ul>
+            </div>
+
+            <div class="highlight">
+                <strong>核心架構特色：</strong>
+                <ul>
+                    <li>充分運用現有研華IoTSuite數據中台完善基礎建設</li>
+                    <li>烘箱ECU、所羅門AOI檢測、電表MAU、FFU等設備數據已完整收集</li>
+                    <li>相關模組必須完整整合，無需額外數據收集建置</li>
+                    <li>能源數據與精實製程管理需完美結合，並禁止中介表等不即時且無法追蹤查驗資料之老舊方式，並造成數據轉拋延宕以及資料庫連線異常之風險</li>
+                    <li>實現接近全自動化，最少人為介入</li>
+                    <li>採用IoTEdge RestfulAPI統一數據交換中樞</li>
+                    <li>預留AGV自動搬運機器人串接能力，邁向全自動化倉儲</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>二、再生濾網製程流程對應</h2>
+            <div class="process-flow">
+                <div class="process-step"><strong>1.</strong><br>工單建立</div>
+                <div class="process-step"><strong>2.</strong><br>除膠站點</div>
+                <div class="process-step"><strong>3.</strong><br>烘箱處理</div>
+                <div class="process-step"><strong>4.</strong><br>OQC檢驗<br><small>(釋氣作業→AOI檢測)</small></div>
+                <div class="process-step"><strong>5.</strong><br>再生RFID標籤更換</div>
+                <div class="process-step"><strong>6.</strong><br>包裝堆棧</div>
+                <div class="process-step"><strong>7.</strong><br>成品入庫</div>
+                <div class="process-step"><strong>8.</strong><br>出庫出貨</div>
+            </div>
+
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th style="width: 15%">製程站點</th>
+                        <th style="width: 25%">現有Excel/手工作業</th>
+                        <th style="width: 35%">研華IoTSuite數據中台+MES/WMS整合系統功能</th>
+                        <th style="width: 25%">系統優勢</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>1. 工單建立</strong></td>
+                        <td>手動建立批次號、數量規劃</td>
+                        <td>MES自動工單生成、批次管理、來源廠別管理</td>
+                        <td class="advantage">全自動化工單管理、零人為介入</td>
+                    </tr>
+                    <tr>
+                        <td><strong>2. 除膠站點</strong></td>
+                        <td>手動記錄除膠作業</td>
+                        <td>MES自動記錄除膠站點時間、作業參數追蹤</td>
+                        <td class="advantage">自動化記錄、製程追蹤完整</td>
+                    </tr>
+                    <tr>
+                        <td><strong>3. 烘箱處理</strong></td>
+                        <td>手動記錄時間、溫度</td>
+                        <td>現有ECU已自動收集溫度數據、必須具備整合製程時間管理、能耗分析</td>
+                        <td class="advantage">需運用現有數據基礎、不可額外擴充建置成本、能源效率需能進行最佳化</td>
+                    </tr>
+                    <tr>
+                        <td><strong>4. OQC檢驗</strong><br><small>(釋氣作業→AOI檢測)</small></td>
+                        <td>紙本記錄製程參數<br>Excel統計OK/NG數據</td>
+                        <td>MES及SPC整合管理：<br>• 釋氣作業：品保18抽1抽檢、未達標加抽2片再測、超標回爐重烤、重工後仍 NG 則報廢<br>• 所羅門AOI：自動OK/NG判定、破洞/嚴重瑕疵直接報廢、異常碼管理</td>
+                        <td class="advantage">整合OQC檢驗流程、AOI自動判定、釋氣人工確認、報廢機制完整</td>
+                    </tr>
+                    <tr>
+                        <td><strong>5. 再生RFID標籤更換</strong></td>
+                        <td>手動記錄再生次數</td>
+                        <td>OQC檢驗通過後自動RFID標籤更換、再生次數自動更新(R0→R1)、完成時間自動記錄</td>
+                        <td class="advantage">再生次數自動追蹤、濾網生命週期完整記錄</td>
+                    </tr>
+                    <tr>
+                        <td><strong>6. 包裝堆棧</strong></td>
+                        <td>手動包裝、Pallet堆棧管理</td>
+                        <td>需具備WMS自動包裝指引、Pallet綁定：一Pallet多濾網ID管理、RFID與條碼雙重追蹤</td>
+                        <td class="advantage">包裝流程標準化、Pallet管理最佳化、追蹤系統完整</td>
+                    </tr>
+                    <tr>
+                        <td><strong>7. 成品入庫</strong></td>
+                        <td>Excel庫存表管理</td>
+                        <td>需具備WMS智能庫位分配、Pallet倉位自動綁定、RFID再生次數記錄、入庫時間自動記錄</td>
+                        <td class="advantage">庫位最佳化、再生履歷完整、成品庫存精準管理</td>
+                    </tr>
+                    <tr>
+                        <td><strong>8. 出庫出貨</strong></td>
+                        <td>手動工單物流單對應</td>
+                        <td>需具備WMS工單物流單自動對應、良品出貨管制、報廢品隔離、運輸成本分析</td>
+                        <td class="advantage">自動對應、良品管制、報廢隔離、物流成本透明</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="section">
+            <h2>三、系統功能詳細規格</h2>
+
+            <h3>3.1 MES製程管理系統</h3>
+
+            <div class="feature-box">
+                <h4>工單管理核心功能</h4>
+                <ul class="feature-list">
+                    <li>工單建立：批次號自動生成、數量規劃、來源廠別管理</li>
+                    <li>進度追蹤：即時製程位置顯示、完成率計算、能耗進度追蹤</li>
+                    <li>工單查詢：多維度檢索(ID/日期/批次/能耗)</li>
+                    <li>異常處理：製程異常自動記錄與追蹤、能耗異常警示</li>
+                </ul>
+            </div>
+
+            <div class="feature-box">
+                <h4>製程追蹤系統</h4>
+                <ul class="feature-list">
+                    <li>濾網ID：唯一識別碼管理、製程履歷完整記錄</li>
+                    <li>鐳雕序號追蹤：再生產品序號(R0)自動識別與管理</li>
+                    <li>RFID再生追蹤：OQC檢驗通過後自動RFID標籤更換、再生次數更新(R0→R1→R2...)</li>
+                    <li>站點時間：1.除膠/2.烘箱/3.OQC檢驗(釋氣→AOI)/4.RFID標籤更換/5.包裝堆棧/6.成品入庫進出時間自動記錄</li>
+                    <li>品質等級：AOI自動OK/NG判定、釋氣品保人員判定、異常原因分析</li>
+                    <li>異常代碼：污染/破損/報廢等異常碼自動分類、能耗異常關聯</li>
+                    <li>設備整合：充分利用現有ECU數據，無額外感測器建置成本</li>
+                </ul>
+            </div>
+
+            <div class="feature-box">
+                <h4>品質檢測整合</h4>
+                <ul class="feature-list">
+                    <li>IQC進料檢驗：標籤缺失警示與補救流程</li>
+                    <li>釋氣抽檢流程：18抽1抽檢制度、未達標加抽2片再測、超標回爐重烤機制</li>
+                    <li>品保重工管理：抽檢不合格自動記錄、回爐批次追蹤、重工後仍 NG 則報廢機制</li>
+                    <li>報廢管理：AOI檢測破洞/嚴重瑕疵直接報廢、報廢原因統計、報廢成本分析</li>
+                    <li>所羅門AOI檢測：自動OK/NG判定、異常碼自動分類、數據自動整合</li>
+                    <li>品質管控：釋氣抽檢+AOI雙重檢驗通過後才進行RFID標籤更換，不合格則回爐或報廢</li>
+                    <li>檢測數據優勢：所羅門AOI檢測數據已透過IoTSuite收集，無額外設備投資</li>
+                </ul>
+            </div>
+
+            <h3>3.2 WMS倉儲管理系統</h3>
+
+            <div class="feature-box">
+                <h4>包裝與標籤管理</h4>
+                <ul class="feature-list">
+                    <li>RFID標籤管理：OQC檢驗通過後自動更換RFID標籤、再生次數自動更新</li>
+                    <li>Pallet綁定：一Pallet多濾網ID直接管理、RFID與條碼雙重追蹤</li>
+                    <li>Pallet管理：直接Pallet綁定多個濾網ID、簡化層級、空間效率最佳化</li>
+                    <li>標籤管理：自動列印、補印、重印功能（RFID+條碼）</li>
+                    <li>雙重追蹤：RFID再生履歷+條碼物流追蹤，提升效率、降低人為錯誤</li>
+                </ul>
+            </div>
+
+            <div class="feature-box">
+                <h4>入庫庫存管理</h4>
+                <ul class="feature-list">
+                    <li>入庫登錄：Pallet與倉位自動綁定、Pallet內多濾網ID管理、RFID再生次數記錄、入庫時間自動記錄</li>
+                    <li>庫存查詢：濾網ID/Pallet ID/工單/再生次數多維查詢、Pallet內容物查詢、成本分析</li>
+                    <li>再生履歷：完整記錄濾網從R0→R1→R2...的再生歷程與時間</li>
+                    <li>倉位管理：數量統計、存放位置即時追蹤、再生狀態分類管理</li>
+                    <li>庫存預警：安全庫存、呆滯庫存、再生次數上限自動提醒</li>
+                    <li>AGV預留接口：透過IoTEdge RestfulAPI預留AGV自動搬運機器人串接能力</li>
+                </ul>
+            </div>
+
+            <div class="feature-box">
+                <h4>出庫出貨管理</h4>
+                <ul class="feature-list">
+                    <li>工單對應：出貨批次自動對應、先進先出原則管理</li>
+                    <li>出貨檢驗：OQC完成後才允許出貨、品質保證流程</li>
+                    <li>良品管制：只有通過檢驗的良品才能出貨、報廢品自動隔離</li>
+                    <li>報廢管理：報廢品統計、報廢原因分析、報廢成本計算</li>
+                    <li>單據生成：出貨單/物流單自動產生、運輸成本計算</li>
+                    <li>出貨追蹤：客戶端驗收資訊回饋機制、物流效率分析</li>
+                </ul>
+            </div>
+
+            <h3>3.3 SPC統計製程管制系統</h3>
+
+            <div class="feature-box">
+                <h4>製程品質監控</h4>
+                <ul class="feature-list">
+                    <li>所羅門AOI檢測數據：自動判定OK/NG比率、品質趨勢分析</li>
+                    <li>製程參數：烘箱溫度、釋氣抽檢結果統計、回爐率統計、報廢率統計、能耗關聯分析</li>
+                    <li>Cpk/Ppk分析：製程能力評估、能耗效率評估</li>
+                    <li>管制圖：X-bar/R-bar即時品質監控、能耗管制圖</li>
+                    <li>異常偵測：品質異常自動警示系統、能耗異常預警</li>
+                    <li>數據整合優勢：所羅門AOI數據已上報IoTSuite，SPC系統必須直接整合分析</li>
+                </ul>
+            </div>
+
+            <h3>3.4 能源管理系統</h3>
+
+            <div class="feature-box">
+                <h4>設備能耗監控與分析</h4>
+                <ul class="feature-list">
+                    <li>烘箱能耗：溫度與耗電關聯分析、效率最佳化建議</li>
+                    <li>所羅門AOI設備：檢測設備耗電監控、稼動率分析</li>
+                    <li>包裝線：包裝設備效率分析、產能能耗比分析</li>
+                    <li>廠務設備：MAU/FFU能耗監控、環境效率分析</li>
+                    <li>成本分攤：單位濾網能源成本計算、成本追蹤分析</li>
+                    <li>節能建議：基於現有ECU數據的能源最佳化建議</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>四、系統核心優勢</h2>
+
+            <h3>4.1 基礎建設優勢</h3>
+            <div class="feature-box">
+                <h4>完善數據基礎無額外投資</h4>
+                <ul class="feature-list">
+                    <li>充分運用現有研華IoTSuite數據中台50,000點位授權</li>
+                    <li>烘箱ECU、所羅門AOI檢測、電表MAU、FFU設備數據已完整收集</li>
+                    <li>模組需完整整合，禁止第三方數據轉換</li>
+                    <li>不需額外感測器或數據收集設備建置成本</li>
+                </ul>
+            </div>
+
+            <h3>4.2 能源整合優勢</h3>
+            <div class="feature-box">
+                <h4>能源數據與製程管理完美結合</h4>
+                <ul class="feature-list">
+                    <li>製程能耗即時監控與分析，實現精準成本控制</li>
+                    <li>品質與能耗關聯分析，找出最佳效率平衡點</li>
+                    <li>設備能效最佳化建議，降低單位產品能源成本</li>
+                    <li>能源異常預警系統，避免設備效率下降</li>
+                </ul>
+            </div>
+
+            <h3>4.3 自動化程度優勢</h3>
+            <div class="feature-box">
+                <h4>接近全自動化，最少人為介入</h4>
+                <ul class="feature-list">
+                    <li>工單自動生成與派工，無需人工建立</li>
+                    <li>製程參數自動記錄，避免人工遺漏</li>
+                    <li>所羅門AOI檢測結果自動判定與統計</li>
+                    <li>RFID再生次數自動追蹤與標籤列印</li>
+                    <li>庫存管理全自動化，Pallet智能分配</li>
+                    <li>出貨單據自動生成，減少人為錯誤</li>
+                    <li>AGV預留接口：IoTEdge RestfulAPI支援未來AGV自動搬運串接</li>
+                </ul>
+            </div>
+
+            <h3>4.4 維護支援優勢</h3>
+            <div class="feature-box">
+                <h4>研華生態系統完整支援</h4>
+                <ul class="feature-list">
+                    <li>研華原廠認證工程師技術支援</li>
+                    <li>統一的技術支援窗口，避免多廠商整合問題</li>
+                    <li>需具備未來ISO27001認證技術基礎</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>五、技術架構與安全性</h2>
+
+            <div class="tech-architecture">
+                <h3>5.1 核心平台架構</h3>
+                <table>
+                    <tr>
+                        <th style="width: 25%">架構層級</th>
+                        <th style="width: 75%">技術規格</th>
+                    </tr>
+                    <tr>
+                        <td><strong>基礎平台</strong></td>
+                        <td>研華IoTSuite Starter (HA) 50,000點位永久授權（已建置完成）</td>
+                    </tr>
+                    <tr>
+                        <td><strong>硬體平台</strong></td>
+                        <td>研華HPC-8208-WS01-C (3台：TBN425C055/TBN425C056/TBN425C057)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>設備數據</strong></td>
+                        <td>烘箱ECU、所羅門AOI檢測、電表MAU、FFU等設備數據已完整收集上報</td>
+                    </tr>
+                    <tr>
+                        <td><strong>數據交換</strong></td>
+                        <td>遵循本公司發布之自動化規範使用IoTEdge RestfulAPI Gateway統一數據交換中樞（支援AGV等自動化設備串接）</td>
+                    </tr>
+                </table>
+            </div>
+
+            <h3>5.2 數據安全與隔離機制</h3>
+            <div class="feature-box">
+                <h4>IoTEdge RestfulAPI核心防護</h4>
+                <ul class="feature-list">
+                    <li>數據隔離：與其他系統完全隔離，確保數據安全</li>
+                    <li>API認證：所有數據交換強制身份認證</li>
+                    <li>故障隔離：外部系統故障不影響本系統運作</li>
+                    <li>數據驗證：防止污染數據入侵</li>
+                </ul>
+            </div>
+
+            <h3>5.3 歷史資料與追溯功能</h3>
+            <div class="feature-box">
+                <h4>完整履歷追蹤</h4>
+                <ul class="feature-list">
+                    <li>生產履歷：各濾網全流程完整記錄、能耗履歷追蹤</li>
+                    <li>再生履歷：完整追蹤濾網再生次數(R0→R1→R2...)與時間記錄</li>
+                    <li>回廠記錄：追蹤回廠再生濾網履歷、RFID自動識別再生狀態</li>
+                    <li>異常追蹤：異常碼快速定位與分析、能耗異常關聯</li>
+                    <li>客戶追溯：支援客戶端品質追溯需求、再生次數證明、能效證明</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>六、效益分析與投資回報</h2>
+
+            <h3>6.1 系統效益對比</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>評估項目</th>
+                        <th>現有Excel方式</th>
+                        <th>研華IoTSuite基礎進行系統整合</th>
+                        <th>改善幅度</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>數據準確性</strong></td>
+                        <td>人工輸入，錯誤率高</td>
+                        <td>自動收集，準確率大幅提升，能耗數據精準</td>
+                        <td class="advantage">大幅改善</td>
+                    </tr>
+                    <tr>
+                        <td><strong>作業效率</strong></td>
+                        <td>手動作業，耗時較長</td>
+                        <td>接近全自動化作業，效率顯著提升</td>
+                        <td class="advantage">顯著提升</td>
+                    </tr>
+                    <tr>
+                        <td><strong>品質控制</strong></td>
+                        <td>事後統計，反應較慢</td>
+                        <td>即時監控，異常立即警示，品質能耗關聯分析</td>
+                        <td class="advantage">即時性大幅提升</td>
+                    </tr>
+                    <tr>
+                        <td><strong>庫存管理</strong></td>
+                        <td>Excel表格，容易混亂</td>
+                        <td>智能庫位，庫存精準，成本透明化</td>
+                        <td class="advantage">準確性大幅提升</td>
+                    </tr>
+                    <tr>
+                        <td><strong>能源管理</strong></td>
+                        <td>無整合分析</td>
+                        <td>製程能耗即時分析，能效最佳化</td>
+                        <td class="advantage">全新功能，實現能源最佳化</td>
+                    </tr>
+                    <tr>
+                        <td><strong>追溯能力</strong></td>
+                        <td>紙本記錄，查詢困難</td>
+                        <td>全程數位，快速追溯，能耗履歷完整</td>
+                        <td class="advantage">查詢效率大幅提升</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>6.2 投資效益分析</h3>
+            <div class="cost-benefit">
+                <div class="cost-item">
+                    <h4>預估投資成本項目</h4>
+                    <ul>
+                        <li>MES+SPC+WMS模組授權費用</li>
+                        <li>能源管理擴充授權費用</li>
+                        <li>系統整合與客製化費用</li>
+                        <li>教育訓練與維護費用</li>
+                        <li><strong>節省項目：</strong>無額外硬體設備投資</li>
+                        <li><strong>節省項目：</strong>無額外數據收集設備建置</li>
+                    </ul>
+                </div>
+                <div class="benefit-item">
+                    <h4>預期效益項目</h4>
+                    <ul>
+                        <li><strong>效率提升：</strong>自動化作業減少人工時間成本</li>
+                        <li><strong>品質改善：</strong>即時監控降低異常損失</li>
+                        <li><strong>庫存精準：</strong>RFID追蹤減少盤點與錯誤成本</li>
+                        <li><strong>人力最佳化：</strong>自動化流程降低人力需求</li>
+                        <li><strong>能源管理：</strong>設備能效最佳化降低能源成本</li>
+                        <li><strong>再生履歷：</strong>完整追蹤提升客戶滿意度</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="highlight">
+                <strong>效益評估原則：</strong><br>
+                • 具體投資金額與效益數值需依實際報價與現場評估確定<br>
+                • 建議導入前進行詳細的ROI計算與現場工時分析<br>
+                • 充分利用現有IoTSuite基礎建設，可大幅降低總投資成本<br>
+                • AGV等未來擴展功能將進一步提升自動化效益
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>七、實施計畫與時程(以採購實際下單後雙方合意之啟動時程為主)</h2>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th style="width: 25%">實施階段</th>
+                        <th style="width: 35%">主要工作項目</th>
+                        <th style="width: 20%">預計時程</th>
+                        <th style="width: 20%">交付成果</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>第一階段<br>需求確認</strong></td>
+                        <td>現況梳理、需求訪談、規格確認、現有數據盤點</td>
+                        <td>2025/9/8 - 2025/10/31</td>
+                        <td>需求規格書、系統設計書、數據整合方案</td>
+                    </tr>
+                    <tr>
+                        <td><strong>第二階段<br>系統建置</strong></td>
+                        <td>MES+SPC+WMS模組部署、能源管理系統擴充、數據整合設定</td>
+                        <td>2025/11/1 - 2025/12/12</td>
+                        <td>系統環境、數據整合完成、基礎測試</td>
+                    </tr>
+                    <tr>
+                        <td><strong>第三階段<br>整合測試</strong></td>
+                        <td>功能測試、整合測試、使用者測試、能耗驗證</td>
+                        <td>2025/12/15 - 2025/12/26</td>
+                        <td>測試報告、問題修正、效能驗證</td>
+                    </tr>
+                    <tr>
+                        <td><strong>第四階段<br>教育訓練</strong></td>
+                        <td>使用者訓練、管理者訓練、維護訓練</td>
+                        <td>2025/12/15 - 2025/12/19</td>
+                        <td>訓練教材、操作手冊、能耗分析教育</td>
+                    </tr>
+                    <tr>
+                        <td><strong>第五階段<br>上線驗收</strong></td>
+                        <td>正式上線、效能驗證、專案驗收</td>
+                        <td>2025/12/15 - 2025/12/31</td>
+                        <td>驗收報告、維護手冊、效益評估報告</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="section">
+            <h2>八、維護與支援服務</h2>
+
+            <h3>8.1 服務品質保證(SLA)</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th style="width: 30%">服務項目</th>
+                        <th style="width: 70%">服務內容與標準</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>系統可用率</strong></td>
+                        <td>保證高年度服務可用率，低於標準時提供費用補償</td>
+                    </tr>
+                    <tr>
+                        <td><strong>技術支援</strong></td>
+                        <td>提供5×8線上技術支援，再生量產時，需具備7x24之包含現場到場支援服務</td>
+                    </tr>
+                    <tr>
+                        <td><strong>軟體維護</strong></td>
+                        <td>提供軟體更新服務，保持系統最新版本與安全性</td>
+                    </tr>
+                    <tr>
+                        <td><strong>遠端支援</strong></td>
+                        <td>平台遠端異常排除，包含登入、存取、介面等問題處理</td>
+                    </tr>
+                    <tr>
+                        <td><strong>專屬服務</strong></td>
+                        <td>專屬通訊軟體或是線上即時報修管道，快速回應客戶需求</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>8.2 未來擴展規劃</h3>
+            <div class="feature-box">
+                <h4>技術延續效益</h4>
+                <ul class="feature-list">
+                    <li>擴展能力建立：基於數據中台的彈性擴展可能性</li>
+                    <li>技術標準統一：IoTEdge RestfulAPI統一數據交換標準</li>
+                    <li>AGV自動化倉儲：預留AGV自動搬運機器人串接，邁向無人化倉儲管理</li>
+                    <li>智能物流升級：RFID追蹤+AGV搬運+WMS管理的完整自動化物流鏈</li>
+                    <li>安全性提升：統一認證與存取控制機制</li>
+                    <li>未來整合就緒：支援後續系統擴展與整合需求</li>
+                    <li>能源管理擴展：可擴展至其他廠區能源管理</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>九、ISO27001合規架構</h2>
+
+            <div class="highlight">
+                <strong>架構優勢：</strong>必須具備ISO27001資訊安全管理系統的技術基礎，當公司未來決定導入ISO27001認證時，現有系統架構可以無縫銜接。
+            </div>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th style="width: 30%">ISO27001控制項目</th>
+                        <th style="width: 70%">系統必須具備功能</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>A.9存取控制</strong></td>
+                        <td>IoTEdge已建立完整認證機制，支援使用者權限管理</td>
+                    </tr>
+                    <tr>
+                        <td><strong>A.10密碼學控制</strong></td>
+                        <td>API通訊加密(TLS 1.3)架構已建立</td>
+                    </tr>
+                    <tr>
+                        <td><strong>A.12作業安全性</strong></td>
+                        <td>完整稽核軌跡記錄機制已建置</td>
+                    </tr>
+                    <tr>
+                        <td><strong>A.13通訊安全性</strong></td>
+                        <td>網路區段隔離架構已實現</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>

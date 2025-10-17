@@ -1,0 +1,40 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+*.local
+
+# Logs
+logs
+*.log
+npm-debug.log*
+
+# Editor directories
+.vscode/
+.idea/
+
+# OS files
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+
+# Environment files
+.env
+.env.local
+.env.*.local
+.vercel
+
+# Test files (keep development test tools)
+test-*.html
+test-*.js
+test-*.txt
+test-*.csv
+!clear-data.html
+!clear-storage.html
+
+# Temporary files
+*.tmp
+*.temp

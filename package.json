@@ -1,0 +1,35 @@
+{
+  "name": "dash-msw",
+  "version": "0.1.0",
+  "description": "Dash MSW - 柳營再生濾網製程管理系統 (Manufacturing System for Workflow)",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@dnd-kit/core": "^6.3.1",
+    "@dnd-kit/sortable": "^9.0.0",
+    "@dnd-kit/utilities": "^3.2.2",
+    "chart.js": "^4.5.0",
+    "html2canvas": "^1.4.1",
+    "jspdf": "^2.5.2"
+  },
+  "devDependencies": {
+    "vite": "^7.1.9"
+  },
+  "author": "seikaikyo",
+  "license": "MIT",
+  "keywords": [
+    "msw",
+    "mes",
+    "wms",
+    "spc",
+    "manufacturing",
+    "filter-regeneration",
+    "rfid",
+    "energy-management",
+    "iot-edge"
+  ]
+}

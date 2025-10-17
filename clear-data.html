@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>清除資料 - Dash BPM</title>
+  <style>
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      max-width: 600px;
+      margin: 50px auto;
+      padding: 20px;
+      background: #f5f5f5;
+    }
+    .container {
+      background: white;
+      padding: 30px;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    h1 {
+      color: #333;
+      margin-bottom: 20px;
+    }
+    .section {
+      margin: 20px 0;
+      padding: 15px;
+      background: #f9f9f9;
+      border-radius: 4px;
+    }
+    button {
+      padding: 10px 20px;
+      margin: 5px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 500;
+    }
+    .btn-danger {
+      background: #dc3545;
+      color: white;
+    }
+    .btn-danger:hover {
+      background: #c82333;
+    }
+    .btn-warning {
+      background: #ffc107;
+      color: #333;
+    }
+    .btn-warning:hover {
+      background: #e0a800;
+    }
+    .btn-primary {
+      background: #007bff;
+      color: white;
+    }
+    .btn-primary:hover {
+      background: #0056b3;
+    }
+    .info {
+      margin-top: 20px;
+      padding: 15px;
+      background: #e7f3ff;
+      border-left: 4px solid #2196F3;
+      border-radius: 4px;
+    }
+    .success {
+      margin-top: 20px;
+      padding: 15px;
+      background: #d4edda;
+      border-left: 4px solid #28a745;
+      border-radius: 4px;
+      color: #155724;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>清除資料工具</h1>
+
+    <div class="section">
+      <h3>清除申請單資料</h3>
+      <p>清除所有表單申請實例和簽核歷史記錄</p>
+      <button class="btn-warning" onclick="clearApplications()">清除申請單</button>
+    </div>
+
+    <div class="section">
+      <h3>清除表單與流程</h3>
+      <p>清除所有表單範本和簽核流程定義</p>
+      <button class="btn-warning" onclick="clearFormsAndWorkflows()">清除表單與流程</button>
+    </div>
+
+    <div class="section">
+      <h3>清除人員與部門</h3>
+      <p>清除所有人員和部門資料（會重置為預設資料）</p>
+      <button class="btn-warning" onclick="clearUsersAndDepts()">清除人員與部門</button>
+    </div>
+
+    <div class="section">
+      <h3>初始化測試資料</h3>
+      <p>建立測試用的部門和人員帳號（帳號密碼相同）</p>
+      <button class="btn-primary" onclick="initTestData()">初始化測試資料</button>
+    </div>
+
+    <div class="section">
+      <h3>清除所有資料</h3>
+      <p>清除整個系統的所有資料，恢復到初始狀態</p>
+      <button class="btn-danger" onclick="clearAll()">清除所有資料</button>
+    </div>
+
+    <div class="section">
+      <h3>返回系統</h3>
+      <button class="btn-primary" onclick="goBack()">返回 BPM 系統</button>
+    </div>
+
+    <div class="info">
+      <strong>目前資料統計：</strong>
+      <ul id="stats"></ul>
+    </div>
+
+    <div id="message"></div>
+  </div>
+
+  <script>
+    function updateStats() {
+      const stats = {
+        '表單範本': JSON.parse(localStorage.getItem('forms') || '[]').length,
+        '簽核流程': JSON.parse(localStorage.getItem('workflows') || '[]').length,
+        '申請單': JSON.parse(localStorage.getItem('formInstances') || '[]').length,
+        '簽核記錄': JSON.parse(localStorage.getItem('approvalHistory') || '[]').length,
+        '人員': JSON.parse(localStorage.getItem('users') || '[]').length,
+        '部門': JSON.parse(localStorage.getItem('departments') || '[]').length
+      };
+
+      const statsEl = document.getElementById('stats');
+      statsEl.innerHTML = Object.entries(stats)
+        .map(([key, value]) => `<li>${key}: ${value} 筆</li>`)
+        .join('');
+    }
+
+    function showMessage(text, success = true) {
+      const msgEl = document.getElementById('message');
+      msgEl.className = success ? 'success' : 'info';
+      msgEl.innerHTML = text.replace(/\n/g, '<br>');
+      msgEl.style.whiteSpace = 'pre-line';
+      updateStats();
+      setTimeout(() => {
+        msgEl.textContent = '';
+        msgEl.className = '';
+      }, 5000);
+    }
+
+    function clearApplications() {
+      if (confirm('確定要清除所有申請單和簽核記錄嗎？')) {
+        localStorage.removeItem('formInstances');
+        localStorage.removeItem('approvalHistory');
+        showMessage('已清除所有申請單和簽核記錄');
+      }
+    }
+
+    function clearFormsAndWorkflows() {
+      if (confirm('確定要清除所有表單和流程定義嗎？')) {
+        localStorage.removeItem('forms');
+        localStorage.removeItem('workflows');
+        showMessage('已清除所有表單和流程定義');
+      }
+    }
+
+    function clearUsersAndDepts() {
+      if (confirm('確定要清除人員和部門資料嗎？')) {
+        localStorage.removeItem('users');
+        localStorage.removeItem('departments');
+        showMessage('已清除人員和部門資料');
+      }
+    }
+
+    function initTestData() {
+      // 建立測試部門
+      const departments = [
+        { id: 'dept-1', name: 'IT部', description: '資訊技術部', createdAt: Date.now(), updatedAt: Date.now() },
+        { id: 'dept-2', name: '人力資源部', description: '人力資源部', createdAt: Date.now(), updatedAt: Date.now() },
+        { id: 'dept-3', name: '財務部', description: '財務部', createdAt: Date.now(), updatedAt: Date.now() }
+      ];
+
+      // 建立測試人員（帳號密碼相同）
+      const users = [
+        { id: 'user-1', account: 'user001', name: '張三', department: 'IT部', role: '一般員工', email: 'user001@example.com', status: '在職', createdAt: Date.now(), updatedAt: Date.now() },
+        { id: 'user-2', account: 'user002', name: '李四', department: 'IT部', role: '主管', email: 'user002@example.com', status: '在職', createdAt: Date.now(), updatedAt: Date.now() },
+        { id: 'user-3', account: 'user003', name: '王五', department: 'IT部', role: '主管', email: 'user003@example.com', status: '在職', createdAt: Date.now(), updatedAt: Date.now() },
+        { id: 'user-4', account: 'user004', name: '趙六', department: '人力資源部', role: '主管', email: 'user004@example.com', status: '在職', createdAt: Date.now(), updatedAt: Date.now() },
+        { id: 'user-5', account: 'user005', name: '錢七', department: '財務部', role: '主管', email: 'user005@example.com', status: '在職', createdAt: Date.now(), updatedAt: Date.now() },
+        { id: 'user-6', account: 'admin', name: '系統管理員', department: 'IT部', role: '系統管理員', email: 'admin@example.com', status: '在職', createdAt: Date.now(), updatedAt: Date.now() }
+      ];
+
+      localStorage.setItem('departments', JSON.stringify(departments));
+      localStorage.setItem('users', JSON.stringify(users));
+
+      showMessage('✅ 測試資料初始化完成！\n\n可用帳號：\n- user001 (張三, 一般員工)\n- user002 (李四, 主管)\n- user003 (王五, 主管)\n- user004 (趙六, 主管)\n- user005 (錢七, 主管)\n- admin (系統管理員)\n\n密碼都與帳號相同');
+    }
+
+    function clearAll() {
+      if (confirm('確定要清除所有系統資料嗎？此操作無法復原！')) {
+        if (confirm('再次確認：真的要清除所有資料嗎？')) {
+          localStorage.clear();
+          showMessage('已清除所有系統資料');
+        }
+      }
+    }
+
+    function goBack() {
+      window.location.href = '/';
+    }
+
+    // 初始化統計
+    updateStats();
+  </script>
+</body>
+</html>
