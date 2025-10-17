@@ -96,7 +96,7 @@ function renderWorkOrderListView(container, station, currentUser, allStations, c
     <div class="header-content">
       <div class="title-section">
         <h1>${getStationIcon(station.type)} ${station.name}</h1>
-        <p class="subtitle">選擇工單開始作業</p>
+        <p class="subtitle">${station.location} - 選擇工單進行${station.name}作業</p>
       </div>
       <div class="user-section">
         <div class="station-switch">
