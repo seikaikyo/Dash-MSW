@@ -820,8 +820,8 @@ export class DataSimulator {
     const workflows = await this.generateWorkflows(4);  // 5 → 4
     console.log(`✓ 生成 ${workflows.length} 個工作流程`);
 
-    // 生成柳營再生濾網工單
-    const instances = await this.generateInstances(30);
+    // 生成柳營再生濾網工單（80個，確保每個站點都有充足工單）
+    const instances = await this.generateInstances(80);
     console.log(`✓ 生成 ${instances.length} 個柳營再生濾網工單`);
 
     // 為配方生成生產品質數據（模擬實際生產）
