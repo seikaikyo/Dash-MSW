@@ -657,7 +657,7 @@ const trends = StatsAPI.getRecipeTrends(30);
 **版本**: v2.1.0
 **定位**: 柳營再生濾網製程管理系統
 **GitHub**: https://github.com/seikaikyo/Dash-MSW.git
-**生產環境**: https://dash-msw.vercel.app
+**線上展示**: https://dash-msw.vercel.app
 
 ### 核心功能實作
 

@@ -8,7 +8,7 @@
 - **最後更新**: 2025-10-17
 - **來源**: 從 Dash RMS v0.5.6 複製並客製化
 - **專案定位**: 基於研華 IoTSuite 數據中台的柳營再生濾網專業製程管理系統
-- **線上展示**: [dash-msw.vercel.app](https://dash-msw.vercel.app)
+- **線上展示**: [https://dash-msw.vercel.app](https://dash-msw.vercel.app)
 
 ## 專案概述
 

@@ -4,7 +4,7 @@
 > **完成日期**: 2025-10-17
 > **狀態**: ✅ 開發完成，已部署至 GitHub 與 Vercel
 > **GitHub**: https://github.com/seikaikyo/Dash-MSW.git
-> **Vercel**: https://dash-msw.vercel.app
+> **線上展示**: https://dash-msw.vercel.app
 
 ---
 
