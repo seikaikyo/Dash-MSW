@@ -16,7 +16,10 @@ export function renderDegumStation(station, workOrderNo = null) {
 
   card.innerHTML = `
     <div class="card-header">
-      <h2>🧪 除膠作業</h2>
+      <div class="station-title-section">
+        <div class="station-name">🧪 除膠站點</div>
+        <div class="station-subtitle">除膠作業</div>
+      </div>
       <span class="station-status status-${station.status}">閒置</span>
     </div>
     <div class="card-body">

@@ -705,6 +705,163 @@ export function DispatchPage() {
   }
 
   /**
+   * 初始化日曆點擊事件
+   */
+  function initCalendarEvents() {
+    const calendarDays = document.querySelectorAll('.calendar-day:not(.empty)');
+    const allWorkOrders = FormInstanceModel.getAll();
+
+    // 按日期分組工單
+    const workOrdersByDate = {};
+    allWorkOrders.forEach(wo => {
+      const createdDate = new Date(wo.createdAt);
+      const dateKey = `${createdDate.getFullYear()}-${String(createdDate.getMonth() + 1).padStart(2, '0')}-${String(createdDate.getDate()).padStart(2, '0')}`;
+      if (!workOrdersByDate[dateKey]) {
+        workOrdersByDate[dateKey] = [];
+      }
+      workOrdersByDate[dateKey].push(wo);
+    });
+
+    calendarDays.forEach(day => {
+      const dateKey = day.dataset.date;
+      const dayOrders = workOrdersByDate[dateKey] || [];
+
+      if (dayOrders.length > 0) {
+        day.style.cursor = 'pointer';
+        day.addEventListener('click', () => {
+          showWorkOrderModal(dateKey, dayOrders);
+        });
+      }
+    });
+  }
+
+  /**
+   * 顯示工單列表彈窗
+   */
+  function showWorkOrderModal(dateKey, workOrders) {
+    const date = new Date(dateKey);
+    const dateStr = date.toLocaleDateString('zh-TW', { year: 'numeric', month: 'long', day: 'numeric' });
+
+    const modal = document.createElement('div');
+    modal.className = 'work-order-modal-overlay';
+    modal.innerHTML = `
+      <div class="work-order-modal">
+        <div class="work-order-modal-header">
+          <h3>📅 ${dateStr} 工單清單</h3>
+          <button class="modal-close-btn">✕</button>
+        </div>
+        <div class="work-order-modal-body">
+          ${workOrders.map(wo => {
+            const statusLabels = {
+              pending: '待處理',
+              in_progress: '進行中',
+              completed: '已完成',
+              approved: '已核准'
+            };
+            const statusColors = {
+              pending: '#f59e0b',
+              in_progress: '#3b82f6',
+              completed: '#10b981',
+              approved: '#10b981'
+            };
+            const status = wo.status || 'pending';
+            const statusLabel = statusLabels[status];
+            const statusColor = statusColors[status];
+
+            return `
+              <div class="modal-work-order-card" data-id="${wo.id}">
+                <div class="modal-card-header">
+                  <strong>${wo.data.workOrderNo || wo.applicationNo}</strong>
+                  <span class="modal-status-badge" style="background: ${statusColor}20; color: ${statusColor};">
+                    ${statusLabel}
+                  </span>
+                </div>
+                <div class="modal-card-body">
+                  <div class="modal-info-row">
+                    <span class="modal-label">濾網類型:</span>
+                    <span class="modal-value">${wo.data.filterType}</span>
+                  </div>
+                  <div class="modal-info-row">
+                    <span class="modal-label">來源廠別:</span>
+                    <span class="modal-value">${wo.data.sourceFactory}</span>
+                  </div>
+                  <div class="modal-info-row">
+                    <span class="modal-label">數量:</span>
+                    <span class="modal-value">${wo.data.quantity} 片</span>
+                  </div>
+                  <div class="modal-info-row">
+                    <span class="modal-label">再生次數:</span>
+                    <span class="modal-value">${wo.data.regenerationCycle}</span>
+                  </div>
+                </div>
+                <div class="modal-card-footer">
+                  <button class="modal-view-btn" data-id="${wo.id}">查看詳情 →</button>
+                </div>
+              </div>
+            `;
+          }).join('')}
+        </div>
+      </div>
+    `;
+
+    document.body.appendChild(modal);
+
+    // 綁定關閉事件
+    const closeBtn = modal.querySelector('.modal-close-btn');
+    closeBtn.addEventListener('click', () => modal.remove());
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) modal.remove();
+    });
+
+    // 綁定查看詳情按鈕
+    const viewBtns = modal.querySelectorAll('.modal-view-btn');
+    viewBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const woId = btn.dataset.id;
+        window.location.hash = `#/forms?id=${woId}`;
+        modal.remove();
+      });
+    });
+  }
+
+  /**
+   * 初始化甘特圖點擊事件
+   */
+  function initGanttEvents() {
+    const ganttRows = document.querySelectorAll('.gantt-row');
+    ganttRows.forEach(row => {
+      const woNo = row.querySelector('.gantt-wo-no').textContent;
+      row.style.cursor = 'pointer';
+      row.addEventListener('click', () => {
+        // 根據工單號找到工單 ID
+        const wo = FormInstanceModel.getAll().find(w =>
+          (w.data.workOrderNo || w.applicationNo) === woNo
+        );
+        if (wo) {
+          window.location.hash = `#/forms?id=${wo.id}`;
+        }
+      });
+    });
+  }
+
+  /**
+   * 初始化看板卡片點擊事件
+   */
+  function initKanbanClickEvents() {
+    const kanbanCards = document.querySelectorAll('.kanban-card');
+    kanbanCards.forEach(card => {
+      // 添加點擊事件（不干擾拖拽）
+      card.addEventListener('click', (e) => {
+        // 如果正在拖拽則不觸發點擊
+        if (card.classList.contains('dragging')) return;
+
+        const woId = card.dataset.id;
+        window.location.hash = `#/forms?id=${woId}`;
+      });
+    });
+  }
+
+  /**
    * 建立工單列表區（已廢棄，整合到排程視圖）
    */
   function createWorkOrderListSection() {
@@ -1594,6 +1751,204 @@ function addStyles() {
 
       .gantt-stations {
         justify-content: flex-start;
+      }
+    }
+
+    /* 工單彈窗 */
+    .work-order-modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 10000;
+      padding: var(--spacing-lg);
+      animation: fadeIn 0.2s ease;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+
+    .work-order-modal {
+      background: white;
+      border-radius: 16px;
+      max-width: 800px;
+      width: 100%;
+      max-height: 80vh;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+      animation: slideUp 0.3s ease;
+    }
+
+    @keyframes slideUp {
+      from {
+        transform: translateY(20px);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    .work-order-modal-header {
+      padding: var(--spacing-lg) var(--spacing-xl);
+      border-bottom: 2px solid #e5e7eb;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+      border-radius: 16px 16px 0 0;
+    }
+
+    .work-order-modal-header h3 {
+      margin: 0;
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: #1e40af;
+    }
+
+    .modal-close-btn {
+      background: transparent;
+      border: none;
+      font-size: 1.5rem;
+      color: #6b7280;
+      cursor: pointer;
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 8px;
+      transition: all 0.2s;
+    }
+
+    .modal-close-btn:hover {
+      background: rgba(0, 0, 0, 0.1);
+      color: #1f2937;
+    }
+
+    .work-order-modal-body {
+      padding: var(--spacing-lg) var(--spacing-xl);
+      overflow-y: auto;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: var(--spacing-md);
+    }
+
+    .modal-work-order-card {
+      background: white;
+      border: 2px solid #e5e7eb;
+      border-radius: 12px;
+      padding: var(--spacing-md);
+      transition: all 0.2s;
+    }
+
+    .modal-work-order-card:hover {
+      border-color: #3b82f6;
+      box-shadow: 0 4px 12px rgba(59, 130, 246, 0.15);
+      transform: translateY(-2px);
+    }
+
+    .modal-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: var(--spacing-sm);
+      padding-bottom: var(--spacing-sm);
+      border-bottom: 1px solid #f3f4f6;
+    }
+
+    .modal-card-header strong {
+      font-size: 1.125rem;
+      color: #1e40af;
+      font-family: 'Courier New', monospace;
+    }
+
+    .modal-status-badge {
+      padding: 4px 12px;
+      border-radius: 6px;
+      font-size: 0.8125rem;
+      font-weight: 600;
+      display: inline-block;
+      white-space: nowrap;
+    }
+
+    .modal-card-body {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--spacing-sm);
+      margin-bottom: var(--spacing-sm);
+    }
+
+    .modal-info-row {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .modal-label {
+      font-size: 0.75rem;
+      color: #6b7280;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .modal-value {
+      font-size: 0.9375rem;
+      color: #1f2937;
+      font-weight: 500;
+    }
+
+    .modal-card-footer {
+      display: flex;
+      justify-content: flex-end;
+      padding-top: var(--spacing-sm);
+      border-top: 1px solid #f3f4f6;
+    }
+
+    .modal-view-btn {
+      background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+      color: white;
+      border: none;
+      padding: 8px 20px;
+      border-radius: 8px;
+      font-size: 0.875rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .modal-view-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
+    }
+
+    @media (max-width: 768px) {
+      .work-order-modal {
+        max-width: 100%;
+        max-height: 90vh;
+        margin: var(--spacing-md);
+      }
+
+      .modal-card-body {
+        grid-template-columns: 1fr;
       }
     }
   `;

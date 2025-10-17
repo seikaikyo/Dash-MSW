@@ -416,6 +416,26 @@ function addStyles() {
       z-index: 1;
     }
 
+    .station-title-section {
+      position: relative;
+      z-index: 1;
+    }
+
+    .station-name {
+      font-size: 1.75rem;
+      font-weight: 800;
+      margin-bottom: 4px;
+      color: white;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+      letter-spacing: 0.5px;
+    }
+
+    .station-subtitle {
+      font-size: 0.9375rem;
+      color: rgba(255, 255, 255, 0.95);
+      font-weight: 500;
+    }
+
     .station-status {
       padding: 6px 16px;
       border-radius: 20px;

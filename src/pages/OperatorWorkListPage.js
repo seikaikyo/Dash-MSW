@@ -365,9 +365,9 @@ function addStyles() {
     }
 
     .filter-container {
-      background: #f8f9fa;
+      background: #f8fafc;
       padding: 20px;
-      border: 2px solid #dee2e6;
+      border: 2px solid #e2e8f0;
       border-radius: 12px;
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -382,13 +382,13 @@ function addStyles() {
 
     .filter-item label {
       font-weight: 700;
-      color: #212529;
+      color: #334155;
       font-size: 1.125rem;
     }
 
     .filter-select, .filter-input {
       padding: 14px 16px;
-      border: 2px solid #adb5bd;
+      border: 2px solid #cbd5e1;
       border-radius: 8px;
       font-size: 1.125rem;
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
@@ -418,7 +418,7 @@ function addStyles() {
     /* 工單卡片 */
     .work-order-card {
       background: white;
-      border: 3px solid #495057;
+      border: 3px solid #cbd5e1;
       border-radius: 12px;
       cursor: pointer;
       transition: all 0.2s;
@@ -432,8 +432,8 @@ function addStyles() {
 
     .card-header-section {
       padding: 20px;
-      background: #e9ecef;
-      border-bottom: 3px solid #495057;
+      background: #f1f5f9;
+      border-bottom: 3px solid #cbd5e1;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -442,7 +442,7 @@ function addStyles() {
     .work-order-no {
       font-size: 1.5rem;
       font-weight: 700;
-      color: #212529;
+      color: #1e293b;
       font-family: 'Courier New', monospace;
     }
 
@@ -463,7 +463,7 @@ function addStyles() {
       display: flex;
       justify-content: space-between;
       padding: 14px 0;
-      border-bottom: 2px solid #dee2e6;
+      border-bottom: 2px solid #e2e8f0;
     }
 
     .info-row:last-child {
@@ -472,20 +472,20 @@ function addStyles() {
 
     .info-label {
       font-size: 1.125rem;
-      color: #6c757d;
+      color: #64748b;
       font-weight: 600;
     }
 
     .info-value {
       font-size: 1.25rem;
-      color: #212529;
+      color: #1e293b;
       font-weight: 700;
     }
 
     .card-footer-section {
       padding: 16px 20px;
-      background: #f8f9fa;
-      border-top: 2px solid #dee2e6;
+      background: #f8fafc;
+      border-top: 2px solid #e2e8f0;
     }
 
     .progress-info {
@@ -494,17 +494,17 @@ function addStyles() {
 
     .progress-text {
       font-size: 1rem;
-      color: #495057;
+      color: #475569;
       font-weight: 700;
     }
 
     .progress-bar {
       height: 10px;
-      background: #dee2e6;
+      background: #e2e8f0;
       border-radius: 5px;
       overflow: hidden;
       margin-top: 8px;
-      border: 1px solid #adb5bd;
+      border: 1px solid #cbd5e1;
     }
 
     .progress-fill {
@@ -515,7 +515,7 @@ function addStyles() {
 
     .created-time {
       font-size: 0.9375rem;
-      color: #6c757d;
+      color: #64748b;
       font-weight: 600;
     }
 
@@ -523,7 +523,7 @@ function addStyles() {
     .empty-state {
       text-align: center;
       padding: 60px 20px;
-      color: #6c757d;
+      color: #64748b;
     }
 
     .empty-icon {
@@ -535,7 +535,7 @@ function addStyles() {
       font-size: 1.5rem;
       font-weight: 700;
       margin-bottom: 12px;
-      color: #212529;
+      color: #1e293b;
     }
 
     .empty-hint {
