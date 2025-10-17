@@ -496,10 +496,10 @@ function addStyles() {
 
     /* 頁首 */
     .simple-header {
-      background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
-      border-bottom: none;
-      padding: var(--spacing-lg) var(--spacing-xl);
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+      background: white;
+      padding: 24px;
+      border-bottom: 3px solid #e5e7eb;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
       position: sticky;
       top: 0;
       z-index: 100;
@@ -515,17 +515,16 @@ function addStyles() {
     }
 
     .station-info h1 {
-      margin: 0 0 4px 0;
-      font-size: 1.75rem;
-      color: white;
+      margin: 0 0 8px 0;
+      font-size: 2rem;
+      color: #1f2937;
       font-weight: 700;
-      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     }
 
     .station-location {
       margin: 0;
-      color: rgba(255, 255, 255, 0.9);
-      font-size: 0.875rem;
+      color: #6b7280;
+      font-size: 1rem;
     }
 
     .operator-info {
@@ -535,53 +534,50 @@ function addStyles() {
     }
 
     .operator-badge {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-end;
-      padding: var(--spacing-sm) var(--spacing-md);
-      background: rgba(255, 255, 255, 0.15);
-      border-radius: var(--radius-md);
-      border: 1px solid rgba(255, 255, 255, 0.3);
-      backdrop-filter: blur(10px);
+      text-align: right;
+      padding: 12px 20px;
+      background: #f3f4f6;
+      border-radius: 10px;
+      border: 2px solid #e5e7eb;
     }
 
     .operator-name {
-      font-weight: 600;
-      color: white;
-      font-size: 0.9375rem;
+      font-weight: 700;
+      color: #1f2937;
+      font-size: 1.125rem;
     }
 
     .operator-id {
-      font-size: 0.75rem;
-      color: rgba(255, 255, 255, 0.8);
+      font-size: 0.875rem;
+      color: #6b7280;
+      margin-top: 4px;
     }
 
     .station-switch {
       display: flex;
       align-items: center;
-      gap: var(--spacing-sm);
-      padding: var(--spacing-sm) var(--spacing-md);
-      background: rgba(255, 255, 255, 0.15);
-      border-radius: var(--radius-md);
-      border: 1px solid rgba(255, 255, 255, 0.3);
-      backdrop-filter: blur(10px);
+      gap: 10px;
+      padding: 12px 20px;
+      background: #f3f4f6;
+      border-radius: 10px;
+      border: 2px solid #e5e7eb;
     }
 
     .switch-label {
       font-size: 0.875rem;
-      color: rgba(255, 255, 255, 0.9);
-      font-weight: 500;
+      color: #6b7280;
+      font-weight: 600;
       white-space: nowrap;
     }
 
     .station-selector {
-      padding: 6px 12px;
-      border: 1px solid var(--border-color);
-      border-radius: var(--radius-sm);
+      padding: 8px 12px;
+      border: 2px solid #cbd5e1;
+      border-radius: 8px;
       background: white;
       font-size: 0.875rem;
       font-weight: 600;
-      color: var(--primary-color);
+      color: #1f2937;
       cursor: pointer;
       min-width: 200px;
       font-family: var(--font-family);
@@ -594,19 +590,19 @@ function addStyles() {
     }
 
     .btn-logout {
-      padding: var(--spacing-sm) var(--spacing-lg);
-      background: var(--error-color);
+      padding: 12px 24px;
+      background: #ef4444;
       color: white;
       border: none;
-      border-radius: var(--radius-md);
+      border-radius: 10px;
       cursor: pointer;
-      font-weight: 600;
-      font-size: 0.875rem;
-      transition: opacity 0.2s;
+      font-weight: 700;
+      font-size: 1rem;
+      transition: background 0.2s;
     }
 
     .btn-logout:hover {
-      opacity: 0.9;
+      background: #dc2626;
     }
 
     /* 工作區域 */

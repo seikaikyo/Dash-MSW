@@ -990,8 +990,7 @@ function addStyles() {
 
       /* 工單詳情 Modal */
       .work-order-detail {
-        max-height: 70vh;
-        overflow-y: auto;
+        /* 移除 max-height 和 overflow-y,讓完整頁面模式正常顯示 */
       }
 
       .detail-section {
