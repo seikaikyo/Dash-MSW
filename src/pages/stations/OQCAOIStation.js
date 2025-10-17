@@ -15,7 +15,10 @@ export function renderOQCAOIStation(station) {
 
   card.innerHTML = `
     <div class="card-header">
-      <h2>🔬 OQC 檢驗 - 所羅門 AOI</h2>
+      <div class="station-title-section">
+        <div class="station-name">🔬 OQC AOI站點</div>
+        <div class="station-subtitle">AOI檢測</div>
+      </div>
       <span class="station-status status-${station.status}">閒置</span>
     </div>
     <div class="card-body">

@@ -16,7 +16,10 @@ export function renderOQCReleaseStation(station) {
 
   card.innerHTML = `
     <div class="card-header">
-      <h2>💨 OQC 檢驗 - 釋氣檢測</h2>
+      <div class="station-title-section">
+        <div class="station-name">💨 OQC釋氣站點</div>
+        <div class="station-subtitle">釋氣檢測</div>
+      </div>
       <span class="station-status status-${station.status}">閒置</span>
     </div>
     <div class="card-body">

@@ -16,7 +16,10 @@ export function renderRFIDStation(station) {
 
   card.innerHTML = `
     <div class="card-header">
-      <h2>🏷️ RFID 標籤更換</h2>
+      <div class="station-title-section">
+        <div class="station-name">🏷️ RFID站點</div>
+        <div class="station-subtitle">RFID標籤更換</div>
+      </div>
       <span class="station-status status-${station.status}">閒置</span>
     </div>
     <div class="card-body">

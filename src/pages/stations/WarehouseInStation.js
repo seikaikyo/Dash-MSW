@@ -13,7 +13,10 @@ export function renderWarehouseInStation(station) {
 
   card.innerHTML = `
     <div class="card-header">
-      <h2>📥 成品入庫</h2>
+      <div class="station-title-section">
+        <div class="station-name">📥 入庫站點</div>
+        <div class="station-subtitle">成品入庫</div>
+      </div>
       <span class="station-status status-${station.status}">閒置</span>
     </div>
     <div class="card-body">
