@@ -1,5 +1,5 @@
 {
-  "name": "dash-rms",
+  "name": "dash-msw",
   "version": 2,
   "buildCommand": "npm run build",
   "outputDirectory": "dist",
