@@ -6,6 +6,7 @@
 import { userContext } from '../utils/userContext.js';
 import { stationManager, STATION_TYPES } from '../modules/station/stationModel.js';
 import { authService } from '../utils/authService.js';
+import { FormInstanceModel } from '../utils/dataModel.js';
 
 // 匯入所有站點模組
 import { renderDegumStation } from './stations/DegumStation.js';
@@ -69,6 +70,255 @@ export function StationWorkPage() {
   // 儲存當前站點到 sessionStorage
   sessionStorage.setItem('currentStationId', currentStationId);
 
+  // 檢查是否有選擇的工單
+  const selectedWorkOrderNo = urlParams.get('workOrderNo');
+
+  if (selectedWorkOrderNo) {
+    // 如果有選擇工單，顯示單一工單的站點作業介面
+    renderSingleWorkOrderView(container, station, currentUser, allStations, currentStationId, selectedWorkOrderNo);
+  } else {
+    // 否則顯示工單列表
+    renderWorkOrderListView(container, station, currentUser, allStations, currentStationId);
+  }
+
+  addStyles();
+  return container;
+}
+
+/**
+ * 渲染工單列表視圖（卡片式佈局）
+ */
+function renderWorkOrderListView(container, station, currentUser, allStations, currentStationId) {
+  // 簡化的頁首（不使用藍色背景）
+  const header = document.createElement('div');
+  header.className = 'list-header';
+  header.innerHTML = `
+    <div class="header-content">
+      <div class="title-section">
+        <h1>${getStationIcon(station.type)} ${station.name}</h1>
+        <p class="subtitle">選擇工單開始作業</p>
+      </div>
+      <div class="user-section">
+        <div class="station-switch">
+          <label class="switch-label">切換站點：</label>
+          <select class="station-selector" id="station-selector">
+            ${allStations.map(s => `
+              <option value="${s.id}" ${s.id === currentStationId ? 'selected' : ''}>
+                ${getStationIcon(s.type)} ${s.name}
+              </option>
+            `).join('')}
+          </select>
+        </div>
+        <div class="user-info">
+          <div class="user-name">${currentUser.name}</div>
+          <div class="user-id">${currentUser.employeeId}</div>
+        </div>
+        <button class="btn-logout" id="btn-logout">登出</button>
+      </div>
+    </div>
+  `;
+  container.appendChild(header);
+
+  // 篩選區
+  const filterSection = document.createElement('div');
+  filterSection.className = 'filter-section';
+  filterSection.innerHTML = `
+    <div class="filter-container">
+      <div class="filter-item">
+        <label>狀態篩選</label>
+        <select id="status-filter" class="filter-select">
+          <option value="pending" selected>待處理</option>
+          <option value="in_progress">進行中</option>
+          <option value="all">全部狀態</option>
+        </select>
+      </div>
+      <div class="filter-item">
+        <label>搜尋工單號</label>
+        <input type="text" id="search-input" class="filter-input" placeholder="輸入工單號或批次號...">
+      </div>
+    </div>
+  `;
+  container.appendChild(filterSection);
+
+  // 工單卡片區
+  const workOrdersSection = createWorkOrderCards(station, currentStationId);
+  container.appendChild(workOrdersSection);
+
+  // 綁定事件
+  setTimeout(() => {
+    // 站點切換
+    const stationSelector = header.querySelector('#station-selector');
+    if (stationSelector) {
+      stationSelector.addEventListener('change', (e) => {
+        const selectedStationId = e.target.value;
+        sessionStorage.setItem('currentStationId', selectedStationId);
+        window.location.href = `#/stations?stationId=${selectedStationId}`;
+        window.location.reload();
+      });
+    }
+
+    // 登出按鈕
+    const logoutBtn = header.querySelector('#btn-logout');
+    if (logoutBtn) {
+      logoutBtn.addEventListener('click', () => {
+        if (confirm('確定要登出？')) {
+          authService.logout();
+          window.location.reload();
+        }
+      });
+    }
+
+    // 篩選事件
+    const statusFilter = filterSection.querySelector('#status-filter');
+    const searchInput = filterSection.querySelector('#search-input');
+
+    const handleFilter = () => {
+      const oldSection = container.querySelector('.work-orders-section');
+      const newSection = createWorkOrderCards(station, currentStationId);
+      oldSection.replaceWith(newSection);
+    };
+
+    statusFilter?.addEventListener('change', handleFilter);
+    searchInput?.addEventListener('input', handleFilter);
+  }, 0);
+}
+
+/**
+ * 建立工單卡片區
+ */
+function createWorkOrderCards(station, currentStationId) {
+  const section = document.createElement('div');
+  section.className = 'work-orders-section';
+
+  // 取得篩選條件
+  const statusFilter = document.getElementById('status-filter')?.value || 'pending';
+  const searchText = document.getElementById('search-input')?.value || '';
+
+  // 取得並篩選工單
+  let workOrders = FormInstanceModel.getAll();
+
+  // 狀態篩選
+  if (statusFilter !== 'all') {
+    workOrders = workOrders.filter(wo => wo.status === statusFilter);
+  }
+
+  // 搜尋篩選
+  if (searchText) {
+    const searchLower = searchText.toLowerCase();
+    workOrders = workOrders.filter(wo =>
+      (wo.data.workOrderNo || '').toLowerCase().includes(searchLower) ||
+      (wo.data.batchNo || '').toLowerCase().includes(searchLower)
+    );
+  }
+
+  // 按建立時間排序
+  workOrders.sort((a, b) => b.createdAt - a.createdAt);
+
+  if (workOrders.length === 0) {
+    section.innerHTML = `
+      <div class="empty-state">
+        <div class="empty-icon">📭</div>
+        <div class="empty-text">沒有符合條件的工單</div>
+        <div class="empty-hint">請調整篩選條件或聯繫生管人員</div>
+      </div>
+    `;
+    return section;
+  }
+
+  // 渲染工單卡片
+  section.innerHTML = `
+    <div class="work-orders-grid">
+      ${workOrders.map(wo => renderWorkOrderCard(wo, station)).join('')}
+    </div>
+  `;
+
+  // 綁定點擊事件
+  setTimeout(() => {
+    section.querySelectorAll('.work-order-card').forEach(card => {
+      card.addEventListener('click', () => {
+        const workOrderNo = card.dataset.workOrderNo;
+        // 導航到站點作業頁面並帶上工單號
+        window.location.href = `#/stations?stationId=${currentStationId}&workOrderNo=${encodeURIComponent(workOrderNo)}`;
+        window.location.reload();
+      });
+    });
+  }, 0);
+
+  return section;
+}
+
+/**
+ * 渲染工單卡片
+ */
+function renderWorkOrderCard(wo, station) {
+  const statusLabels = {
+    pending: '待處理',
+    in_progress: '進行中',
+    completed: '已完成',
+    approved: '已核准'
+  };
+
+  const statusColors = {
+    pending: '#f59e0b',
+    in_progress: '#3b82f6',
+    completed: '#10b981',
+    approved: '#10b981'
+  };
+
+  const status = wo.status || 'pending';
+  const statusLabel = statusLabels[status] || status;
+  const statusColor = statusColors[status] || '#9ca3af';
+
+  const createdDate = new Date(wo.createdAt).toLocaleDateString('zh-TW', {
+    month: '2-digit',
+    day: '2-digit',
+    hour: '2-digit',
+    minute: '2-digit'
+  });
+
+  return `
+    <div class="work-order-card" data-work-order-no="${wo.data.workOrderNo || wo.applicationNo}">
+      <div class="card-header-section">
+        <div class="work-order-no">${wo.data.workOrderNo || wo.applicationNo}</div>
+        <div class="status-badge" style="background: ${statusColor}20; color: ${statusColor};">
+          ${statusLabel}
+        </div>
+      </div>
+
+      <div class="card-body-section">
+        <div class="info-row">
+          <span class="info-label">批次號</span>
+          <span class="info-value">${wo.data.batchNo || '-'}</span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">濾網類型</span>
+          <span class="info-value">${wo.data.filterType || '-'}</span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">數量</span>
+          <span class="info-value">${wo.data.quantity || 0} 片</span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">再生次數</span>
+          <span class="info-value">${wo.data.regenerationCycle || '-'}</span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">來源廠別</span>
+          <span class="info-value">${wo.data.sourceFactory || '-'}</span>
+        </div>
+      </div>
+
+      <div class="card-footer-section">
+        <div class="created-time">建立時間: ${createdDate}</div>
+      </div>
+    </div>
+  `;
+}
+
+/**
+ * 渲染單一工單視圖（原有的站點作業介面）
+ */
+function renderSingleWorkOrderView(container, station, currentUser, allStations, currentStationId, workOrderNo) {
   // 建立頁面頁首
   const header = createHeader(station, currentUser, allStations, currentStationId);
   container.appendChild(header);
@@ -77,17 +327,11 @@ export function StationWorkPage() {
   const workArea = document.createElement('div');
   workArea.className = 'work-area';
 
-  // 從 URL 取得工單號（如果有）
-  const workOrderNo = urlParams.get('workOrderNo');
-
   // 根據站點類型渲染對應介面
   const stationInterface = renderStationInterface(station, workOrderNo);
   workArea.appendChild(stationInterface);
 
   container.appendChild(workArea);
-
-  addStyles();
-  return container;
 }
 
 /**
@@ -1177,6 +1421,258 @@ function addStyles() {
       gap: var(--spacing-md);
     }
 
+    /* 工單列表視圖樣式 */
+    .list-header {
+      background: white;
+      padding: 24px;
+      border-bottom: 3px solid #e5e7eb;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    }
+
+    .list-header .header-content {
+      max-width: 1600px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .list-header .title-section h1 {
+      margin: 0 0 8px 0;
+      font-size: 2rem;
+      color: #1f2937;
+      font-weight: 700;
+    }
+
+    .list-header .subtitle {
+      margin: 0;
+      color: #6b7280;
+      font-size: 1rem;
+    }
+
+    .list-header .user-section {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .list-header .user-info {
+      text-align: right;
+      padding: 12px 20px;
+      background: #f3f4f6;
+      border-radius: 10px;
+      border: 2px solid #e5e7eb;
+    }
+
+    .list-header .user-name {
+      font-weight: 700;
+      color: #1f2937;
+      font-size: 1.125rem;
+    }
+
+    .list-header .user-id {
+      font-size: 0.875rem;
+      color: #6b7280;
+      margin-top: 4px;
+    }
+
+    .list-header .station-switch {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 20px;
+      background: #f3f4f6;
+      border-radius: 10px;
+      border: 2px solid #e5e7eb;
+    }
+
+    .list-header .switch-label {
+      font-size: 0.875rem;
+      color: #6b7280;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    .list-header .station-selector {
+      padding: 8px 12px;
+      border: 2px solid #cbd5e1;
+      border-radius: 8px;
+      background: white;
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: #1f2937;
+      cursor: pointer;
+      min-width: 200px;
+    }
+
+    .list-header .btn-logout {
+      padding: 12px 24px;
+      background: #ef4444;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      font-weight: 700;
+      font-size: 1rem;
+      transition: background 0.2s;
+    }
+
+    .list-header .btn-logout:hover {
+      background: #dc2626;
+    }
+
+    /* 篩選區 */
+    .filter-section {
+      max-width: 1600px;
+      margin: 0 auto;
+      padding: 24px;
+    }
+
+    .filter-container {
+      background: #f8fafc;
+      padding: 20px;
+      border: 2px solid #e2e8f0;
+      border-radius: 12px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+    }
+
+    .filter-item {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .filter-item label {
+      font-weight: 700;
+      color: #334155;
+      font-size: 1rem;
+    }
+
+    .filter-select, .filter-input {
+      padding: 12px 16px;
+      border: 2px solid #cbd5e1;
+      border-radius: 8px;
+      font-size: 1rem;
+      transition: all 0.2s;
+      background: white;
+    }
+
+    .filter-select:focus, .filter-input:focus {
+      outline: none;
+      border-color: #3b82f6;
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+    }
+
+    /* 工單區 */
+    .work-orders-section {
+      max-width: 1600px;
+      margin: 0 auto;
+      padding: 0 24px 24px;
+    }
+
+    .work-orders-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+      gap: 20px;
+    }
+
+    /* 工單卡片 */
+    .work-order-card {
+      background: white;
+      border: 3px solid #cbd5e1;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.2s;
+      overflow: hidden;
+    }
+
+    .work-order-card:hover {
+      border-color: #3b82f6;
+      box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+      transform: translateY(-2px);
+    }
+
+    .card-header-section {
+      padding: 20px;
+      background: #f1f5f9;
+      border-bottom: 3px solid #cbd5e1;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .work-order-no {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #1e293b;
+      font-family: 'Courier New', monospace;
+    }
+
+    .card-body-section {
+      padding: 20px;
+    }
+
+    .info-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 12px 0;
+      border-bottom: 2px solid #e2e8f0;
+    }
+
+    .info-row:last-child {
+      border-bottom: none;
+    }
+
+    .info-label {
+      font-size: 1rem;
+      color: #64748b;
+      font-weight: 600;
+    }
+
+    .info-value {
+      font-size: 1.125rem;
+      color: #1e293b;
+      font-weight: 700;
+    }
+
+    .card-footer-section {
+      padding: 16px 20px;
+      background: #f8fafc;
+      border-top: 2px solid #e2e8f0;
+    }
+
+    .created-time {
+      font-size: 0.875rem;
+      color: #64748b;
+      font-weight: 600;
+    }
+
+    /* 空狀態 */
+    .empty-state {
+      text-align: center;
+      padding: 60px 20px;
+      color: #64748b;
+    }
+
+    .empty-icon {
+      font-size: 5rem;
+      margin-bottom: 20px;
+    }
+
+    .empty-text {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+      color: #1e293b;
+    }
+
+    .empty-hint {
+      font-size: 1rem;
+    }
+
     /* RWD 響應式設計 */
     @media (max-width: 768px) {
       .header-content {
@@ -1207,6 +1703,32 @@ function addStyles() {
 
       .btn-logout {
         flex-shrink: 0;
+      }
+
+      .list-header .header-content {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .list-header .user-section {
+        width: 100%;
+        flex-wrap: wrap;
+        justify-content: space-between;
+      }
+
+      .work-orders-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .filter-container {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* 平板優化 */
+    @media (min-width: 768px) and (max-width: 1200px) {
+      .work-orders-grid {
+        grid-template-columns: repeat(2, 1fr);
       }
     }
   `;
