@@ -1263,8 +1263,6 @@ function addStyles() {
       /* 工單詳細頁面 */
       .work-order-detail-page {
         padding: var(--spacing-xl);
-        max-width: 1200px;
-        margin: 0 auto;
       }
 
       .detail-page-header {
