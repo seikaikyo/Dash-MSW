@@ -7,6 +7,7 @@ import { userContext } from '../utils/userContext.js';
 import { stationManager, STATION_TYPES } from '../modules/station/stationModel.js';
 import { authService } from '../utils/authService.js';
 import { FormInstanceModel } from '../utils/dataModel.js';
+import { filterWorkOrdersByStation, PROCESS_FLOW } from '../utils/workOrderFlow.js';
 
 // 匯入所有站點模組
 import { renderDegumStation } from './stations/DegumStation.js';
@@ -196,6 +197,24 @@ function createWorkOrderCards(station, currentStationId) {
 
   // 取得並篩選工單
   let workOrders = FormInstanceModel.getAll();
+
+  // 站點類型到流程類型的映射
+  const stationTypeToFlow = {
+    'degum': PROCESS_FLOW.DEGUM,
+    'oven': PROCESS_FLOW.OVEN,
+    'oqc_release': PROCESS_FLOW.OQC_RELEASE,
+    'oqc_aoi': PROCESS_FLOW.OQC_AOI,
+    'rfid': PROCESS_FLOW.RFID,
+    'packaging': PROCESS_FLOW.PACKAGING,
+    'warehouse_in': PROCESS_FLOW.WAREHOUSE_IN,
+    'warehouse_out': PROCESS_FLOW.WAREHOUSE_OUT
+  };
+
+  // 流程卡控：只顯示該站點應該處理的工單
+  const flowType = stationTypeToFlow[station.type];
+  if (flowType) {
+    workOrders = filterWorkOrdersByStation(workOrders, flowType);
+  }
 
   // 狀態篩選
   if (statusFilter !== 'all') {

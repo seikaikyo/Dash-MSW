@@ -406,17 +406,30 @@ export class DataSimulator {
     const filterTypes = ['活性碳濾網', '化學濾網', '複合濾網', '高效濾網'];
     const regenerationCycles = ['R0 (首次再生)', 'R1 (第二次)', 'R2 (第三次)', 'R3 (第四次)'];
     const ovenIds = ['烘箱-01', '烘箱-02', '烘箱-03', '烘箱-04'];
-    const degassingResults = ['合格', '未達標(加抽2片)', '待檢驗'];
+    const degassingResults = ['合格', '未達標(加抽2片)'];
     const aoiResults = ['OK', 'NG-污染', 'NG-瑕疵', 'NG-破損'];
-    const rfidStatus = ['已更換', '待更換', '異常'];
+    const rfidStatus = ['已更換'];
     const qualityGrades = ['A (優良)', 'B (良好)', 'C (合格)', 'D (不合格)'];
     const statuses = ['pending', 'in_progress', 'completed', 'approved'];
+
+    // 定義 8 個製程階段，每個工單會被分配到其中一個階段
+    // 0: 除膠, 1: 烘箱, 2: OQC放行, 3: OQC AOI, 4: RFID, 5: 包裝, 6: 入庫, 7: 出庫
+    const processStages = [0, 1, 2, 3, 4, 5, 6, 7];
 
     for (let i = 0; i < count; i++) {
       const user = users[Math.floor(Math.random() * users.length)];
       const workOrderNo = WorkOrderNumberGenerator.generate();
       const batchNo = `BATCH-${String(i + 1).padStart(4, '0')}`;
-      const status = statuses[Math.floor(Math.random() * statuses.length)];
+
+      // 平均分配工單到 8 個製程階段
+      const processStage = processStages[i % processStages.length];
+
+      // 根據製程階段決定工單狀態
+      let status;
+      if (processStage === 0) status = 'pending';           // 除膠站：待處理
+      else if (processStage <= 5) status = 'in_progress';   // 烘箱~包裝：進行中
+      else if (processStage === 6) status = 'completed';    // 入庫：已完成
+      else status = 'approved';                              // 出庫：已核准
 
       // 生成時間戳
       const createdTime = Date.now() - Math.floor(Math.random() * 30 * 24 * 60 * 60 * 1000);
@@ -426,6 +439,7 @@ export class DataSimulator {
       const ovenEnd = new Date(createdTime + 18000000).toISOString().slice(0, 16);
       const inspectionTime = new Date(createdTime + 19000000).toISOString().slice(0, 16);
       const packageTime = new Date(createdTime + 20000000).toISOString().slice(0, 16);
+      const inboundTime = new Date(createdTime + 21000000).toISOString().slice(0, 16);
 
       const data = {
         // 基本資訊
@@ -436,51 +450,52 @@ export class DataSimulator {
         quantity: 18 + Math.floor(Math.random() * 31), // 18-48 片（符合 Pallet 容量）
         regenerationCycle: regenerationCycles[Math.floor(Math.random() * regenerationCycles.length)],
 
-        // 除膠站點
-        deglueOperator: this.generateChineseName().name,
-        deglueStartTime: deglueStart,
-        deglueEndTime: status !== 'pending' ? deglueEnd : '',
+        // 除膠站點 - stage >= 1 才完成
+        deglueOperator: processStage >= 1 ? this.generateChineseName().name : '',
+        deglueStartTime: processStage >= 1 ? deglueStart : '',
+        deglueEndTime: processStage >= 1 ? deglueEnd : '',
 
-        // 烘箱處理
+        // 烘箱處理 - stage >= 2 才完成
         ovenId: ovenIds[Math.floor(Math.random() * ovenIds.length)],
         targetTemp: 140 + Math.floor(Math.random() * 30),
         bakingTime: 150 + Math.floor(Math.random() * 100),
-        ovenStartTime: status !== 'pending' ? ovenStart : '',
-        ovenEndTime: status === 'completed' || status === 'approved' ? ovenEnd : '',
+        ovenStartTime: processStage >= 2 ? ovenStart : '',
+        ovenEndTime: processStage >= 2 ? ovenEnd : '',
 
-        // OQC 檢驗
-        degassingTest: status === 'completed' || status === 'approved' ?
+        // OQC 放行（脫氣測試）- stage >= 3 才完成
+        degassingTest: processStage >= 3 ?
           degassingResults[Math.floor(Math.random() * degassingResults.length)] : '待檢驗',
-        aoiResult: status === 'completed' || status === 'approved' ?
+
+        // OQC AOI 檢驗 - stage >= 4 才完成
+        aoiResult: processStage >= 4 ?
           aoiResults[Math.floor(Math.random() * aoiResults.length)] : '待檢驗',
-        inspectionOperator: status === 'completed' || status === 'approved' ?
-          this.generateChineseName().name : '',
-        inspectionTime: status === 'completed' || status === 'approved' ? inspectionTime : '',
+        inspectionOperator: processStage >= 4 ? this.generateChineseName().name : '',
+        inspectionTime: processStage >= 4 ? inspectionTime : '',
 
-        // RFID 與包裝
-        rfidUpdate: status === 'completed' || status === 'approved' ?
-          rfidStatus[Math.floor(Math.random() * rfidStatus.length)] : '待更換',
-        palletId: status === 'completed' || status === 'approved' ?
-          `PLT-${String(i + 1).padStart(4, '0')}` : '',
-        packageTime: status === 'completed' || status === 'approved' ? packageTime : '',
+        // RFID 更換 - stage >= 5 才完成
+        rfidUpdate: processStage >= 5 ? '已更換' : '待更換',
 
-        // 倉儲管理
-        warehouseLocation: status === 'approved' ? `A${Math.floor(i / 10) + 1}-${String((i % 10) + 1).padStart(2, '0')}` : '',
-        inboundTime: status === 'approved' ? new Date(createdTime + 21000000).toISOString().slice(0, 16) : '',
+        // 包裝 - stage >= 6 才完成
+        palletId: processStage >= 6 ? `PLT-${String(i + 1).padStart(4, '0')}` : '',
+        packageTime: processStage >= 6 ? packageTime : '',
+
+        // 入庫 - stage >= 7 才完成
+        warehouseLocation: processStage >= 7 ? `A${Math.floor(i / 10) + 1}-${String((i % 10) + 1).padStart(2, '0')}` : '',
+        inboundTime: processStage >= 7 ? inboundTime : '',
+
+        // 出庫 - 暫時都不出庫（可由使用者操作）
         outboundTime: '',
         customerOrderNo: '',
 
-        // 能源數據
-        ovenEnergyConsumption: status !== 'pending' ? (80 + Math.random() * 40).toFixed(2) : '',
-        totalEnergyCost: status !== 'pending' ? (400 + Math.random() * 200).toFixed(2) : '',
-        mauFfuEnergy: status !== 'pending' ? (30 + Math.random() * 20).toFixed(2) : '',
+        // 能源數據 - stage >= 1 開始有能源消耗
+        ovenEnergyConsumption: processStage >= 1 ? (80 + Math.random() * 40).toFixed(2) : '',
+        totalEnergyCost: processStage >= 1 ? (400 + Math.random() * 200).toFixed(2) : '',
+        mauFfuEnergy: processStage >= 1 ? (30 + Math.random() * 20).toFixed(2) : '',
 
-        // 品質標準
-        filterEfficiency: status === 'completed' || status === 'approved' ?
-          (92 + Math.random() * 6).toFixed(1) : '',
-        expectedLifespan: status === 'completed' || status === 'approved' ?
-          (6 + Math.floor(Math.random() * 12)) : '',
-        qualityGrade: status === 'completed' || status === 'approved' ?
+        // 品質標準 - stage >= 4 (AOI 完成後) 才有品質數據
+        filterEfficiency: processStage >= 4 ? (92 + Math.random() * 6).toFixed(1) : '',
+        expectedLifespan: processStage >= 4 ? (6 + Math.floor(Math.random() * 12)) : '',
+        qualityGrade: processStage >= 4 ?
           qualityGrades[Math.floor(Math.random() * qualityGrades.length)] : '',
         remarks: ''
       };
