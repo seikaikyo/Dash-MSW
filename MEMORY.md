@@ -2,13 +2,13 @@
 
 ## 專案背景
 
-**專案名稱**: Dash RMS (Recipe Management System)
+**專案名稱**: Dash MSW (Manufacturing System for Workforce)
 **版本**: 0.5.7
 **建立日期**: 2025-10-09
 **最後更新**: 2025-10-18
 **來源**: 從 Dash BPM v0.6.0 獨立複製開發
-**GitHub**: https://github.com/seikaikyo/Dash-RMS
-**生產環境**: https://dash-rms.vercel.app
+**GitHub**: https://github.com/seikaikyo/Dash-MSW
+**生產環境**: https://dash-msw.vercel.app
 
 ## 專案起源
 
