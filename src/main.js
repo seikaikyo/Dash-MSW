@@ -50,19 +50,30 @@ class App {
       if (assignedStations.length > 0) {
         const app = document.getElementById('app');
 
-        // 檢查是否有工單號參數
-        const urlParams = new URLSearchParams(window.location.search);
-        const workOrderNo = urlParams.get('workOrderNo');
+        // 渲染頁面的函數
+        const renderOperatorPage = () => {
+          // 清空容器
+          app.innerHTML = '';
 
-        if (workOrderNo) {
-          // 有工單號，進入站點作業頁面
-          const stationWorkPage = StationWorkPage();
-          app.appendChild(stationWorkPage);
-        } else {
-          // 無工單號，顯示工單列表
-          const workListPage = OperatorWorkListPage();
-          app.appendChild(workListPage);
-        }
+          // 檢查 hash 路由是否為 /stations
+          const hash = window.location.hash;
+          if (hash.startsWith('#/stations')) {
+            // 進入站點作業頁面
+            const stationWorkPage = StationWorkPage();
+            app.appendChild(stationWorkPage);
+          } else {
+            // 無工單號，顯示工單列表
+            const workListPage = OperatorWorkListPage();
+            app.appendChild(workListPage);
+          }
+        };
+
+        // 初始渲染
+        renderOperatorPage();
+
+        // 監聽 hash 變化
+        window.addEventListener('hashchange', renderOperatorPage);
+
         return;
       }
     }

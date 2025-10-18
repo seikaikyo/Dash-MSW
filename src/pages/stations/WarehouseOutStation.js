@@ -6,7 +6,7 @@
 import { FormInstanceModel } from '../../utils/dataModel.js';
 import { userContext } from '../../utils/userContext.js';
 
-export function renderWarehouseOutStation(station) {
+export function renderWarehouseOutStation(station, workOrderNo = null) {
   const card = document.createElement('div');
   card.className = 'work-card';
   const currentUser = userContext.getCurrentUser();
@@ -178,6 +178,12 @@ export function renderWarehouseOutStation(station) {
     scanInput.addEventListener('keypress', (e) => {
       if (e.key === 'Enter') handleScan();
     });
+
+    // 如果有傳入 workOrderNo，自動載入工單
+    if (workOrderNo) {
+      scanInput.value = workOrderNo;
+      handleScan();
+    }
   }, 0);
 
   return card;

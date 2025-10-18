@@ -3,9 +3,9 @@
 ## 專案背景
 
 **專案名稱**: Dash RMS (Recipe Management System)
-**版本**: 0.5.6
+**版本**: 0.5.7
 **建立日期**: 2025-10-09
-**最後更新**: 2025-10-12
+**最後更新**: 2025-10-18
 **來源**: 從 Dash BPM v0.6.0 獨立複製開發
 **GitHub**: https://github.com/seikaikyo/Dash-RMS
 **生產環境**: https://dash-rms.vercel.app
@@ -1167,6 +1167,112 @@ Dash RMS 是一個從成熟的 BPM 系統衍生出來的專業配方管理系統
 
 ---
 
-**最後更新**: 2025-10-12
-**當前版本**: v0.5.6
-**記憶狀態**: ✅ 已更新 Golden Recipe 品質報表數值格式化修正
+## v0.5.7 更新記錄 (2025-10-18)
+
+### 修正項目：站點工單卡片顯示與導航功能
+
+#### 問題描述
+1. 站點頁面顯示搜尋工單介面，而非工單卡片列表
+2. 點擊工單卡片後無法進入工單詳情頁面
+
+#### 根本原因
+1. **URL 路由錯誤**: OperatorWorkListPage 跳轉時缺少 hash 路由前綴
+2. **參數解析問題**: StationWorkPage 無法正確解析 hash 路由中的參數
+3. **缺少 Hash 監聽**: 一般員工的頁面渲染邏輯沒有監聽 hash 變化
+4. **站點模組不支援自動載入**: 多數站點模組缺少 workOrderNo 參數支援
+
+#### 修正內容
+
+##### 1. URL 路由修正 (OperatorWorkListPage.js)
+```javascript
+// 修正前
+window.location.href = `?workOrderNo=${encodeURIComponent(workOrderNo)}`;
+
+// 修正後
+window.location.href = `#/stations?workOrderNo=${encodeURIComponent(workOrderNo)}`;
+```
+
+##### 2. URL 參數解析 (StationWorkPage.js)
+```javascript
+// 同時支援 hash 路由參數和 query 參數
+const hashParams = window.location.hash.includes('?')
+  ? new URLSearchParams(window.location.hash.split('?')[1])
+  : new URLSearchParams(window.location.search);
+```
+
+##### 3. Hash 路由監聽 (main.js)
+```javascript
+// 為一般員工加入 hash 變化監聽器
+const renderOperatorPage = () => {
+  app.innerHTML = '';
+  const hash = window.location.hash;
+  if (hash.startsWith('#/stations')) {
+    const stationWorkPage = StationWorkPage();
+    app.appendChild(stationWorkPage);
+  } else {
+    const workListPage = OperatorWorkListPage();
+    app.appendChild(workListPage);
+  }
+};
+
+renderOperatorPage();
+window.addEventListener('hashchange', renderOperatorPage);
+```
+
+##### 4. 站點模組自動載入 (7個站點檔案)
+更新以下站點模組，加入 workOrderNo 參數支援與自動載入功能：
+- OQCReleaseStation.js (OQC檢驗-釋氣)
+- OvenStation.js (烘箱站點)
+- OQCAOIStation.js (OQC AOI檢驗)
+- RFIDStation.js (RFID更換)
+- PackagingStation.js (包裝站點)
+- WarehouseInStation.js (入庫站點)
+- WarehouseOutStation.js (出庫站點)
+
+每個站點都加入：
+```javascript
+export function renderXXXStation(station, workOrderNo = null) {
+  // ... 原有程式碼 ...
+
+  setTimeout(() => {
+    // ... 事件綁定 ...
+
+    // 自動載入工單
+    if (workOrderNo) {
+      scanInput.value = workOrderNo;
+      handleScan();
+    }
+  }, 0);
+}
+```
+
+#### 修改檔案清單 (10個)
+1. src/main.js - 一般員工 hash 路由監聽
+2. src/pages/OperatorWorkListPage.js - URL 路由修正
+3. src/pages/StationWorkPage.js - URL 參數解析與移除不必要的 reload
+4. src/pages/stations/OQCReleaseStation.js - 自動載入支援
+5. src/pages/stations/OvenStation.js - 自動載入支援
+6. src/pages/stations/OQCAOIStation.js - 自動載入支援
+7. src/pages/stations/RFIDStation.js - 自動載入支援
+8. src/pages/stations/PackagingStation.js - 自動載入支援
+9. src/pages/stations/WarehouseInStation.js - 自動載入支援
+10. src/pages/stations/WarehouseOutStation.js - 自動載入支援
+
+#### 完整流程
+1. 一般員工登入 → 顯示工單列表 (OperatorWorkListPage)
+2. 點擊工單卡片 → Hash 改變為 `#/stations?workOrderNo=xxx`
+3. Hashchange 事件觸發 → 重新渲染為 StationWorkPage
+4. 工單自動載入 → 顯示工單詳情並填充所有欄位
+5. 完成作業 → 可返回工單列表
+
+#### 技術改進
+- ✅ 實現完整的 SPA 導航（無頁面刷新）
+- ✅ 統一的 URL 參數解析機制
+- ✅ 所有站點模組支援自動載入
+- ✅ 移除不必要的 page reload
+
+---
+
+**最後更新**: 2025-10-18
+**當前版本**: v0.5.7
+**記憶狀態**: ✅ 已修正站點工單卡片顯示與導航功能

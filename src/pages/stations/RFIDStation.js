@@ -8,7 +8,7 @@ import { FormInstanceModel } from '../../utils/dataModel.js';
 import { userContext } from '../../utils/userContext.js';
 import { getRfidUpdateStatus } from '../../utils/systemConfig.js';
 
-export function renderRFIDStation(station) {
+export function renderRFIDStation(station, workOrderNo = null) {
   const card = document.createElement('div');
   card.className = 'work-card';
   const currentUser = userContext.getCurrentUser();
@@ -224,6 +224,12 @@ export function renderRFIDStation(station) {
     scanInput.addEventListener('keypress', (e) => {
       if (e.key === 'Enter') handleScan();
     });
+
+    // 如果有傳入 workOrderNo，自動載入工單
+    if (workOrderNo) {
+      scanInput.value = workOrderNo;
+      handleScan();
+    }
   }, 0);
 
   return card;

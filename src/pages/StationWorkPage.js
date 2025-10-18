@@ -53,8 +53,11 @@ export function StationWorkPage() {
   }
 
   // 從 URL 參數或 sessionStorage 取得當前選擇的站點
-  const urlParams = new URLSearchParams(window.location.search);
-  let currentStationId = urlParams.get('stationId') || sessionStorage.getItem('currentStationId');
+  // 支援兩種 URL 格式：#/stations?stationId=xxx 和 ?stationId=xxx
+  const hashParams = window.location.hash.includes('?')
+    ? new URLSearchParams(window.location.hash.split('?')[1])
+    : new URLSearchParams(window.location.search);
+  let currentStationId = hashParams.get('stationId') || sessionStorage.getItem('currentStationId');
 
   // 如果沒有選擇站點，使用第一個站點
   if (!currentStationId) {
@@ -72,7 +75,7 @@ export function StationWorkPage() {
   sessionStorage.setItem('currentStationId', currentStationId);
 
   // 檢查是否有選擇的工單
-  const selectedWorkOrderNo = urlParams.get('workOrderNo');
+  const selectedWorkOrderNo = hashParams.get('workOrderNo');
 
   if (selectedWorkOrderNo) {
     // 如果有選擇工單，顯示單一工單的站點作業介面
@@ -258,7 +261,6 @@ function createWorkOrderCards(station, currentStationId) {
         const workOrderNo = card.dataset.workOrderNo;
         // 導航到站點作業頁面並帶上工單號
         window.location.href = `#/stations?stationId=${currentStationId}&workOrderNo=${encodeURIComponent(workOrderNo)}`;
-        window.location.reload();
       });
     });
   }, 0);

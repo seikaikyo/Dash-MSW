@@ -177,7 +177,7 @@ export function OperatorWorkListPage() {
         card.addEventListener('click', () => {
           const workOrderNo = card.dataset.workOrderNo;
           // 導航到站點作業頁面並帶上工單號
-          window.location.href = `?workOrderNo=${encodeURIComponent(workOrderNo)}`;
+          window.location.href = `#/stations?workOrderNo=${encodeURIComponent(workOrderNo)}`;
         });
       });
     }, 0);
